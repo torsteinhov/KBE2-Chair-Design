@@ -1,4 +1,4 @@
-# KBE2
+# KBE2-Chair-Design
 This project challenged us with creating an automated system for chair-manufacturing. We based this on KBE which enables us to capture and systematically reuse product and process
 engineering knowledge, with the final goal of reducing time and costs of product development. By this we strive to accomplish automation of repetitive and noncreative design tasks.
 
