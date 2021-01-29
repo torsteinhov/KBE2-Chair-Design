@@ -243,7 +243,7 @@ DefClass: chairdesign_finished (ug_base_part);
     Target, {back_supportCIRCLE:};
     };
 
-(Child) colored:
+(child) colored:
     {
  	 Class, ug_body;
  	 Feature, {seat:};

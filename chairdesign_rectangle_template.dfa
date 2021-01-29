@@ -11,6 +11,7 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
     (number parameter) back_thickness: leg_length:/10;
     (number parameter) back_horizontal_thickness: 2;
     (number parameter) length_backsticks: 10;
+    (number parameter) back_design_side: 25;
     (Canonical Name Parameter Modifiable) color_chair: RED;
 
 (child) seat: 
@@ -176,7 +177,7 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 	Target, {back_horizontal1:,back_horizontal2:}; 
     };
 
-(child) back_supportLEFT:
+(child) back_supportRIGHT:
     {
 	class, ug_cylinder;
 	diameter, back_horizontal_thickness:;
@@ -187,26 +188,40 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 	Target, {back_horizontal1:,back_horizontal2:};  
     };
 
-(child) back_supportRIGHT:
+(child) back_supportLEFT:
     {
 	class, ug_cylinder;
 	diameter, back_horizontal_thickness:;
 	height, length_backsticks:;
-	Origin, Point(back_thickness:/2,back_thickness:/4,height_back:-12.5);
+	Origin, Point(back_thickness:,back_thickness:/2,height_back:-22.5);
 	Direction, Vector(1,0,0);
 	Operation, Unite;
 	Target, {back_horizontal1:,back_horizontal2:};  
     };
 
 (child) back_supportRECTANGLE:
+    {
     class, ug_block;
-        length, 30;
-        width, 30;
-        height, back_thickness:;
-	Origin, Origin, Point(seat_side:/2,0,height_back:-22.5);
-	Direction, Vector(0,1,0);
+    length, back_design_side:+back_design_side:/5;
+    width, back_thickness:;
+    height, back_design_side:;
+	Origin, Point(seat_side:/4,0,height_back:-height_back:/2);
+	Direction, Vector(0,0,1);
+    };
 
-(Child) colored:
+(child) back_supportRECTANGLEcutout:
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5-back_thickness:;
+    width, back_thickness:;
+    height, back_design_side:-back_thickness:;
+	Origin, Point(seat_side:/4+back_thickness:/2,0,height_back:-height_back:/2+back_thickness:/2);
+	Direction, Vector(0,0,1);
+    Operation, Subtract;
+    Target, {back_supportRECTANGLE:};
+    };
+
+(child) colored:
     {
  	 Class, ug_body;
  	 Feature, {seat:};
