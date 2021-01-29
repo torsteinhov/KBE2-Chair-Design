@@ -8,7 +8,7 @@ DefClass: chairdesign_finished (ug_base_part);
     (number parameter) leg_stick_diam: leg_side:/2; 
     (number parameter) height_back: 70;
     (number parameter) length_backplate: seat_side:;
-    (number parameter) back_thickness: 7;
+    (number parameter) back_thickness: leg_length:/10;
     (number parameter) back_horizontal_thickness: 2;
     (number parameter) length_backsticks: 10;
 #    (number parameter) backsticks_amount: 3;
