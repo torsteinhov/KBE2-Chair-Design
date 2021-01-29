@@ -15,7 +15,7 @@ DefClass: chairdesign_finished (ug_base_part);
 #    (number parameter) backsticks_amount: 3;
     (Canonical Name Parameter Modifiable) color_chair: RED;
 	
-
+#dette er en kommentar
 
 (child) seat: 
     {
