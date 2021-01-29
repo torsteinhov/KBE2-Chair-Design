@@ -19,20 +19,22 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) seat: 
     {
-        class, ug_block;
-        length, seat_side:;
-        width, seat_side:;
-        height, seat_thickness:;
+    class, ug_block;
+    length, seat_side:;
+    width, seat_side:;
+    height, seat_thickness:;
 	Origin, Point(0,0,0);
 	Direction, Vector(0,0,1);
     };
 
+
+
 (child) leg1: 
     {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(0,0,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -41,10 +43,10 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) leg2: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(seat_side:-leg_side:,0,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -53,10 +55,10 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) leg3: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+	length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(0,seat_side:-leg_side:,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -65,10 +67,10 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) leg4: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(seat_side:-leg_side:,seat_side:-leg_side:,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -111,10 +113,10 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) back_stick1: 
     {
-        class, ug_block;
-        length, back_thickness:;
-        width, back_thickness:;
-        height, height_back:+5;
+    class, ug_block;
+    length, back_thickness:;
+    width, back_thickness:;
+    height, height_back:+5;
 	Origin, Point(0,0,0);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -123,10 +125,10 @@ DefClass: chairdesign_finished (ug_base_part);
 
 (child) back_stick2: 
     {
-        class, ug_block;
-        length, back_thickness:;
-        width, back_thickness:;
-        height, height_back:+5;
+    class, ug_block;
+    length, back_thickness:;
+    width, back_thickness:;
+    height, height_back:+5;
 	Origin, Point(seat_side:-back_thickness:,0,0);
 	Direction, Vector(0,0,1);
 	Operation, Unite;

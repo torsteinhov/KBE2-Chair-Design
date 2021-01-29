@@ -16,20 +16,44 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 
 (child) seat: 
     {
-        class, ug_block;
-        length, seat_side:;
-        width, seat_side:;
-        height, seat_thickness:;
+    class, ug_block;
+    length, seat_side:;
+    width, seat_side:;
+    height, seat_thickness:;
 	Origin, Point(0,0,0);
 	Direction, Vector(0,0,1);
     };
 
+(child) seat_cutout: 
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5;
+    width, back_design_side:;
+    height, seat_thickness:/2;
+	Origin, Point(seat_side:/4,seat_side:/4,seat_thickness:/2);
+	Direction, Vector(0,0,1);
+	Operation, Subtract;
+    Target, {seat:};
+    };
+
+(child) seat_innerRectangle: 
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5-back_thickness:;
+    width, back_design_side:-back_thickness:;
+    height, seat_thickness:/2;
+	Origin, Point(seat_side:/4+seat_thickness:/2,seat_side:/4+seat_thickness:/2,seat_thickness:/2);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
 (child) leg1: 
     {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(0,0,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -38,10 +62,10 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 
 (child) leg2: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(seat_side:-leg_side:,0,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -50,10 +74,10 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 
 (child) leg3: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(0,seat_side:-leg_side:,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -62,10 +86,10 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
 
 (child) leg4: 
      {
-        class, ug_block;
-        length, leg_side:;
-        width, leg_side:;
-        height, leg_length:;
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
 	Origin, Point(seat_side:-leg_side:,seat_side:-leg_side:,-leg_length:);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
