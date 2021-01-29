@@ -16,6 +16,7 @@ DefClass: chairdesign_finished (ug_base_part);
     (Canonical Name Parameter Modifiable) color_chair: RED;
 	
 #dette er en kommentar
+#we are testing Git commands
 
 (child) seat: 
     {
