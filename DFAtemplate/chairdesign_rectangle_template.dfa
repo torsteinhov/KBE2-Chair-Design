@@ -1,5 +1,5 @@
 #! NX/KF 4.0
-DefClass: chairdesignRectangle_finished (ug_base_part);
+DefClass: chairdesignRectangle_template (ug_base_part);
 
     (number parameter) leg_length: 70;
     (number parameter) leg_side: 6;
@@ -227,9 +227,9 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
     {
     class, ug_block;
     length, back_design_side:+back_design_side:/5;
-    width, back_thickness:;
+    width, seat_thickness:/2;
     height, back_design_side:;
-	Origin, Point(seat_side:/4,0,height_back:-height_back:/2);
+	Origin, Point(seat_side:/4,back_thickness:/4,height_back:-height_back:/2);
 	Direction, Vector(0,0,1);
     };
 
@@ -237,9 +237,9 @@ DefClass: chairdesignRectangle_finished (ug_base_part);
     {
     class, ug_block;
     length, back_design_side:+back_design_side:/5-back_thickness:;
-    width, back_thickness:;
+    width, seat_thickness:/2;
     height, back_design_side:-back_thickness:;
-	Origin, Point(seat_side:/4+back_thickness:/2,0,height_back:-height_back:/2+back_thickness:/2);
+	Origin, Point(seat_side:/4+back_thickness:/2,back_thickness:/4,height_back:-height_back:/2+back_thickness:/2);
 	Direction, Vector(0,0,1);
     Operation, Subtract;
     Target, {back_supportRECTANGLE:};
