@@ -1,1 +1,96 @@
-<h1>Hei, se på denne overskriften!</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chair Design</title>
+</head>
+<body>
+
+<h1>Product details</h1>
+<p>Welcome to our chair company. Here you can customize a chair for your home!</p>
+
+<p> Write your desired parameters. </p>
+<form action="/action_page.php">
+
+<label for="leg_length">Length of the leggs [cm]:</label><br>
+<input type="text" id="leg_length" name="leg_length" value="' + leg_length1 + '"><br><br>
+
+<label for="leg_side">Width of the legs [cm]: <br>(note that the legs is quadratic)</label><br>
+<input type="text" id="leg_side" name="leg_side" value="' + leg_side1 + '"><br><br>
+
+<label for="seat_side">Width of the seat [cm]:<br>(note that the seat is quadratic)</label><br>
+<input type="text" id="seat_side" name="seat_side" value="' + seat_side1 + '"><br><br>
+
+<label for="back_height">Height  of the back [cm]:</label><br>
+<input type="text" id="seat_side" name="seat_side" value="' + seat_side1 + '"><br><br>
+
+<label for="back_shape"> Choose the shape in the back: </label>
+  <select id="back_shape" name="back_shape">
+    <option value="circle">Circle</option>
+    <option value="square">Square</option>
+    <option value="cross">Cross</option>
+  </select> <br><br>
+
+<label for="back_height">Height  of the back [cm]:</label><br>
+<input type="text" id="seat_side" name="seat_side" value="' + seat_side1 + '"><br><br>
+
+<label for="back_shape_color"> The color of the shape in the back: </label>
+  <select id="back_shape_color" name="back_shape_color">
+    <option value="RED">Red</option>
+    <option value="BLUE">Bule</option>
+    <option value="YELLOW">Yellow</option>
+    <option value="WHITE">White</option>
+    <option value="BROWN">Brown</option>
+    <option value="BLACK">Black</option>
+  </select><br><br>
+  
+<label for="chair_color"> The color for the chair: </label>
+  <select id="chair_color" name="chair_color">
+    <option value="RED">Red</option>
+    <option value="BLUE">Bule</option>
+    <option value="YELLOW">Yellow</option>
+    <option value="WHITE">White</option>
+    <option value="BROWN">Brown</option>
+    <option value="BLACK">Black</option>
+  </select><br><br>
+
+<label for="back_shape_material"> The material for the shape: </label>
+  <select id="back_shape_material" name="back_shape_material">
+    <option value="Wood">Wood</option>
+    <option value="Plastic">Plastic</option>
+    <option value="Oak">Oak</option>
+    <option value="Steel">Steel</option>
+    <option value="Aluminum">Aluminum</option>
+    <option value="Gold">Gold</option>
+  </select><br><br>
+
+<label for="chair_material"> The material for the chair: </label>
+  <select id="chair_material" name="chair_material">
+    <option value="Wood">Wood</option>
+    <option value="Plastic">Plastic</option>
+    <option value="Oak">Oak</option>
+    <option value="Steel">Steel</option>
+    <option value="Aluminum">Aluminum</option>
+    <option value="Gold">Gold</option>
+  </select><br><br>
+<br>
+
+<fieldset>
+    <legend>Personalia:</legend>
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="'+fname1+'"><br>
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="'+lname1+'"><br>
+    <label for="email">E-mail:</label><br>
+    <input type="text" id="email" name="email" value="'+email1+'"><br>
+    <label for="pnumber">Phone number:</label><br>
+    <input type="text" id="pnumber" name="pnumber" value="'+pnumber1+'"><br><br>
+    
+  </fieldset>
+<br>
+<p>Click "Submit" to put your chair in the shopping cart:
+<input type="submit" value="Submit">
+</p>
+<p>Click "Save" to save your design for later: 
+<input type="submit" value="Save">
+</p>
+</form> 
