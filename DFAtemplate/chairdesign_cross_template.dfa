@@ -1,5 +1,5 @@
 #! NX/KF 4.0
-DefClass: chairdesignCircle_template (ug_base_part);
+DefClass: chairdesignCross_template (ug_base_part);
 
     (number parameter) leg_length: 70;
     (number parameter) leg_side: 6;
@@ -10,12 +10,9 @@ DefClass: chairdesignCircle_template (ug_base_part);
     (number parameter) length_backplate: seat_side:;
     (number parameter) back_thickness: leg_length:/10;
     (number parameter) back_horizontal_thickness: 2;
-    (number parameter) length_backsticks: 10;
-	(number parameter) circle_dia: 30;
+    (number parameter) length_backsticksHorizontal: seat_side:-back_thickness:*2;
+    (number parameter) length_backsticksVertical: 47;
     (Canonical Name Parameter Modifiable) color_chair: RED;
-	
-#dette er en kommentar
-#we are testing Git commands
 
 (child) seat: 
     {
@@ -27,25 +24,27 @@ DefClass: chairdesignCircle_template (ug_base_part);
 	Direction, Vector(0,0,1);
     };
 
-(child) seat_cutout: 
+(child) seat_cutout_X: 
     {
-    class, ug_cylinder;
-	diameter, circle_dia:;
-	height, seat_thickness:/2;
-	Origin, Point(seat_side:/2,seat_side:/2,seat_thickness:/2);
+    class, ug_block;
+    length, seat_side:-back_thickness:*2;
+    width, back_horizontal_thickness:;
+    height, seat_thickness:/2;
+	Origin, Point(back_thickness:,seat_side:/2,seat_thickness:/2);
 	Direction, Vector(0,0,1);
-	Operation, Subtract;
+    Operation, Subtract;
     Target, {seat:};
     };
 
-(child) seat_innerCircle: 
+(child) seat_cutout_Y: 
     {
-    class, ug_cylinder;
-	diameter, circle_dia:-circle_dia:/6;
-	height, seat_thickness:/2;
-	Origin, Point(seat_side:/2,seat_side:/2,seat_thickness:/2);
+    class, ug_block;
+    length, back_horizontal_thickness:;
+    width, seat_side:-back_thickness:*2;
+    height, seat_thickness:/2;
+	Origin, Point(seat_side:/2,back_thickness:,seat_thickness:/2);
 	Direction, Vector(0,0,1);
-	Operation, Unite;
+    Operation, Subtract;
     Target, {seat:};
     };
 
@@ -180,43 +179,11 @@ DefClass: chairdesignCircle_template (ug_base_part);
 	Target, {back_stick1:, back_stick2:};
     };
 
-#+
-(list) list1: loop
-{
-  for $x in {-base1_dia:/4, base1_dia:/4};
-  collect loop {
-  	for $y in {-base1_dia:/4, base1_dia:/4};
-  	for $pt is Point($x,$y,0);
-  	do printValue($pt);
-  	append {ug_createInstance(
-  	{
-   	 	class, ug_cylinder;
-    		diameter, hole_dia:;
-    		height, base1_height:;
-    		Origin, $pt; 
-    		Direction, Vector(0,0,1);
-  	})};
-  };
-};
-(list) DemandValue: {List1:};
-#-
-
-(child) back_supportTOP:
-    {
-	class, ug_cylinder;
-	diameter, back_horizontal_thickness:;
-	height, length_backsticks:;
-	Origin, Point(seat_side:/2,back_thickness:/2,height_back:);
-	Direction, Vector(0,0,-1);
-	Operation, Unite;
-	Target, {back_horizontal1:,back_horizontal2:}; 
-    };
-
 (child) back_supportBOTTOM:
     {
 	class, ug_cylinder;
 	diameter, back_horizontal_thickness:;
-	height, length_backsticks:;
+	height, length_backsticksVertical:;
 	Origin, Point(seat_side:/2,back_thickness:/2,height_back:-45);
 	Direction, Vector(0,0,1);
 	Operation, Unite;
@@ -227,42 +194,11 @@ DefClass: chairdesignCircle_template (ug_base_part);
     {
 	class, ug_cylinder;
 	diameter, back_horizontal_thickness:;
-	height, length_backsticks:;
+	height, length_backsticksHorizontal:;
 	Origin, Point(seat_side:-back_thickness:,back_thickness:/2,height_back:-22.5);
 	Direction, Vector(-1,0,0);
 	Operation, Unite;
 	Target, {back_horizontal1:,back_horizontal2:};  
-    };
-
-(child) back_supportRIGHT:
-    {
-	class, ug_cylinder;
-	diameter, back_horizontal_thickness:;
-	height, length_backsticks:;
-	Origin, Point(back_thickness:,back_thickness:/2,height_back:-22.5);
-	Direction, Vector(1,0,0);
-	Operation, Unite;
-	Target, {back_horizontal1:,back_horizontal2:};  
-    };
-
-(child) back_supportCIRCLE:
-    {
-	class, ug_cylinder;
-	diameter, circle_dia:;
-	height, seat_thickness:/2;
-	Origin, Point(seat_side:/2,seat_thickness:/4,height_back:-22.5);
-	Direction, Vector(0,1,0);
-    };
-
-(child) back_supportCIRCLE_cutout:
-    {
-	class, ug_cylinder;
-	diameter, circle_dia:-circle_dia:/6;
-	height, seat_thickness:/2;
-	Origin, Point(seat_side:/2,seat_thickness:/4,height_back:-22.5);
-	Direction, Vector(0,1,0);
-    Operation, Subtract;
-    Target, {back_supportCIRCLE:};
     };
 
 (child) colored:
