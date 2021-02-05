@@ -1,0 +1,254 @@
+#! NX/KF 4.0
+DefClass: anna_bakken_finishedProduct (ug_base_part);
+
+    (number parameter) leg_length: 60;
+    (number parameter) leg_side: 6;
+    (number parameter) seat_side: 40;
+    (number parameter) seat_thickness: leg_length:/10;
+    (number parameter) leg_stick_diam: leg_side:/2; 
+    (number parameter) height_back: 50;
+    (number parameter) length_backplate: seat_side:;
+    (number parameter) back_thickness: leg_length:/10;
+    (number parameter) back_horizontal_thickness: 2;
+    (number parameter) length_backsticks: seat_side:/6;
+    (number parameter) back_design_side: height_back:/3;
+    (Canonical Name Parameter Modifiable) color_chair: square;
+
+(child) seat: 
+    {
+    class, ug_block;
+    length, seat_side:;
+    width, seat_side:;
+    height, seat_thickness:;
+	Origin, Point(0,0,0);
+	Direction, Vector(0,0,1);
+    };
+
+(child) seat_cutout: 
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5;
+    width, back_design_side:;
+    height, seat_thickness:/2;
+	Origin, Point(seat_side:/4,seat_side:/4,seat_thickness:/2);
+	Direction, Vector(0,0,1);
+	Operation, Subtract;
+    Target, {seat:};
+    };
+
+(child) seat_innerRectangle: 
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5-back_thickness:;
+    width, back_design_side:-back_thickness:;
+    height, seat_thickness:/2;
+	Origin, Point(seat_side:/4+seat_thickness:/2,seat_side:/4+seat_thickness:/2,seat_thickness:/2);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
+(child) leg1: 
+    {
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
+	Origin, Point(0,0,-leg_length:);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
+(child) leg2: 
+     {
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
+	Origin, Point(seat_side:-leg_side:,0,-leg_length:);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
+(child) leg3: 
+     {
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
+	Origin, Point(0,seat_side:-leg_side:,-leg_length:);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
+(child) leg4: 
+     {
+    class, ug_block;
+    length, leg_side:;
+    width, leg_side:;
+    height, leg_length:;
+	Origin, Point(seat_side:-leg_side:,seat_side:-leg_side:,-leg_length:);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:};
+    };
+
+(child) leg_support1:
+     {
+	class, ug_cylinder;
+	diameter, leg_stick_diam:;
+	height, seat_side:-leg_side:;
+	Origin, Point(leg_side:/2,leg_side:/2,-leg_length:/2);
+	Direction, Vector(0,1,0);
+	Operation, Unite;
+	Target, {leg1:, leg3:};
+
+     };
+
+(child) leg_support2:
+     {
+	class, ug_cylinder;
+	diameter, leg_stick_diam:;
+	height, seat_side:-leg_side:;
+	Origin, Point(seat_side:-(leg_side:/2),leg_side:/2,-leg_length:/2);
+	Direction, Vector(0,1,0);
+	Operation, Unite;
+	Target, {leg2:, leg4:};
+     };
+
+(child) leg_support3:
+     {
+	class, ug_cylinder;
+	diameter, leg_stick_diam:;
+	height, seat_side:-leg_side:;
+	Origin, Point(leg_side:/2,leg_side:/2,-leg_length:/2);
+	Direction, Vector(1,0,0);
+	Operation, Unite;
+	Target, {leg1:, leg2:};
+     };
+
+(child) back_stick1: 
+    {
+        class, ug_block;
+        length, back_thickness:;
+        width, back_thickness:;
+        height, height_back:+5;
+	Origin, Point(0,0,0);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:}	
+    };
+
+(child) back_stick2: 
+    {
+        class, ug_block;
+        length, back_thickness:;
+        width, back_thickness:;
+        height, height_back:+5;
+	Origin, Point(seat_side:-back_thickness:,0,0);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {seat:}	
+
+    };
+
+(child) back_horizontal1:
+    {
+	class, ug_block;
+	length, seat_side:-back_thickness:;
+	width, back_horizontal_thickness:;
+	height, back_thickness:;
+	Origin, Point(back_thickness:/2-2,back_thickness:/2-1,height_back:-3);
+	Direction, Vector(1,0,0);
+	Operation, Unite;
+	Target, {back_stick1:, back_stick2:};
+    };
+
+(child) back_horizontal2:
+    {
+	class, ug_block;
+	length, seat_side:-back_thickness:;
+	width, back_horizontal_thickness:;
+	height, back_thickness:;
+	Origin, Point(back_thickness:/2-2,back_thickness:/2-1,height_back:-50);
+	Direction, Vector(1,0,0);
+	Operation, Unite;
+	Target, {back_stick1:, back_stick2:};
+    };
+
+(child) back_supportTOP:
+    {
+	class, ug_cylinder;
+	diameter, back_horizontal_thickness:;
+	height, length_backsticks:;
+	Origin, Point(seat_side:/2,back_thickness:/2,height_back:);
+	Direction, Vector(0,0,-1);
+	Operation, Unite;
+	Target, {back_horizontal1:,back_horizontal2:}; 
+    };
+
+(child) back_supportBOTTOM:
+    {
+	class, ug_cylinder;
+	diameter, back_horizontal_thickness:;
+	height, length_backsticks:;
+	Origin, Point(seat_side:/2,back_thickness:/2,height_back:-45);
+	Direction, Vector(0,0,1);
+	Operation, Unite;
+	Target, {back_horizontal1:,back_horizontal2:}; 
+    };
+
+(child) back_supportRIGHT:
+    {
+	class, ug_cylinder;
+	diameter, back_horizontal_thickness:;
+	height, length_backsticks:;
+	Origin, Point(seat_side:-back_thickness:,back_thickness:/2,height_back:-22.5);
+	Direction, Vector(-1,0,0);
+	Operation, Unite;
+	Target, {back_horizontal1:,back_horizontal2:};  
+    };
+
+(child) back_supportLEFT:
+    {
+	class, ug_cylinder;
+	diameter, back_horizontal_thickness:;
+	height, length_backsticks:;
+	Origin, Point(back_thickness:,back_thickness:/2,height_back:-22.5);
+	Direction, Vector(1,0,0);
+	Operation, Unite;
+	Target, {back_horizontal1:,back_horizontal2:};  
+    };
+
+(child) back_supportRECTANGLE:
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5;
+    width, seat_thickness:/2;
+    height, back_design_side:;
+	Origin, Point(seat_side:/4,back_thickness:/4,height_back:-height_back:/2);
+	Direction, Vector(0,0,1);
+    };
+
+(child) back_supportRECTANGLEcutout:
+    {
+    class, ug_block;
+    length, back_design_side:+back_design_side:/5-back_thickness:;
+    width, seat_thickness:/2;
+    height, back_design_side:-back_thickness:;
+	Origin, Point(seat_side:/4+back_thickness:/2,back_thickness:/4,height_back:-height_back:/2+back_thickness:/2);
+	Direction, Vector(0,0,1);
+    Operation, Subtract;
+    Target, {back_supportRECTANGLE:};
+    };
+
+(child) colored:
+    {
+ 	 Class, ug_body;
+ 	 Feature, {seat:};
+ 	 Layer, 1;
+ 	 color, ug_askClosestColor(color_chair:);
+    };

@@ -202,6 +202,8 @@ class MyHandler(BaseHTTPRequestHandler):
 					custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
 				print_order += str(custom_parameters[i])
 				print_order += ", "
+			fname1 = custom_parameters[9]
+			lname1 = custom_parameters[10]
 			print("custom_parameters: ", custom_parameters)
 			print("back_shape: ", custom_parameters[4])
 			#need to find which shape the order has in the back
@@ -236,7 +238,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				tekst = tekst.replace(param[i],custom_parameters[i])
 			tekst = tekst.replace(oldFileName, fileNameFinishedProduct)
 
-			f = open(yourLocation + "\\finished_product" + fileNameFinishedProduct, "w")
+			f = open(yourLocation + "\\finished_product\\" + fileNameFinishedProduct + ".dfa", "w")
 			f.write(tekst)
 			f.close()
 			print("Ready to open ", fileNameFinishedProduct)
