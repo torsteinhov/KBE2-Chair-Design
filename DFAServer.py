@@ -60,7 +60,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
 
 			#unsecure about next line, we need to figure out what it does and what we need
-			s.wfile.write(bytes("<form action='/orderChair.php'>", 'utf-8'))
+			s.wfile.write(bytes("<form action='/orderChair.php' method='post'>", 'utf-8'))
 
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
@@ -139,6 +139,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<p>Click 'Save' to save your design for later:", 'utf-8'))
 			s.wfile.write(bytes("<input type='submit' value='Save'>", 'utf-8'))
 			s.wfile.write(bytes("</p></form> </body></html>", 'utf-8'))
+			
 		elif path.find("/yourOrder") != -1:
 			s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
