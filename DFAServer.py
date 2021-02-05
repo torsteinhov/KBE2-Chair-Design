@@ -220,9 +220,10 @@ class MyHandler(BaseHTTPRequestHandler):
 				templatefile = f.read()
 				f.close()
 			else:
-				print("the shape in the back is not recondised.")
+				print("the shape in the back is not recognised.")
 				break
-
+			
+			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>","<"]
 			s.do_GET()
 
 		if path.find("/"):
