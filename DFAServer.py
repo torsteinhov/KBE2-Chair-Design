@@ -5,6 +5,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234 # Maybe set this to 1234
 
+Torstein = "" #location
+Aashild = "" #location
+#yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
+yourLocation = Aashild #must be changed after whom is using it
+
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
 leg_side1 = "leg width"
@@ -183,7 +188,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("Body: ", param_line)
 
 			#making a string to print
-			global print_order
+			global print_order, yourLocation
 			print_order = ""
 			#getting the parameter values
 			key_val_pair = param_line.split('&')							#splitting the string at "&"
@@ -199,6 +204,9 @@ class MyHandler(BaseHTTPRequestHandler):
 			#need to find which shape the order has in the back
 			if back_shape1 == "circle": 
 				#the shape is a cicle
+				f = open(yourLocation+"\\Templates\\chairdesig_circle_template.dfa", 'r')
+				templatefile = f.read()
+				f.close()
 				...
 			elif back_shape1 == "cross":
 				#the shape is a cross
