@@ -16,7 +16,7 @@ leg_side1 = "leg width"
 seat_side1 = "seat width"
 back_height1 = "back height"
 back_shape1 = "back shape"
-back_shape_color1 = "back shape color"
+#back_shape_color1 = "back shape color"
 chair_color = "chair color"
 back_shape_material1 = "back shape material"
 chair_material1 = "chair material"
@@ -26,7 +26,7 @@ lname1 = "last name"
 email1 = "e-mail"
 pnumber1 = "phone number"
 
-custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
+custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
 print_order = "Hei på deg, dette fungerer ikke."
 
 # Handler of HTTP requests / responses
@@ -85,6 +85,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<option value='cross'>Cross</option>", 'utf-8'))  
 			s.wfile.write(bytes("</select> <br><br>", 'utf-8'))  
 
+			""" #not a specific color for the shape in the back
 			s.wfile.write(bytes("<label for='back_shape_color'> The color of the shape in the back: </label>", 'utf-8'))  
 			s.wfile.write(bytes("<select id='back_shape_color' name='back_shape_color'>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8'))  
@@ -94,6 +95,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8'))
 			s.wfile.write(bytes("<option value='BLACK'>Black</option>", 'utf-8'))
 			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
+			"""
 
 			s.wfile.write(bytes("<label for='chair_color'> The color for the chair: </label>", 'utf-8'))
 			s.wfile.write(bytes("<select id='chair_color' name='chair_color'>", 'utf-8')) 
