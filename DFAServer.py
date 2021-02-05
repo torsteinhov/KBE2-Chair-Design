@@ -22,6 +22,7 @@ email1 = "e-mail"
 pnumber1 = "phone number"
 
 custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
+print_order = "Hei på deg, dette fungerer ikke."
 
 # Handler of HTTP requests / responses
 class MyHandler(BaseHTTPRequestHandler):
@@ -55,7 +56,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
 
 			#unsecure about next line, we need to figure out what it does and what we need
-			s.wfile.write(bytes("<form action='/setOrder.php'>", 'utf-8'))
+			s.wfile.write(bytes("<form action='/orderChair.php'>", 'utf-8'))
 
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
