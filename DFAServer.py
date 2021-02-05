@@ -5,7 +5,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234 # Maybe set this to 1234
 
-Torstein = "" #location
+Torstein = "C:\Kode\GitHub\KBE2\KBE2\" #location
 Aashild = "" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
 yourLocation = Aashild #must be changed after whom is using it
@@ -204,16 +204,19 @@ class MyHandler(BaseHTTPRequestHandler):
 			#need to find which shape the order has in the back
 			if back_shape1 == "circle": 
 				#the shape is a cicle
-				f = open(yourLocation+"\\Templates\\chairdesig_circle_template.dfa", 'r')
+				f = open(yourLocation+"\\DFAtemplate\\chairdesign_circle_template.dfa", 'r')
 				templatefile = f.read()
 				f.close()
-				...
 			elif back_shape1 == "cross":
 				#the shape is a cross
-				...
+				f = open(yourLocation+"\\DFAtemplate\\chairdesign_cross_template.dfa", 'r')
+				templatefile = f.read()
+				f.close()
 			elif back_shape1 == "square":
 				#the shape is a square
-				...
+				f = open(yourLocation+"\\DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
+				templatefile = f.read()
+				f.close()
 			else:
 				print("the shape in the back is not recondised.")
 				break
