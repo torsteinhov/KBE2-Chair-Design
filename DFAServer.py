@@ -75,7 +75,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			#starting with the option boxes
 			s.wfile.write(bytes("<label for='back_shape'> Choose the shape in the back: </label>", 'utf-8'))
 			s.wfile.write(bytes("<select id='back_shape' name='back_shape'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='circle'>CircleX</option>", 'utf-8'))  
+			s.wfile.write(bytes("<option value='circle'>Circles</option>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='square'>Square</option>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='cross'>Cross</option>", 'utf-8'))  
 			s.wfile.write(bytes("</select> <br><br>", 'utf-8'))  
@@ -93,7 +93,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<label for='chair_color'> The color for the chair: </label>", 'utf-8'))
 			s.wfile.write(bytes("<select id='chair_color' name='chair_color'>", 'utf-8')) 
 			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BLUE'>Bule</option>", 'utf-8')) 
+			s.wfile.write(bytes("<option value='BLUE'>Blue</option>", 'utf-8')) 
 			s.wfile.write(bytes("<option value='YELLOW'>Yellow</option>", 'utf-8')) 
 			s.wfile.write(bytes("<option value='WHITE'>White</option>", 'utf-8')) 
 			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8')) 
