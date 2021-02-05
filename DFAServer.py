@@ -60,7 +60,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + leg_length1 + "><br><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + leg_length1 +"><br><br>", 'utf-8'))
 			s.wfile.write(bytes("<label for='leg_side'>Width of the legs [cm]: <br>(note that the legs is quadratic)</label><br>", 'utf-8'))
 			s.wfile.write(bytes("<input type='text' id='leg_side' name='leg_side' value=" + leg_side1 + "><br><br>", 'utf-8'))
 			s.wfile.write(bytes("<label for='seat_side'>Width of the seat [cm]:<br>(note that the seat is quadratic)</label><br>", 'utf-8'))
@@ -71,7 +71,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			#starting with the option boxes
 			s.wfile.write(bytes("<label for='back_shape'> Choose the shape in the back: </label>", 'utf-8'))
 			s.wfile.write(bytes("<select id='back_shape' name='back_shape'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='circle'>Circle</option>", 'utf-8'))  
+			s.wfile.write(bytes("<option value='circle'>CircleX</option>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='square'>Square</option>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='cross'>Cross</option>", 'utf-8'))  
 			s.wfile.write(bytes("</select> <br><br>", 'utf-8'))  
@@ -79,7 +79,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<label for='back_shape_color'> The color of the shape in the back: </label>", 'utf-8'))  
 			s.wfile.write(bytes("<select id='back_shape_color' name='back_shape_color'>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='BLUE'>Bule</option>", 'utf-8'))  
+			s.wfile.write(bytes("<option value='BLUE'>Blue</option>", 'utf-8'))  
 			s.wfile.write(bytes("<option value='YELLOW'>Yellow</option>", 'utf-8'))
 			s.wfile.write(bytes("<option value='WHITE'>White</option>", 'utf-8'))
 			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8'))
