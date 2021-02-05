@@ -146,7 +146,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			
-			s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
+			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 		
 		#s.wfile.write(bytes("", 'utf-8'))
@@ -196,14 +196,20 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
+			#need to find which shape the order has in the back
+			if back_shape1 == "circle": 
+				#the shape is a cicle
+				...
+			elif back_shape1 == "cross":
+				#the shape is a cross
+				...
+			elif back_shape1 == "square":
+				#the shape is a square
+				...
+			else:
+				print("the shape in the back is not recondised.")
+				break
 
-			#s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
-			#s.wfile.write(bytes('<form action="/yourOrder" method="get">', 'utf-8'))
-			
-			#s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
-			
-			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
-			#s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 			s.do_GET()
 
 		if path.find("/"):
