@@ -26,11 +26,17 @@ print_order = "Hei på deg, dette fungerer ikke."
 
 # Handler of HTTP requests / responses
 class MyHandler(BaseHTTPRequestHandler):
+
+
 	def do_HEAD(s):
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
 		s.end_headers()
+
+
 	def do_GET(s):
+
+		global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1, print_order
 		"""Respond to a GET request."""
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -40,8 +46,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		path = s.path
 		
 		#making it possible to get the global variables
-		global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1
-		global print_order
 		#s.wfile.write(bytes("<>", 'utf-8'))
 		if path.find("/") != -1 and len(path) == 1:
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title></head>', 'utf-8'))
@@ -60,7 +64,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + leg_length1 +"><br><br>", 'utf-8'))
+			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + str(leg_length1) +"><br><br>", 'utf-8'))
 			s.wfile.write(bytes("<label for='leg_side'>Width of the legs [cm]: <br>(note that the legs is quadratic)</label><br>", 'utf-8'))
 			s.wfile.write(bytes("<input type='text' id='leg_side' name='leg_side' value=" + leg_side1 + "><br><br>", 'utf-8'))
 			s.wfile.write(bytes("<label for='seat_side'>Width of the seat [cm]:<br>(note that the seat is quadratic)</label><br>", 'utf-8'))
