@@ -202,21 +202,22 @@ class MyHandler(BaseHTTPRequestHandler):
 					custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
 				print_order += str(custom_parameters[i])
 				print_order += ", "
-
+			print("custom_parameters: ", custom_parameters)
+			print("back_shape: ", custom_parameters[4])
 			#need to find which shape the order has in the back
-			if back_shape1 == "circle": 
+			if custom_parameters[4] == "cicle": 
 				#the shape is a cicle
 				f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
 				templatefile = f.read()
 				oldFileName = "chairdesignCircle_template"
 				f.close()
-			elif back_shape1 == "cross":
+			elif custom_parameters[4] == "cross":
 				#the shape is a cross
 				f = open(yourLocation+"DFAtemplate\\chairdesign_cross_template.dfa", 'r')
 				templatefile = f.read()
 				oldFileName = "chairdesignCross_template"
 				f.close()
-			elif back_shape1 == "square":
+			elif custom_parameters[4] == "square":
 				#the shape is a square
 				f = open(yourLocation+"DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
 				templatefile = f.read()
@@ -224,7 +225,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				f.close()
 			else:
 				print("the shape in the back is not recognised.")
-				break
+				
 			
 			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
 
