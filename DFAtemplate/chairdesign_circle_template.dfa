@@ -1,18 +1,18 @@
 #! NX/KF 4.0
 DefClass: chairdesignCircle_template (ug_base_part);
 
-    (number parameter) leg_length: 70;
-    (number parameter) leg_side: 6;
-    (number parameter) seat_side: 60;
+    (number parameter) leg_length: <leg_length>;
+    (number parameter) leg_side: <leg_side>;
+    (number parameter) seat_side: <seat_side>;
     (number parameter) seat_thickness: leg_length:/10;
     (number parameter) leg_stick_diam: leg_side:/2; 
-    (number parameter) height_back: 70;
+    (number parameter) height_back: <height_back>;
     (number parameter) length_backplate: seat_side:;
     (number parameter) back_thickness: leg_length:/10;
     (number parameter) back_horizontal_thickness: 2;
-    (number parameter) length_backsticks: 10;
-	(number parameter) circle_dia: 30;
-    (Canonical Name Parameter Modifiable) color_chair: RED;
+    (number parameter) length_backsticks: height_back:/7;
+	(number parameter) circle_dia: seat_side:/2;
+    (Canonical Name Parameter Modifiable) color_chair: <color_chair>;
 	
 #dette er en kommentar
 #we are testing Git commands
