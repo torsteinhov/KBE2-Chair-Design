@@ -208,22 +208,38 @@ class MyHandler(BaseHTTPRequestHandler):
 				#the shape is a cicle
 				f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
 				templatefile = f.read()
+				oldFileName = "chairdesignCircle_template"
 				f.close()
 			elif back_shape1 == "cross":
 				#the shape is a cross
 				f = open(yourLocation+"DFAtemplate\\chairdesign_cross_template.dfa", 'r')
 				templatefile = f.read()
+				oldFileName = "chairdesignCross_template"
 				f.close()
 			elif back_shape1 == "square":
 				#the shape is a square
 				f = open(yourLocation+"DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
 				templatefile = f.read()
+				oldFileName = "chairdesignRectangle_template"
 				f.close()
 			else:
 				print("the shape in the back is not recognised.")
 				break
 			
-			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>","<"]
+			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
+
+			fileNameFinishedProduct = fname1 + "_" + lname1 + "_finishedProduct"
+			tekst = templatefile
+
+			for i in range(len(param)):
+				tekst = tekst.replace(param[i],custom_parameters[i])
+			tekst = tekst.replace(oldFileName, fileNameFinishedProduct)
+
+			f = open(yourLocation + "\\finished_product" + fileNameFinishedProduct, "w")
+			f.write(tekst)
+			f.close()
+			print("Ready to open ", fileNameFinishedProduct)
+
 			s.do_GET()
 
 		if path.find("/"):
