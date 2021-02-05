@@ -60,7 +60,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
 
 			#unsecure about next line, we need to figure out what it does and what we need
-			s.wfile.write(bytes("<form action='/orderChair.php' method='post'>", 'utf-8'))
+			s.wfile.write(bytes("<form action='/yourOrder' method='post'>", 'utf-8'))
 
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
@@ -171,7 +171,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		path = s.path
 		print("Path: ", path)
 		print("hei på deg!!")
-		if path.find("/orderChair") != -1:
+		if path.find("/yourOrder") != -1:
 			
 			#for debugging
 			print("Nå er vi i post-method. ")
@@ -197,13 +197,13 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += ", "
 
 
-			s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
-			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
+			#s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
+			#s.wfile.write(bytes('<form action="/yourOrder" method="get">', 'utf-8'))
 			
-			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
+			#s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			
-			s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
-			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
+			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
+			#s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 			s.do_GET()
 
 		if path.find("/"):
