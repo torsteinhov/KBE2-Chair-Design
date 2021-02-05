@@ -1,18 +1,18 @@
 #! NX/KF 4.0
 DefClass: chairdesignCross_template (ug_base_part);
 
-    (number parameter) leg_length: 70;
-    (number parameter) leg_side: 6;
-    (number parameter) seat_side: 60;
+    (number parameter) leg_length: <PARAM1>;
+    (number parameter) leg_side: <PARAM2>;
+    (number parameter) seat_side: <PARAM3>;
     (number parameter) seat_thickness: leg_length:/10;
     (number parameter) leg_stick_diam: leg_side:/2; 
-    (number parameter) height_back: 70;
+    (number parameter) height_back: <PARAM4>;
     (number parameter) length_backplate: seat_side:;
     (number parameter) back_thickness: leg_length:/10;
     (number parameter) back_horizontal_thickness: 2;
     (number parameter) length_backsticksHorizontal: seat_side:-back_thickness:*2;
-    (number parameter) length_backsticksVertical: 47;
-    (Canonical Name Parameter Modifiable) color_chair: RED;
+    (number parameter) length_backsticksVertical: height_back:-height_back:/3;
+    (Canonical Name Parameter Modifiable) color_chair: <PARAM5>;
 
 (child) seat: 
     {
