@@ -223,12 +223,20 @@ class MyHandler(BaseHTTPRequestHandler):
                 s.wfile.write(bytes('Not OK', 'utf-8'))
 				print("The parameters given is not accepted")
 
-		if path.find("/"):
-			content_len = int(s.headers.get('Content-Length'))
-			post_body = s.rfile.read(content_len)
-			param_line = post_body.decode()
-			print("Body: ", param_line)
-			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
+		
+
+	def setConstrain(self, constrain, value):
+		URL = "http://127.0.0.1:3030/kbe/update"
+  
+		# Query that deletes previous values.
+		query = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
+				'DELETE'+\
+				
+
+		PARAMS = {'update': query}
+		# sending get request and saving the response as response object 
+		r = requests.post(url = URL, data = PARAMS) 
+
  
 if __name__ == '__main__':
 	server_class = HTTPServer

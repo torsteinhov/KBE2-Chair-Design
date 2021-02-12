@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.kbe.com/chair_design.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="http://www.kbe.com/chair_design.owl"/>
+  <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Back">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Leg">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Seat">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Shape">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Chair">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasSeatSide">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Seat"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasMaterial">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Chair"/>
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Shape"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasShape">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Shape"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasBackHeight">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Back"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasColor">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Chair"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegLength">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegSide">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+</rdf:RDF>
