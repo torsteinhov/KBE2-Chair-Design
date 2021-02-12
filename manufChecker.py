@@ -153,119 +153,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('</body></html>', 'utf-8'))
 			s.wfile.write(bytes('', 'utf-8'))
 
-			"""
-			#dont think we need this
-			s.wfile.write(bytes("<!DOCTYPE html><html><head>", 'utf-8'))
-			s.wfile.write(bytes("<title>Chair Design</title>", 'utf-8'))
-			s.wfile.write(bytes("</head><body>", 'utf-8'))
-			s.wfile.write(bytes("<h1>Product details</h1>", 'utf-8'))
-			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
-			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
-
-			#unsecure about next line, we need to figure out what it does and what we need
-			s.wfile.write(bytes("<form action='/yourOrder' method='post'>", 'utf-8'))
-
-			#starting with the inputs
-			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + str(leg_length1) +"><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='leg_side'>Width of the legs [cm]: <br>(note that the legs is quadratic)</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='leg_side' name='leg_side' value=" + leg_side1 + "><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='seat_side'>Width of the seat [cm]:<br>(note that the seat is quadratic)</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='seat_side' name='seat_side' value=" + seat_side1 + "><br><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='back_height'>Height  of the back [cm]:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='back_height' name='back_height' value=" + back_height1+ "><br><br>", 'utf-8'))
 			
-			#starting with the option boxes
-			s.wfile.write(bytes("<label for='back_shape'> Choose the shape in the back: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='back_shape' name='back_shape'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='circle'>Circles</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='square'>Square</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='cross'>Cross</option>", 'utf-8'))  
-			s.wfile.write(bytes("</select> <br><br>", 'utf-8'))  
-
-			""" #not a specific color for the shape in the back
-			s.wfile.write(bytes("<label for='back_shape_color'> The color of the shape in the back: </label>", 'utf-8'))  
-			s.wfile.write(bytes("<select id='back_shape_color' name='back_shape_color'>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='BLUE'>Blue</option>", 'utf-8'))  
-			s.wfile.write(bytes("<option value='YELLOW'>Yellow</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='WHITE'>White</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='BLACK'>Black</option>", 'utf-8'))
-			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
-			"""
-
-			s.wfile.write(bytes("<label for='chair_color'> The color for the chair: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='chair_color' name='chair_color'>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='RED'>Red</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BLUE'>Blue</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='YELLOW'>Yellow</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='WHITE'>White</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BROWN'>Brown</option>", 'utf-8')) 
-			s.wfile.write(bytes("<option value='BLACK'>Black</option>", 'utf-8'))  
-			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='back_shape_material'> The material for the shape: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='back_shape_material' name='back_shape_material'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Wood'>Wood</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Plastic'>Plastic</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Oak'>Oak</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Steel'>Steel</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Aluminum'>Aluminum</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Gold'>Gold</option>", 'utf-8'))
-			s.wfile.write(bytes("</select><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='chair_material'> The material for the chair: </label>", 'utf-8'))
-			s.wfile.write(bytes("<select id='chair_material' name='chair_material'>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Wood'>Wood</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Plastic'>Plastic</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Oak'>Oak</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Steel'>Steel</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Aluminum'>Aluminum</option>", 'utf-8'))
-			s.wfile.write(bytes("<option value='Gold'>Gold</option>", 'utf-8'))
-			s.wfile.write(bytes("</select><br><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<label for='number_chair'>Number of chairs to order: </label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='number_chair' name='number_chair' value=" + number_chair1 + "><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("<fieldset><legend>Personalia:</legend>", 'utf-8'))
-			s.wfile.write(bytes("<label for='fname'>First name:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='fname' name=fname' value="+fname1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='lname'>Last name:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='lname' name='lname' value="+lname1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='email'>E-mail:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='email' name='email' value="+email1+"><br>", 'utf-8'))
-			s.wfile.write(bytes("<label for='pnumber'>Phone number:</label><br>", 'utf-8'))
-			s.wfile.write(bytes("<input type='text' id='pnumber' name='pnumber' value="+pnumber1+"><br><br>", 'utf-8'))
-
-			s.wfile.write(bytes("</fieldset><br>", 'utf-8'))
-			s.wfile.write(bytes("<p>Click 'Submit' to put your chair in the shopping cart:", 'utf-8'))
-			s.wfile.write(bytes("<input type='submit' value='Submit'></p>", 'utf-8'))
-			s.wfile.write(bytes("<p>Click 'Save' to save your design for later:", 'utf-8'))
-			s.wfile.write(bytes("<input type='submit' value='Save'>", 'utf-8'))
-			s.wfile.write(bytes("</p></form> </body></html>", 'utf-8'))
-			"""
-			"""
-			#dont think we need this
-		elif path.find("/yourOrder") != -1:
-			s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
-			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
-			
-			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
-			
-			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
-			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
-		
-		#s.wfile.write(bytes("", 'utf-8'))
-		#s.wfile.write(bytes("", 'utf-8'))
-
-		#s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
-		#s.wfile.write(bytes('</body></html>', "utf-8"))
-		elif path.find("/info") != -1:
-			s.wfile.write(bytes('<html><head><title>Cool interface.</title><meta http-equiv="refresh" content="3"></head>', 'utf-8'))
-			s.wfile.write(bytes("<body><p>Info: Hello!.</p>" + str(i), "utf-8"))
-			s.wfile.write(bytes('"</body></html>', "utf-8"))
-			"""
 	def do_POST(s):
 		#allowing us to eddit the custom parameters
 		global custom_parameters
@@ -327,11 +215,30 @@ class MyHandler(BaseHTTPRequestHandler):
 		URL = "http://127.0.0.1:3030/kbe/update"
   
 		# Query that deletes previous values.
-		query = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
+		deleteQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
 				'DELETE'+\
-				
+				'{' +\
+				'kbe:chair a kbe:Chair.'+\
+				'kbe:chair ?pred ?obj.'+\
+				'kbe:leg a kbe:Leg.' +\
+				'kbe:leg ?pred ?obj.'+\
+				'kbe:seat a kbe:Seat.'+\
+				'kbe:seat ?pred ?obj.'+\
+				'kbe:back a kbe:Back.'+\
+				'kbe:back ?pred ?obj.'+\
+				'kbe:shape a kbe:Shape.'+\
+				'kba:shape ?pred ?obj.'+\
+				'}'+\
+				'WHERE'+\
+				'{'+\
+				'kbe:chair ?pred ?obj.'+\
+				'kbe:leg ?pred ?obj.'+\
+				'kbe:seat ?pred ?obj.'+\
+				'kbe:back ?pred ?obj.'+\
+				'kba:shape ?pred ?obj.'+\
+				'}'
 
-		PARAMS = {'update': query}
+		PARAMS = {'update': deleteQuery}
 		# sending get request and saving the response as response object 
 		r = requests.post(url = URL, data = PARAMS) 
 
