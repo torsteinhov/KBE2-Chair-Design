@@ -16,16 +16,18 @@ seat_sideLow = 300
 back_heightUp = 1500
 back_heightLow = 200
 
-chair_color = [RED, GREEN, BROWN, BLACK] # a list with the avalible colors
-back_shape_material = [] #a list with avalible materials
-chair_material = [] #a list with avalible matrials
+chair_color = [RED, GREEN, BROWN, BLACK] # a list with the avaliable colors
+back_shape_material = [] #a list with avaliable materials
+chair_material = [] #a list with avaliable matrials
 # ??  number_chair = # check if there is enough materials for number of chair orders
 
 custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
 print_order = "Hei på deg, dette fungerer ikke."
 
 def materialCalculation(numbers):
-    #should check the materials stores
+    #should check the materials needed for production
+	#based on product volume
+	#not developed for this case but expandable for further development.
     return True #but for now
 
     
@@ -193,7 +195,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			global print_order, yourLocation
 			print_order = ""
 			#getting the parameter values
-			key_val_pair = param_line.split('&')							#splitting the string at "&"
+			key_val_pair = param_line.split('&')						#splitting the string at "&"
 			for i in range(len(custom_parameters)): 						#itterating through the custom_parameter list
 				print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
 				print_order +=": " 											#for a nice print
@@ -203,7 +205,9 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 			
+			#for-loop with list for expandability and KBE-friendly
             custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
+			flagOK = False
             if(custom_parameters[0] > leg_lengthLow) and (custom_parameters[0] < leg_lengthUp):
                 if (custom_parameters[1] > leg_sideLow) and (custom_parameters[1] < leg_sideUp):
                     if (custom_parameters[2] > seat_sideLow) and (custom_parameters[2] < leg_sideUp):
@@ -212,52 +216,12 @@ class MyHandler(BaseHTTPRequestHandler):
                                 if custom_parameters[5] in back_shape_material:
                                     if custom_parameters[6] in chair_material:
                                         if materialCalculation(custom_parameters[7]):
+											s.wfile.write(bytes('OK','utf-8'))
+											print("The parameters are accepted")
                                             flagOK = True
             else:
-                flagOK = False
-
-            fname1 = custom_parameters[9]
-			lname1 = custom_parameters[10]
-			print("custom_parameters: ", custom_parameters)
-			print("back_shape: ", custom_parameters[4])
-			#need to find which shape the order has in the back
-			if custom_parameters[4] == "cicle": 
-				#the shape is a cicle
-				f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignCircle_template"
-				f.close()
-			elif custom_parameters[4] == "cross":
-				#the shape is a cross
-				f = open(yourLocation+"DFAtemplate\\chairdesign_cross_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignCross_template"
-				f.close()
-			elif custom_parameters[4] == "square":
-				#the shape is a square
-				f = open(yourLocation+"DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignRectangle_template"
-				f.close()
-			else:
-				print("the shape in the back is not recognised.")
-				
-			
-			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
-
-			fileNameFinishedProduct = fname1 + "_" + lname1 + "_finishedProduct"
-			tekst = templatefile
-
-			for i in range(len(param)):
-				tekst = tekst.replace(param[i],custom_parameters[i])
-			tekst = tekst.replace(oldFileName, fileNameFinishedProduct)
-
-			f = open(yourLocation + "\\finished_product\\" + fileNameFinishedProduct + ".dfa", "w")
-			f.write(tekst)
-			f.close()
-			print("Ready to open ", fileNameFinishedProduct)
-
-			s.do_GET()
+                s.wfile.write(bytes('Not OK', 'utf-8'))
+				print("The parameters given is not accepted")
 
 		if path.find("/"):
 			content_len = int(s.headers.get('Content-Length'))
