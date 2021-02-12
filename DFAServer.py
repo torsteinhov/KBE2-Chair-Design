@@ -205,6 +205,17 @@ class MyHandler(BaseHTTPRequestHandler):
 
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
+			url = 'http://127.0.0.1:4321/orderChair'
+			x = requests.post(url, data = '')
+
+			replyByChecker = x.text
+
+			if replyByChecker.find("Not OK") != -1:
+				#"TODO - Tell customer, the product is not possible to manufacture."
+			else:
+				#"TODO - Congratulations, your product is now getting manufactured."
+
+
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
 			print("custom_parameters: ", custom_parameters)
