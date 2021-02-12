@@ -21,8 +21,12 @@
   <owl:Class rdf:about="http://www.kbe.com/chair_design.owl#Chair">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasSeatSide">
-    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Seat"/>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasBackHeightMax">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Back"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegSideMax">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasMaterial">
@@ -34,20 +38,32 @@
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Shape"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasBackHeight">
-    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Back"/>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegSideMin">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegLengthMin">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasSeatSideMin">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Seat"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegLengthMax">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasSeatSideMax">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Seat"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasColor">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Chair"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegLength">
-    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasLegSide">
-    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Leg"/>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_design.owl#hasBackHeightMin">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_design.owl#Back"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
 </rdf:RDF>

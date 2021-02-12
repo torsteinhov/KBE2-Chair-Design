@@ -240,8 +240,16 @@ class MyHandler(BaseHTTPRequestHandler):
 
 		PARAMS = {'update': deleteQuery}
 		# sending get request and saving the response as response object 
-		r = requests.post(url = URL, data = PARAMS) 
+		r = requests.post(url = URL, data = PARAMS)
+		print("Result of DELETE query:", r.text)
 
+	#WORKING PROCESS QUERY
+		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
+				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
+				'INSERT'+\
+				'{'+\
+				'?chair kbe:hasColor "' + chair_color + '"^^xsd:str.'+\
+				'?back kbe:hasHeight "' + back_height 
  
 if __name__ == '__main__':
 	server_class = HTTPServer
