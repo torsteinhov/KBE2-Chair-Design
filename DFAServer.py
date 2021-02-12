@@ -221,8 +221,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("custom_parameters: ", custom_parameters)
 			print("back_shape: ", custom_parameters[4])
 			#need to find which shape the order has in the back
-			if custom_parameters[4] == "cicle": 
-				#the shape is a cicle
+			if custom_parameters[4] == "circle": 
+				#the shape is a circle
 				f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
 				templatefile = f.read()
 				oldFileName = "chairdesignCircle_template"
