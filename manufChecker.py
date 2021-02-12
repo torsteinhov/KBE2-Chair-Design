@@ -58,13 +58,13 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title></head>', 'utf-8'))
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
-		elif path.find("/orderChair") != -1:
+		elif path.find("/setParams") != -1:
 			s.wfile.write(bytes("<!DOCTYPE html><html><head>", 'utf-8'))
 			s.wfile.write(bytes("<title>Chair Design</title>", 'utf-8'))
 			s.wfile.write(bytes("</head><body>", 'utf-8'))
 			s.wfile.write(bytes("<h1>Product details</h1>", 'utf-8'))
-			s.wfile.write(bytes("<p>Welcome to our chair company. Here you can customize a chair for your home!</p>", 'utf-8'))
-			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
+			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
+			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
 
 			#unsecure about next line, we need to figure out what it does and what we need
 			s.wfile.write(bytes("<form action='/yourOrder' method='post'>", 'utf-8'))

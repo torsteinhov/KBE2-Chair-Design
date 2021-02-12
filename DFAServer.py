@@ -202,6 +202,9 @@ class MyHandler(BaseHTTPRequestHandler):
 					custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
 				print_order += str(custom_parameters[i])
 				print_order += ", "
+
+			# sjekk om dette går an å produseres mot manufChecker
+			# if ok 
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
 			print("custom_parameters: ", custom_parameters)
