@@ -45,7 +45,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def do_GET(s):
 
-		global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1, print_order
+		#global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1, print_order
 		"""Respond to a GET request."""
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -66,7 +66,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<h2>Product details intervals and available choises</h2>", 'utf-8'))
 			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
 
-			s.wfile.write(bytes('<form action="/setParameters" method="post">', 'utf-8'))
+			s.wfile.write(bytes('<form action="/parametersSet" method="post">', 'utf-8'))
 
 			#intervals for leg length, leg side, seat side, back height
 			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
@@ -154,8 +154,28 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<input type="submit" value="Submit"></form>', 'utf-8'))
 			s.wfile.write(bytes('</body></html>', 'utf-8'))
 			s.wfile.write(bytes('', 'utf-8'))
-
-			
+		
+		elif path.find("/parametersSet") != -1:
+			s.wfile.write(bytes('<form action="/parametersSet" method="post">', 'utf-8'))
+			s.wfile.write(bytes('<!DOCTYPE html><html><head>', 'utf-8'))
+			s.wfile.write(bytes('<title>new intervals and choises</title>', 'utf-8'))
+			s.wfile.write(bytes('</head><body>', 'utf-8'))
+			s.wfile.write(bytes('<h1>The new intervals and choises for the customer.</h1>', 'utf-8'))
+			s.wfile.write(bytes('<p>The following parameters have been set: </p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Leg length max: '+ str(production_intz_param[0]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Leg length min: '+ str(production_intz_param[1]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Leg side max: '+ str(production_intz_param[2]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Leg side min: '+ str(production_intz_param[3]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Seat side max: '+ str(production_intz_param[4]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Seat side min: '+ str(production_intz_param[5]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Back height max: '+ str(production_intz_param[6]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Back height min: '+ str(production_intz_param[7]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Chair colors: '+ str(production_intz_param[8]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Back shape material: '+ str(production_intz_param[9]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>Chair material: '+ str(production_intz_param[10]) +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>:'+  +'</p>', 'utf-8'))
+			s.wfile.write(bytes('</body></html>', 'utf-8'))
+		
 	def do_POST(s):
 		#allowing us to eddit the custom parameters
 		global production_intz_param
@@ -167,9 +187,9 @@ class MyHandler(BaseHTTPRequestHandler):
 		# Check what is the path
 		path = s.path
 		print("Path: ", path)
-		print("hei på deg!!")
-		if path.find("/setParameters") != -1:
-			
+
+		if path.find("/parametersSet") != -1:
+			#s.wfile.write(bytes('<form action="/updatedIntzAre" method="get">', 'utf-8'))
 			#for debugging
 			print("Nå er vi i post-method. ")
 
@@ -178,38 +198,33 @@ class MyHandler(BaseHTTPRequestHandler):
 			post_body = s.rfile.read(content_len)
 			param_line = post_body.decode()
 			print("Body: ", param_line)
-
-			#making a string to print
-			global print_intz 
-			print_intz = ""
-			production_intz_param[6] = [] #chair color
-			production_intz_param[7] = [] #back shape material
-			production_intz_param[8] = [] #chair material
+		
+			production_intz_param[8] = [] #chair color
+			production_intz_param[9] = [] #back shape material
+			production_intz_param[10] = [] #chair material
 			#preparing for new intervals and choises
-			#print("Type: ", production_intz_param[6].type())
+			
 			#getting the parameter values
 			key_val_pair = param_line.split('&')						#splitting the string at "&"
 			print("key_val_pair: ",key_val_pair)
-			for i in range(len(production_intz_param)): 						#itterating through the custom_parameter list
-				print_intz += str(production_intz_param[i]) 					#before changing the parameters, adding the to a string for printing
-				print_intz +=": " 											#for a nice print
+			for i in range(len(key_val_pair)): 						#itterating through the custom_parameter list
 				
-				print("key_val_pair[i]: ", key_val_pair[i])
 				#taking care of the optionboxes
 				if key_val_pair[i].split('=')[0] == 'chair_color':
-					production_intz_param[6].append(key_val_pair[i].split('=')[1])
+					production_intz_param[8].append(key_val_pair[i].split('=')[1])
 				elif key_val_pair[i].split('=')[0] == 'back_shape_material':
-					production_intz_param[7].append(key_val_pair.split('=')[1])
+					production_intz_param[9].append(key_val_pair[i].split('=')[1])
 				elif key_val_pair[i].split('=')[0] == 'chair_material':
-					production_intz_param[8].append(key_val_pair.split('=')[1])
-					if ' ' in production_intz_param[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
-						production_intz_param[i] = production_intz_param[i].split(" ")[0] #spliting to get rid of it ^
+					production_intz_param[10].append(key_val_pair[i].split('=')[1])
+					if ' ' in key_val_pair[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
+						production_intz_param[10] = key_val_pair[i].split('=')[1].split(" ")[0] #spliting to get rid of it ^
 				else:
 					production_intz_param[i] = int(key_val_pair[i].split('=')[1])		#spliting at "=" to only get the value
 				
-				print_intz += str(production_intz_param[i])
-				print_intz += ", "
 			print("production_intz_param: ", production_intz_param)
+
+			"""
+			# we agree that this should be in the dfaServer.py?
 			#for-loop with list for expandability and KBE-friendly
 			production_intz_param = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
 			flagOK = False
@@ -227,8 +242,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			else:
 				s.wfile.write(bytes('Not OK', 'utf-8'))
 				print("The parameters given is not accepted")
-
-		
+			"""
+			s.do_GET()
 
 	def setConstrain(self, constrain, value):
 		URL = "http://127.0.0.1:3030/kbe/update"
