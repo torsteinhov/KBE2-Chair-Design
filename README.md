@@ -6,7 +6,7 @@ We made an interface accessible from the web, where customers was able to input 
 
 <h3>Product render</h3>
 <p align="center">
-<img src="https://github.com/torsteinhov/KBE2-Chair-Design/issues/3#issue-808443870">
+<img src="https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png">
 </p>
 
 <h3>Architecture</h3>
