@@ -7,22 +7,24 @@ PORT_NUMBER = 4321 # Maybe set this to 1234
 
 
 #definfing parameters upper and lower limits
-leg_lengthUp = 2000
-leg_lengthLow = 500
-leg_sideUp = 50
-leg_sideLow = 100
-seat_sideUp = 1000
-seat_sideLow = 300
-back_heightUp = 1500
-back_heightLow = 200
+leg_lengthMax = 2000
+leg_lengthMin = 500
+leg_sideMax = 50
+leg_sideMin = 100
+seat_sideMax = 1000
+seat_sideMin = 300
+back_heightMax = 1500
+back_heightMin = 200
 
-chair_color = [RED, GREEN, BROWN, BLACK] # a list with the avaliable colors
+chair_color = ['RED', 'GREEN', 'BROWN', 'BLACK'] # a list with the avaliable colors
 back_shape_material = [] #a list with avaliable materials
 chair_material = [] #a list with avaliable matrials
 # ??  number_chair = # check if there is enough materials for number of chair orders
 
-custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
-print_order = "Hei på deg, dette fungerer ikke."
+#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
+
+# putting the constraints from the manufacturing department into a list
+production_intz_param = [leg_lengthMax, leg_lengthMin, leg_sideMax, leg_sideMin, seat_sideMax, seat_sideMin, back_heightMax, back_heightMin, chair_color,back_shape_material, chair_material]
 
 def materialCalculation(numbers):
     #should check the materials needed for production
@@ -64,30 +66,30 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<h2>Product details intervals and available</h2>", 'utf-8'))
 			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
 
-			s.wfile.write(bytes("<form action="/action_page.php">", 'utf-8'))
+			s.wfile.write(bytes('<form action="/setParameters">', 'utf-8'))
 
 			#intervals for leg length, leg side, seat side, back height
 			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
 
 			s.wfile.write(bytes('<label for="leg_lengthUp">Max leg length:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_lengthUp" name="leg_lengthUp" value="John"><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_lengthUp" name="leg_lengthUp" value='+ leg_lengthMax +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="leg_lengthLow">Min leg length:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_lengthLow" name="leg_lengthLow" value="Doe"><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_lengthLow" name="leg_lengthLow" value='+ leg_lengthMin +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="leg_sideUp">Max leg width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_sideUp" name="leg_sideUp" value="John"><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_sideUp" name="leg_sideUp" value='+ leg_sideMax +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="leg_sideLow">Min leg width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_sideLow" name="leg_sideLow" value="Doe"><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_sideLow" name="leg_sideLow" value='+ leg_sideMin +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="seat_sideUp">Max seat width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="seat_sideUp" name="seat_sideUp" value="John"><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="seat_sideUp" name="seat_sideUp" value='+ seat_sideMax +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="seat_sideLow">Min seat width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="seat_sideLow" name="seat_sideLow" value="Doe"><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="seat_sideLow" name="seat_sideLow" value='+ seat_sideMin +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="back_heightUp">Max back height:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="back_heightUp" name="back_heightUp" value="John"><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="back_heightUp" name="back_heightUp" value='+ back_heightMax +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="back_heightLow">Min back height:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="back_heightLow" name="back_heightLow" value="Doe"><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="back_heightLow" name="back_heightLow" value='+ back_heightMin +'><br><br>', 'utf-8'))
 
 			#chair colors
 			s.wfile.write(bytes('<p>Select the available colors for the chair:</p>', 'utf-8'))
@@ -156,7 +158,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			
 	def do_POST(s):
 		#allowing us to eddit the custom parameters
-		global custom_parameters
+		global production_intz_param
 
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -166,7 +168,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		path = s.path
 		print("Path: ", path)
 		print("hei på deg!!")
-		if path.find("/yourOrder") != -1:
+		if path.find("/setParameters") != -1:
 			
 			#for debugging
 			print("Nå er vi i post-method. ")
@@ -178,8 +180,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("Body: ", param_line)
 
 			#making a string to print
-			global print_order, yourLocation
-			print_order = ""
+			global print_intz 
+			print_intz = ""
 			#getting the parameter values
 			key_val_pair = param_line.split('&')						#splitting the string at "&"
 			for i in range(len(custom_parameters)): 						#itterating through the custom_parameter list
@@ -192,21 +194,21 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += ", "
 			
 			#for-loop with list for expandability and KBE-friendly
-            custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
+			custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
 			flagOK = False
-            if(custom_parameters[0] > leg_lengthLow) and (custom_parameters[0] < leg_lengthUp):
-                if (custom_parameters[1] > leg_sideLow) and (custom_parameters[1] < leg_sideUp):
-                    if (custom_parameters[2] > seat_sideLow) and (custom_parameters[2] < leg_sideUp):
-                        if (custom_parameters[3] > back_heightLow) and (custom_parameters[3]< back_heightUp):
-                            if custom_parameters[4] in chair_color:
-                                if custom_parameters[5] in back_shape_material:
-                                    if custom_parameters[6] in chair_material:
-                                        if materialCalculation(custom_parameters[7]):
+			if(custom_parameters[0] > leg_lengthLow) and (custom_parameters[0] < leg_lengthUp):
+				if (custom_parameters[1] > leg_sideLow) and (custom_parameters[1] < leg_sideUp):
+					if (custom_parameters[2] > seat_sideLow) and (custom_parameters[2] < leg_sideUp):
+						if (custom_parameters[3] > back_heightLow) and (custom_parameters[3]< back_heightUp):
+							if custom_parameters[4] in chair_color:
+								if custom_parameters[5] in back_shape_material:
+									if custom_parameters[6] in chair_material:
+										if materialCalculation(custom_parameters[7]):
 											s.wfile.write(bytes('OK','utf-8'))
 											print("The parameters are accepted")
-                                            flagOK = True
-            else:
-                s.wfile.write(bytes('Not OK', 'utf-8'))
+											flagOK = True
+			else:
+				s.wfile.write(bytes('Not OK', 'utf-8'))
 				print("The parameters given is not accepted")
 
 		
@@ -242,7 +244,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		# sending get request and saving the response as response object 
 		r = requests.post(url = URL, data = PARAMS)
 		print("Result of DELETE query:", r.text)
-
+	"""
 	#WORKING PROCESS QUERY
 		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
@@ -250,7 +252,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				'{'+\
 				'?chair kbe:hasColor "' + chair_color + '"^^xsd:str.'+\
 				'?back kbe:hasHeight "' + back_height 
- 
+	"""
 if __name__ == '__main__':
 	server_class = HTTPServer
 	httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
