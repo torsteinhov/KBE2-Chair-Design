@@ -63,33 +63,33 @@ class MyHandler(BaseHTTPRequestHandler):
 		elif path.find("/setParams") != -1:
 
 			s.wfile.write(bytes("<!DOCTYPE html><html><body>", 'utf-8'))
-			s.wfile.write(bytes("<h2>Product details intervals and available</h2>", 'utf-8'))
+			s.wfile.write(bytes("<h2>Product details intervals and available choises</h2>", 'utf-8'))
 			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
 
-			s.wfile.write(bytes('<form action="/setParameters">', 'utf-8'))
+			s.wfile.write(bytes('<form action="/setParameters" method="post">', 'utf-8'))
 
 			#intervals for leg length, leg side, seat side, back height
 			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
 
 			s.wfile.write(bytes('<label for="leg_lengthUp">Max leg length:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_lengthUp" name="leg_lengthUp" value='+ leg_lengthMax +'><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_lengthUp" name="leg_lengthUp" value='+ str(leg_lengthMax) +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="leg_lengthLow">Min leg length:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_lengthLow" name="leg_lengthLow" value='+ leg_lengthMin +'><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_lengthLow" name="leg_lengthLow" value='+ str(leg_lengthMin) +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="leg_sideUp">Max leg width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_sideUp" name="leg_sideUp" value='+ leg_sideMax +'><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_sideUp" name="leg_sideUp" value='+ str(leg_sideMax) +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="leg_sideLow">Min leg width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="leg_sideLow" name="leg_sideLow" value='+ leg_sideMin +'><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="leg_sideLow" name="leg_sideLow" value='+ str(leg_sideMin) +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="seat_sideUp">Max seat width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="seat_sideUp" name="seat_sideUp" value='+ seat_sideMax +'><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="seat_sideUp" name="seat_sideUp" value='+ str(seat_sideMax) +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="seat_sideLow">Min seat width:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="seat_sideLow" name="seat_sideLow" value='+ seat_sideMin +'><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="seat_sideLow" name="seat_sideLow" value='+ str(seat_sideMin) +'><br><br>', 'utf-8'))
 
 			s.wfile.write(bytes('<label for="back_heightUp">Max back height:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="back_heightUp" name="back_heightUp" value='+ back_heightMax +'><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="back_heightUp" name="back_heightUp" value='+ str(back_heightMax) +'><br>', 'utf-8'))
 			s.wfile.write(bytes('<label for="back_heightLow">Min back height:</label><br>', 'utf-8'))
-			s.wfile.write(bytes('<input type="text" id="back_heightLow" name="back_heightLow" value='+ back_heightMin +'><br><br>', 'utf-8'))
+			s.wfile.write(bytes('<input type="text" id="back_heightLow" name="back_heightLow" value='+ str(back_heightMin) +'><br><br>', 'utf-8'))
 
 			#chair colors
 			s.wfile.write(bytes('<p>Select the available colors for the chair:</p>', 'utf-8'))
@@ -182,28 +182,45 @@ class MyHandler(BaseHTTPRequestHandler):
 			#making a string to print
 			global print_intz 
 			print_intz = ""
+			production_intz_param[6] = [] #chair color
+			production_intz_param[7] = [] #back shape material
+			production_intz_param[8] = [] #chair material
+			#preparing for new intervals and choises
+			#print("Type: ", production_intz_param[6].type())
 			#getting the parameter values
 			key_val_pair = param_line.split('&')						#splitting the string at "&"
-			for i in range(len(custom_parameters)): 						#itterating through the custom_parameter list
-				print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
-				print_order +=": " 											#for a nice print
-				custom_parameters[i] = int(key_val_pair[i].split('=')[1])		#spliting at "=" to only get the value
-				if ' ' in custom_parameters[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
-					custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
-				print_order += str(custom_parameters[i])
-				print_order += ", "
-			
+			print("key_val_pair: ",key_val_pair)
+			for i in range(len(production_intz_param)): 						#itterating through the custom_parameter list
+				print_intz += str(production_intz_param[i]) 					#before changing the parameters, adding the to a string for printing
+				print_intz +=": " 											#for a nice print
+				
+				print("key_val_pair[i]: ", key_val_pair[i])
+				#taking care of the optionboxes
+				if key_val_pair[i].split('=')[0] == 'chair_color':
+					production_intz_param[6].append(key_val_pair[i].split('=')[1])
+				elif key_val_pair[i].split('=')[0] == 'back_shape_material':
+					production_intz_param[7].append(key_val_pair.split('=')[1])
+				elif key_val_pair[i].split('=')[0] == 'chair_material':
+					production_intz_param[8].append(key_val_pair.split('=')[1])
+					if ' ' in production_intz_param[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
+						production_intz_param[i] = production_intz_param[i].split(" ")[0] #spliting to get rid of it ^
+				else:
+					production_intz_param[i] = int(key_val_pair[i].split('=')[1])		#spliting at "=" to only get the value
+				
+				print_intz += str(production_intz_param[i])
+				print_intz += ", "
+			print("production_intz_param: ", production_intz_param)
 			#for-loop with list for expandability and KBE-friendly
-			custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
+			production_intz_param = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
 			flagOK = False
-			if(custom_parameters[0] > leg_lengthLow) and (custom_parameters[0] < leg_lengthUp):
-				if (custom_parameters[1] > leg_sideLow) and (custom_parameters[1] < leg_sideUp):
-					if (custom_parameters[2] > seat_sideLow) and (custom_parameters[2] < leg_sideUp):
-						if (custom_parameters[3] > back_heightLow) and (custom_parameters[3]< back_heightUp):
-							if custom_parameters[4] in chair_color:
-								if custom_parameters[5] in back_shape_material:
-									if custom_parameters[6] in chair_material:
-										if materialCalculation(custom_parameters[7]):
+			if(production_intz_param[0] > leg_lengthLow) and (production_intz_param[0] < leg_lengthUp):
+				if (production_intz_param[1] > leg_sideLow) and (production_intz_param[1] < leg_sideUp):
+					if (production_intz_param[2] > seat_sideLow) and (production_intz_param[2] < leg_sideUp):
+						if (production_intz_param[3] > back_heightLow) and (production_intz_param[3]< back_heightUp):
+							if production_intz_param[4] in chair_color:
+								if production_intz_param[5] in back_shape_material:
+									if production_intz_param[6] in chair_material:
+										if materialCalculation(production_intz_param[7]):
 											s.wfile.write(bytes('OK','utf-8'))
 											print("The parameters are accepted")
 											flagOK = True
