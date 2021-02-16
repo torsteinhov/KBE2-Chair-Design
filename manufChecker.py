@@ -223,6 +223,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				
 			print("production_intz_param: ", production_intz_param)
 
+			#hent data fra fuseki
 			"""
 			# we agree that this should be in the dfaServer.py?
 			#for-loop with list for expandability and KBE-friendly
@@ -243,6 +244,8 @@ class MyHandler(BaseHTTPRequestHandler):
 				s.wfile.write(bytes('Not OK', 'utf-8'))
 				print("The parameters given is not accepted")
 			"""
+
+			#send ok/not ok til 
 			s.do_GET()
 
 	def setConstrain(self, constrain, value):

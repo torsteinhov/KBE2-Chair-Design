@@ -203,6 +203,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
+			
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
 			url = 'http://127.0.0.1:4321/orderChair'
