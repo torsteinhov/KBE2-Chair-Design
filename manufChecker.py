@@ -279,15 +279,53 @@ class MyHandler(BaseHTTPRequestHandler):
 		# sending get request and saving the response as response object 
 		r = requests.post(url = URL, data = PARAMS)
 		print("Result of DELETE query:", r.text)
-	"""
+	
 	#WORKING PROCESS QUERY
 		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
 				'{'+\
-				'?chair kbe:hasColor "' + chair_color + '"^^xsd:str.'+\
-				'?back kbe:hasHeight "' + back_height 
+				'?leg kbe:hasLegLengthMax "'+ production_intz_param[0]+'"^^xsd:int.'+\
+				'?leg kbe:hasLegLengthMin "'+ production_intz_param[1]+'"^^xsd:int.'+\
+				'?leg kbe:hasLegSideMax "'+ production_intz_param[2]+'"^^xsd:int.'+\
+				'?leg kbe:hasLegSideMin "'+ production_intz_param[3]+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSideMax "'+ production_intz_param[4]+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSideMin "'+ production_intz_param[5]+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMax "'+ production_intz_param[6]+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMin "'+ production_intz_param[7]+'"^^xsd:int.'+\	
+				'?chair kbe:hasColor "'+ production_intz_param[8]+'"^^xsd:str.'+\
+				'?backShape kbe:hasMaterial "'+ production_intz_param[9]+'"^^xsd:str.'+\
+				'?chair kbe:hasMaterial "'+ production_intz_param[10]+'"^^xsd:str.'+\
+				'}'+\
+				'WHERE'+\
+				'{'+\
+				'?leg a kbe:Leg.'+\
+				'?seat a kbe:Seat.'+\
+				'?back a kbe:Back.'+\
+				'?chair a kbe:Chair.'+\
+				'?backShape a kbe:Shape'+\
+				'}'
+		# defining a query params 
+		PARAMS = {'update': insertQuery} 
+		r = requests.post(url = URL, data = PARAMS)
+		#Checking the result
+		print("Result of INSERT query:", r.text)
+	
 	"""
+	production_intz_param = 
+	[leg_lengthMax, 
+	leg_lengthMin, 
+	leg_sideMax, 
+	leg_sideMin, 
+	seat_sideMax, 
+	seat_sideMin, 
+	back_heightMax, 
+	back_heightMin, 
+	chair_color,
+	back_shape_material, 
+	chair_material]
+	"""
+
 if __name__ == '__main__':
 	server_class = HTTPServer
 	httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
