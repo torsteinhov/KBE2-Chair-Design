@@ -266,6 +266,59 @@ class MyHandler(BaseHTTPRequestHandler):
 			param_line = post_body.decode()
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
+
+	def retrieveManufaqConstrains(self):
+		URL = "http://127.0.0.1:3030/kbe/update"
+
+		selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
+					'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
+					'WHERE'+\
+					'{'+\
+					#back
+					'?back a kbe:Back.'+\
+					'?back kbe:hasBackHeightMax ?backHeightMax.'+\
+					'?back kbe:hasBackHeightMin ?backHeightMin.'+\
+					#chair
+					'?chair a kbe:Chair.'+\
+					'?chair kbe:hasColor ?chairColor.'+\
+					'?chair kbe:hasMaterial ?chairMaterial.'+\
+					#leg
+					'?leg a kbe:Leg.'+\
+					'?leg kbe:hasLegLengthMax ?legLengthMax.'+\
+					'?leg kbe:hasLegLengthMin ?legLengthMin.'+\
+					'?leg kbe:hasLegSideMax ?legSideMax.'+\
+					'?leg kbe:hasLegSideMin ?legSideMin.'+\
+					#shape
+					'?shape a kbe:Shape.'+\
+					'?shape kbe:hasMaterial ?shapeMaterial.'+\
+					'?shape kbe:hasShape ?backShape.'+\
+					#seat
+					'?seat a kbe:Seat.'+\
+					'?seat kbe:hasSeatSideMax ?seatSideMax.'+\
+					'?seat kbe:hasSeatSideMin ?seatSideMin.'+\
+					'} 
+
+		PARAMS = {'query':selectQuery}
+
+		r = requests.get(url = URL, params = PARAMS)
+		data = r.json()
+
+		#arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
+		# legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
+		# seatSideMax,seatSideMin]
+		data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
+                    data['results']['bindings'][0]['backHeightMin']['value'],\
+                    data['results']['bindings'][0]['chairColor']['value'],\
+					data['results']['bindings'][0]['chairMaterial']['value'],\
+                    data['results']['bindings'][0]['legLengthMax']['value'],\
+                    data['results']['bindings'][0]['legLengthMin']['value']
+					data['results']['bindings'][0]['legSideMax']['value'],\
+                    data['results']['bindings'][0]['legSideMin']['value'],\
+                    data['results']['bindings'][0]['shapeMaterial']['value'],\
+                    data['results']['bindings'][0]['backShape']['value']
+					data['results']['bindings'][0]['seatSideMax']['value']
+					data['results']['bindings'][0]['seatSideMin']['value']]
+
  
 if __name__ == '__main__':
 	server_class = HTTPServer
