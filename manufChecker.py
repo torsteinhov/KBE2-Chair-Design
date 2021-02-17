@@ -291,17 +291,17 @@ class MyHandler(BaseHTTPRequestHandler):
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
 				'{'+\
-				'?leg kbe:hasLegLengthMax "'+ production_intz_param[0]+'"^^xsd:int.'+\
-				'?leg kbe:hasLegLengthMin "'+ production_intz_param[1]+'"^^xsd:int.'+\
-				'?leg kbe:hasLegSideMax "'+ production_intz_param[2]+'"^^xsd:int.'+\
-				'?leg kbe:hasLegSideMin "'+ production_intz_param[3]+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSideMax "'+ production_intz_param[4]+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSideMin "'+ production_intz_param[5]+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMax "'+ production_intz_param[6]+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMin "'+ production_intz_param[7]+'"^^xsd:int.'+\
-				'?chair kbe:hasColor "'+ production_intz_param[8]+'"^^xsd:str.'+\
-				'?backShape kbe:hasMaterial "'+ production_intz_param[9]+'"^^xsd:str.'+\
-				'?chair kbe:hasMaterial "'+ production_intz_param[10]+'"^^xsd:str.'+\
+				'?leg kbe:hasLegLengthMax "'+ str(production_intz_param[0])+'"^^xsd:int.'+\
+				'?leg kbe:hasLegLengthMin "'+ str(production_intz_param[1])+'"^^xsd:int.'+\
+				'?leg kbe:hasLegSideMax "'+ str(production_intz_param[2])+'"^^xsd:int.'+\
+				'?leg kbe:hasLegSideMin "'+ str(production_intz_param[3])+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSideMax "'+ str(production_intz_param[4])+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSideMin "'+ str(production_intz_param[5])+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMax "'+ str(production_intz_param[6])+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMin "'+ str(production_intz_param[7])+'"^^xsd:int.'+\
+				'?chair kbe:hasColor "'+ str(production_intz_param[8])+'"^^xsd:str.'+\
+				'?backShape kbe:hasMaterial "'+ str(production_intz_param[9])+'"^^xsd:str.'+\
+				'?chair kbe:hasMaterial "'+ str(production_intz_param[10])+'"^^xsd:str.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
