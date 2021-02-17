@@ -2,6 +2,10 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+import time
+import requests
+import json
+
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 4321 # Maybe set this to 1234
 
@@ -173,7 +177,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>Chair colors: '+ str(production_intz_param[8]) +'</p>', 'utf-8'))
 			s.wfile.write(bytes('<p>Back shape material: '+ str(production_intz_param[9]) +'</p>', 'utf-8'))
 			s.wfile.write(bytes('<p>Chair material: '+ str(production_intz_param[10]) +'</p>', 'utf-8'))
-			s.wfile.write(bytes('<p>:'+  +'</p>', 'utf-8'))
+			#s.wfile.write(bytes('<p>:'+  +'</p>', 'utf-8'))
 			s.wfile.write(bytes('</body></html>', 'utf-8'))
 		
 	def do_POST(s):
@@ -223,7 +227,9 @@ class MyHandler(BaseHTTPRequestHandler):
 				
 			print("production_intz_param: ", production_intz_param)
 
-			#hent data fra fuseki
+			#upload data til fuseki
+
+			s.setConstrain(production_intz_param)
 			"""
 			# we agree that this should be in the dfaServer.py?
 			#for-loop with list for expandability and KBE-friendly
@@ -245,11 +251,11 @@ class MyHandler(BaseHTTPRequestHandler):
 				print("The parameters given is not accepted")
 			"""
 
-			#send ok/not ok til 
+			 
 			s.do_GET()
 
-	def setConstrain(self, constrain, value):
-		URL = "http://127.0.0.1:3030/kbe/update"
+	def setConstrain(self, production_intz_param):
+		URL = "http://127.0.0.1:3030/chair_design/update"
   
 		# Query that deletes previous values.
 		deleteQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
@@ -292,7 +298,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				'?seat kbe:hasSeatSideMax "'+ production_intz_param[4]+'"^^xsd:int.'+\
 				'?seat kbe:hasSeatSideMin "'+ production_intz_param[5]+'"^^xsd:int.'+\
 				'?back kbe:hasBackHeightMax "'+ production_intz_param[6]+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMin "'+ production_intz_param[7]+'"^^xsd:int.'+\	
+				'?back kbe:hasBackHeightMin "'+ production_intz_param[7]+'"^^xsd:int.'+\
 				'?chair kbe:hasColor "'+ production_intz_param[8]+'"^^xsd:str.'+\
 				'?backShape kbe:hasMaterial "'+ production_intz_param[9]+'"^^xsd:str.'+\
 				'?chair kbe:hasMaterial "'+ production_intz_param[10]+'"^^xsd:str.'+\
