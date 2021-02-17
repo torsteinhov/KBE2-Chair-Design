@@ -1,0 +1,51 @@
+## get data from fuseki
+
+PREFIX kbe:<http://kbe.com/chair_design.owl#>
+SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial
+WHERE
+{
+?back a kbe:Back.
+?back kbe:hasBackHeightMax ?backHeightMax.
+?back kbe:hasBackHeightMin ?backHeightMin.
+?chair a kbe:Chair.
+?chair kbe:hasColor ?chairColor.
+?chair kbe:hasMaterial ?chairMaterial.
+?leg a kbe:Leg.
+?leg kbe:hasLegLengthMax ?legLengthMax.
+?leg kbe:hasLegLengthMin ?legLengthMin.
+?leg kbe:hasLegSideMax ?legSideMax.
+?leg kbe:hasLegSideMin ?legSideMin.
+?shape a kbe:Shape.
+?shape kbe:hasMaterial ?shapeMaterial.
+?shape kbe:hasShape ?backShape.
+?seat a kbe:Seat.
+?seat kbe:hasSeatSideMax ?seatSideMax.
+?seat kbe:hasSeatSideMin ?seatSideMin.
+}
+
+## insert data to fuseki
+
+PREFIX kbe:<http://kbe.com/chair_design.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+INSERT
+{
+?leg kbe:hasLegLengthMax "1000"^^xsd:int.
+?leg kbe:hasLegLengthMin "500"^^xsd:int.
+?leg kbe:hasLegSideMax "200"^^xsd:int.
+?leg kbe:hasLegSideMin "50"^^xsd:int.
+?seat kbe:hasSeatSideMax "1000"^^xsd:int.
+?seat kbe:hasSeatSideMin "300"^^xsd:int.
+?back kbe:hasBackHeightMax "1500"^^xsd:int.
+?back kbe:hasBackHeightMin "500"^^xsd:int.
+?chair kbe:hasColor "[RED,BLUE]"^^xsd:str.
+?backShape kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
+?chair kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
+}
+WHERE
+{
+?leg a kbe:Leg.
+?seat a kbe:Seat.
+?back a kbe:Back.
+?chair a kbe:Chair.
+?backShape a kbe:Shape.
+}

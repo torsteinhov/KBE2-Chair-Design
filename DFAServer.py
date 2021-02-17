@@ -12,7 +12,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -277,7 +277,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 
 	def retrieveManufaqConstrains(self):
-		URL = "http://127.0.0.1:3030/kbe/update"
+		URL = "http://127.0.0.1:3030/chair/update"
 
 		selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
 					'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\

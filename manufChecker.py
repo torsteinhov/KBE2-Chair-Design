@@ -309,7 +309,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				'?seat a kbe:Seat.'+\
 				'?back a kbe:Back.'+\
 				'?chair a kbe:Chair.'+\
-				'?backShape a kbe:Shape'+\
+				'?backShape a kbe:Shape.'+\
 				'}'
 		# defining a query params 
 		PARAMS = {'update': insertQuery} 
