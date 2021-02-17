@@ -2,6 +2,10 @@
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+import time
+import requests
+import json
+
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 1234 # Maybe set this to 1234
 
@@ -203,7 +207,9 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
-			
+			productionConstrains = s.retrieveManufaqConstrains()
+
+			print("PRODUCTION CONSTRAINS: ",productionConstrains)
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
 			url = 'http://127.0.0.1:4321/orderChair'
@@ -299,6 +305,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		PARAMS = {'query':selectQuery}
 
 		r = requests.get(url = URL, params = PARAMS)
+		print("r: ",r)
 		data = r.json()
 
 		#arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
@@ -316,6 +323,8 @@ class MyHandler(BaseHTTPRequestHandler):
                     data['results']['bindings'][0]['backShape']['value'],\
 					data['results']['bindings'][0]['seatSideMax']['value'],\
 					data['results']['bindings'][0]['seatSideMin']['value']]
+		
+		return data_pool
 
  
 if __name__ == '__main__':
