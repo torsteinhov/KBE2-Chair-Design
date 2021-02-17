@@ -8,7 +8,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -207,15 +207,18 @@ class MyHandler(BaseHTTPRequestHandler):
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
 			url = 'http://127.0.0.1:4321/orderChair'
+			'''
 			x = requests.post(url, data = '')
 
 			replyByChecker = x.text
 
 			if replyByChecker.find("Not OK") != -1:
+				...
 				#"TODO - Tell customer, the product is not possible to manufacture."
 			else:
+				...
 				#"TODO - Congratulations, your product is now getting manufactured."
-
+			'''
 
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
@@ -274,29 +277,24 @@ class MyHandler(BaseHTTPRequestHandler):
 					'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
 					'WHERE'+\
 					'{'+\
-					#back
 					'?back a kbe:Back.'+\
 					'?back kbe:hasBackHeightMax ?backHeightMax.'+\
 					'?back kbe:hasBackHeightMin ?backHeightMin.'+\
-					#chair
 					'?chair a kbe:Chair.'+\
 					'?chair kbe:hasColor ?chairColor.'+\
 					'?chair kbe:hasMaterial ?chairMaterial.'+\
-					#leg
 					'?leg a kbe:Leg.'+\
 					'?leg kbe:hasLegLengthMax ?legLengthMax.'+\
 					'?leg kbe:hasLegLengthMin ?legLengthMin.'+\
 					'?leg kbe:hasLegSideMax ?legSideMax.'+\
 					'?leg kbe:hasLegSideMin ?legSideMin.'+\
-					#shape
 					'?shape a kbe:Shape.'+\
 					'?shape kbe:hasMaterial ?shapeMaterial.'+\
 					'?shape kbe:hasShape ?backShape.'+\
-					#seat
 					'?seat a kbe:Seat.'+\
 					'?seat kbe:hasSeatSideMax ?seatSideMax.'+\
 					'?seat kbe:hasSeatSideMin ?seatSideMin.'+\
-					'} 
+					'}'
 
 		PARAMS = {'query':selectQuery}
 
@@ -311,12 +309,12 @@ class MyHandler(BaseHTTPRequestHandler):
                     data['results']['bindings'][0]['chairColor']['value'],\
 					data['results']['bindings'][0]['chairMaterial']['value'],\
                     data['results']['bindings'][0]['legLengthMax']['value'],\
-                    data['results']['bindings'][0]['legLengthMin']['value']
+                    data['results']['bindings'][0]['legLengthMin']['value'],\
 					data['results']['bindings'][0]['legSideMax']['value'],\
                     data['results']['bindings'][0]['legSideMin']['value'],\
                     data['results']['bindings'][0]['shapeMaterial']['value'],\
-                    data['results']['bindings'][0]['backShape']['value']
-					data['results']['bindings'][0]['seatSideMax']['value']
+                    data['results']['bindings'][0]['backShape']['value'],\
+					data['results']['bindings'][0]['seatSideMax']['value'],\
 					data['results']['bindings'][0]['seatSideMin']['value']]
 
  
