@@ -225,6 +225,79 @@ INSERT
 ?back_1 kbe:hasBackHeightMax "1500"^^xsd:int.
 ?back_1 kbe:hasBackHeightMin "500"^^xsd:int.
 ?chair_1 kbe:hasColor "[RED,BLUE]"^^xsd:str.
+?shape_1 kbe:hasShape "circle"^^xsd:str.
+?shape_1 kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
+?chair_1 kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
+}
+WHERE
+{
+?leg_1 a kbe:Leg.
+?seat_1 a kbe:Seat.s
+?back_1 a kbe:Back.
+?chair_1 a kbe:Chair.
+?backShape_1 a kbe:Shape.
+}
+
+#######################################3
+##########################################
+!!Dette fungerer!!
+
+#Delete
+PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
+DELETE
+{
+?back_1 kbe:hasBackHeightMax ?backHeightMax.
+?back_1 kbe:hasBackHeightMin ?backHeightMin.
+
+?chair_1 kbe:hasColor ?chairColor.
+?chair_1 kbe:hasMaterial ?chairMaterial.
+
+?leg_1 kbe:hasLegLengthMax ?legLengthMax.
+?leg_1 kbe:hasLegLengthMin ?legLengthMin.
+?leg_1 kbe:hasLegSideMax ?legSideMax.
+?leg_1 kbe:hasLegSideMin ?legSideMin.
+
+?shape_1 kbe:hasMaterial ?shapeMaterial.
+?shape_1 kbe:hasShape ?shape.
+
+?seat_1 kbe:hasSeatSideMax ?seatSideMax.
+?seat_1 kbe:hasSeatSideMin ?seatSideMin.
+}
+WHERE
+{
+?back_1 kbe:hasBackHeightMax ?backHeightMax.
+?back_1 kbe:hasBackHeightMin ?backHeightMin.
+
+?chair_1 kbe:hasColor ?chairColor.
+?chair_1 kbe:hasMaterial ?chairMaterial.
+
+?leg_1 kbe:hasLegLengthMax ?legLengthMax.
+?leg_1 kbe:hasLegLengthMin ?legLengthMin.
+?leg_1 kbe:hasLegSideMax ?legSideMax.
+?leg_1 kbe:hasLegSideMin ?legSideMin.
+
+?shape_1 kbe:hasMaterial ?shapeMaterial.
+?shape_1 kbe:hasShape ?shape.
+
+?seat_1 kbe:hasSeatSideMax ?seatSideMax.
+?seat_1 kbe:hasSeatSideMin ?seatSideMin.
+}
+
+#Insert
+PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+INSERT
+{
+?leg_1 kbe:hasLegLengthMax "1000"^^xsd:int.
+?leg_1 kbe:hasLegLengthMin "500"^^xsd:int.
+?leg_1 kbe:hasLegSideMax "200"^^xsd:int.
+?leg_1 kbe:hasLegSideMin "50"^^xsd:int.
+?seat_1 kbe:hasSeatSideMax "1000"^^xsd:int.
+?seat_1 kbe:hasSeatSideMin "300"^^xsd:int.
+?back_1 kbe:hasBackHeightMax "1500"^^xsd:int.
+?back_1 kbe:hasBackHeightMin "500"^^xsd:int.
+?chair_1 kbe:hasColor "[RED,BLUE]"^^xsd:str.
+?shape_1 kbe:hasShape "circle"^^xsd:str.
 ?shape_1 kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
 ?chair_1 kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
 }
@@ -234,6 +307,33 @@ WHERE
 ?seat_1 a kbe:Seat.
 ?back_1 a kbe:Back.
 ?chair_1 a kbe:Chair.
-?backShape_1 a kbe:Shape.
+?shape_1 a kbe:Shape.
 }
 
+#select
+PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
+SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial
+WHERE
+{
+kbe:back_1 a kbe:Back.
+kbe:back_1 kbe:hasBackHeightMax ?backHeightMax.
+kbe:back_1 kbe:hasBackHeightMin ?backHeightMin.
+
+kbe:chair_1 a kbe:Chair.
+kbe:chair_1 kbe:hasColor ?chairColor.
+kbe:chair_1 kbe:hasMaterial ?chairMaterial.
+
+kbe:leg_1 a kbe:Leg.
+kbe:leg_1 kbe:hasLegLengthMax ?legLengthMax.
+kbe:leg_1 kbe:hasLegLengthMin ?legLengthMin.
+kbe:leg_1 kbe:hasLegSideMax ?legSideMax.
+kbe:leg_1 kbe:hasLegSideMin ?legSideMin.
+
+kbe:shape_1 a kbe:Shape.
+kbe:shape_1 kbe:hasMaterial ?shapeMaterial.
+kbe:shape_1 kbe:hasShape ?backShape.
+
+kbe:seat_1 a kbe:Seat.
+kbe:seat_1 kbe:hasSeatSideMax ?seatSideMax.
+kbe:seat_1 kbe:hasSeatSideMin ?seatSideMin.
+}
