@@ -275,56 +275,74 @@ class MyHandler(BaseHTTPRequestHandler):
 			param_line = post_body.decode()
 			print("Body: ", param_line)
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
-
-	def retrieveManufaqConstrains(self):
-		URL = "http://127.0.0.1:3030/chair/update"
-
-		selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
-					'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
-					'WHERE'+\
-					'{'+\
-					'?back a kbe:Back.'+\
-					'?back kbe:hasBackHeightMax ?backHeightMax.'+\
-					'?back kbe:hasBackHeightMin ?backHeightMin.'+\
-					'?chair a kbe:Chair.'+\
-					'?chair kbe:hasColor ?chairColor.'+\
-					'?chair kbe:hasMaterial ?chairMaterial.'+\
-					'?leg a kbe:Leg.'+\
-					'?leg kbe:hasLegLengthMax ?legLengthMax.'+\
-					'?leg kbe:hasLegLengthMin ?legLengthMin.'+\
-					'?leg kbe:hasLegSideMax ?legSideMax.'+\
-					'?leg kbe:hasLegSideMin ?legSideMin.'+\
-					'?shape a kbe:Shape.'+\
-					'?shape kbe:hasMaterial ?shapeMaterial.'+\
-					'?shape kbe:hasShape ?backShape.'+\
-					'?seat a kbe:Seat.'+\
-					'?seat kbe:hasSeatSideMax ?seatSideMax.'+\
-					'?seat kbe:hasSeatSideMin ?seatSideMin.'+\
-					'}'
-
-		PARAMS = {'query':selectQuery}
-
-		r = requests.get(url = URL, params = PARAMS)
-		print("r: ",r)
-		data = r.json()
-
-		#arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
-		# legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
-		# seatSideMax,seatSideMin]
-		data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
-                    data['results']['bindings'][0]['backHeightMin']['value'],\
-                    data['results']['bindings'][0]['chairColor']['value'],\
-					data['results']['bindings'][0]['chairMaterial']['value'],\
-                    data['results']['bindings'][0]['legLengthMax']['value'],\
-                    data['results']['bindings'][0]['legLengthMin']['value'],\
-					data['results']['bindings'][0]['legSideMax']['value'],\
-                    data['results']['bindings'][0]['legSideMin']['value'],\
-                    data['results']['bindings'][0]['shapeMaterial']['value'],\
-                    data['results']['bindings'][0]['backShape']['value'],\
-					data['results']['bindings'][0]['seatSideMax']['value'],\
-					data['results']['bindings'][0]['seatSideMin']['value']]
+	
+	def uploadData(self, custom_parameters):
+		#CHANGE TO UPLOAD CUSTOMER DATA
 		
-		return data_pool
+		URL = "http://127.0.0.1:3030/chair_data/update"
+  
+		# Query that deletes previous values.
+		deleteQuery = 'PREFIX kbe:<http://kbe.com/chair_data.owl#> '+\
+				'DELETE'+\
+				'{' +\
+				'kbe:chair a kbe:Chair.'+\
+				'kbe:chair ?pred ?obj.'+\
+				'kbe:leg a kbe:Leg.' +\
+				'kbe:leg ?pred ?obj.'+\
+				'kbe:seat a kbe:Seat.'+\
+				'kbe:seat ?pred ?obj.'+\
+				'kbe:back a kbe:Back.'+\
+				'kbe:back ?pred ?obj.'+\
+				'kbe:shape a kbe:Shape.'+\
+				'kba:shape ?pred ?obj.'+\
+				'}'+\
+				'WHERE'+\
+				'{'+\
+				'kbe:chair ?pred ?obj.'+\
+				'kbe:leg ?pred ?obj.'+\
+				'kbe:seat ?pred ?obj.'+\
+				'kbe:back ?pred ?obj.'+\
+				'kba:shape ?pred ?obj.'+\
+				'}'
+
+		PARAMS = {'update': deleteQuery}
+		# sending get request and saving the response as response object 
+		r = requests.post(url = URL, data = PARAMS)
+		print("Result of DELETE query:", r.text)
+	
+	#WORKING PROCESS QUERY
+	#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, 
+	# back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
+		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
+				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
+				'INSERT'+\
+				'{'+\
+				'?leg kbe:hasLegLength "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
+				'?leg kbe:hasLegSide "'+ str(custom_parameters[1])+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSide "'+ str(custom_parameters[2])+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeight "'+ str(custom_parameters[3])+'"^^xsd:int.'+\
+				'?shape kbe:hasShape "'+ str(custom_parameters[4])+'"^^xsd:int.'+\
+				'?seat kbe:hasSeatSideMin "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMax "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
+				'?back kbe:hasBackHeightMin "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
+				'?chair kbe:hasColor "'+ str(production_intz_param[8])+'"^^xsd:str.'+\
+				'?backShape kbe:hasMaterial "'+ str(production_intz_param[9])+'"^^xsd:str.'+\
+				'?chair kbe:hasMaterial "'+ str(production_intz_param[10])+'"^^xsd:str.'+\
+				'}'+\
+				'WHERE'+\
+				'{'+\
+				'?leg a kbe:Leg.'+\
+				'?seat a kbe:Seat.'+\
+				'?back a kbe:Back.'+\
+				'?chair a kbe:Chair.'+\
+				'?backShape a kbe:Shape.'+\
+				'}'
+		# defining a query params 
+		PARAMS = {'update': insertQuery} 
+		r = requests.post(url = URL, data = PARAMS)
+		#Checking the result
+		print("Result of INSERT query:", r.text)
+		'''
 
  
 if __name__ == '__main__':
