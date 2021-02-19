@@ -21,28 +21,58 @@
   <owl:Class rdf:about="http://www.kbe.com/chair_data.owl#Back">
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
   </owl:Class>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasLegSide">
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasLegSide">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Leg"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasShape">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasShape">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Shape"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasSeatSide">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasSeatSide">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Seat"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasLegLength">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasLegLength">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Leg"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasBackHeight">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasBackHeight">
     <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Back"/>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasColor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <rdf:Property rdf:about="http://www.kbe.com/chair_data.owl#hasColor">
+    <rdfs:domain rdf:resource="http://www.kbe.com/chair_data.owl#Chair"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Property>
+  <owl:DatatypeProperty rdf:about="http://www.kbe.com/chair_data.owl#hasMaterial">
     <rdfs:domain rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
     <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
   </owl:DatatypeProperty>
+  <Chair rdf:about="http://www.kbe.com/chair_data.owl#chair_1">
+    <hasMaterial rdf:datatype="http://www.w3.org/2001/XMLSchema#str"
+    >[Gold, Steel]</hasMaterial>
+    <hasColor rdf:datatype="http://www.w3.org/2001/XMLSchema#str"
+    >[RED,BLUE]</hasColor>
+  </Chair>
+  <Leg rdf:about="http://www.kbe.com/chair_data.owl#leg_1">
+    <hasLegSide rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >50</hasLegSide>
+    <hasLegLength rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >1000</hasLegLength>
+  </Leg>
+  <Back rdf:about="http://www.kbe.com/chair_data.owl#back_1">
+    <hasBackHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >1500</hasBackHeight>
+  </Back>
+  <Seat rdf:about="http://www.kbe.com/chair_data.owl#seat_1">
+    <hasSeatSide rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >600</hasSeatSide>
+  </Seat>
+  <Shape rdf:about="http://www.kbe.com/chair_data.owl#shape_1">
+    <hasMaterial rdf:datatype="http://www.w3.org/2001/XMLSchema#str"
+    >[Silver, Wood]</hasMaterial>
+    <hasShape rdf:datatype="http://www.w3.org/2001/XMLSchema#str"
+    >circle</hasShape>
+  </Shape>
 </rdf:RDF>

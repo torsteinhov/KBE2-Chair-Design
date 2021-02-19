@@ -1,98 +1,136 @@
+#HTTP Server template
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
 import time
 import requests
 import json
 
-class feasibilityChecker():
+HOST_NAME = '127.0.0.1' 
+PORT_NUMBER = 4343 # Maybe set this to 1234
 
-    def retrieveManufaqConstrains(self):
-            URL = "http://127.0.0.1:3030/chair/update"
+class feasibilityChecker(BaseHTTPRequestHandler):
 
-            selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
-                        'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
-                        'WHERE'+\
-                        '{'+\
-                        '?back a kbe:Back.'+\
-                        '?back kbe:hasBackHeightMax ?backHeightMax.'+\
-                        '?back kbe:hasBackHeightMin ?backHeightMin.'+\
-                        '?chair a kbe:Chair.'+\
-                        '?chair kbe:hasColor ?chairColor.'+\
-                        '?chair kbe:hasMaterial ?chairMaterial.'+\
-                        '?leg a kbe:Leg.'+\
-                        '?leg kbe:hasLegLengthMax ?legLengthMax.'+\
-                        '?leg kbe:hasLegLengthMin ?legLengthMin.'+\
-                        '?leg kbe:hasLegSideMax ?legSideMax.'+\
-                        '?leg kbe:hasLegSideMin ?legSideMin.'+\
-                        '?shape a kbe:Shape.'+\
-                        '?shape kbe:hasMaterial ?shapeMaterial.'+\
-                        '?shape kbe:hasShape ?backShape.'+\
-                        '?seat a kbe:Seat.'+\
-                        '?seat kbe:hasSeatSideMax ?seatSideMax.'+\
-                        '?seat kbe:hasSeatSideMin ?seatSideMin.'+\
-                        '}'
+    #this need som more work
+    def do_HEAD(s):
+        s.send_response(200)
+        s.send_header("Content-type", "text/html")
+        s.end_headers()
 
-            PARAMS = {'query':selectQuery}
+    def do_GET(s):
+        """Respond to a GET request."""
+        s.send_response(200)
+        s.send_header("Content-type", "text/html")
+        s.end_headers()
+		
+		# Check what is the path
+        path = s.path
+        constraints = s.retrieveManufaqConstrains()
+        #s.wfile.write(bytes("<>", 'utf-8'))
+        if path.find("/") != -1 and len(path) == 1:
+            s.wfile.write(bytes('<html><head><title>Feasibility checker.</title></head>', 'utf-8'))
+            s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
+            s.wfile.write(bytes('</body></html>', "utf-8"))
+            s.wfile.write(bytes('<form action="/checking" method="post">', 'utf-8'))
+            print("inside get")
+            constraints = s.retrieveManufaqConstrains()
+    def do_POST(s):
+        s.send_response(200)
+        s.send_header("Content-type", "text/html")
+        s.end_headers()
+		
+		# Check what is the path
+        path = s.path
+        print("Path: ", path)
+        print("inside post.")
 
-            r = requests.get(url = URL, params = PARAMS)
-            print("r: ",r)
-            data = r.json()
+    def retrieveManufaqConstrains(s):
+        URL = "http://127.0.0.1:3030/chair_design/query"
+        print("insde retriveManufaqConstraints: ")
+        #the new select query added, but not tested
+        selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> '+\
+                    'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
+                    'WHERE'+\
+                    '{'+\
+                    'kbe:back_1 a kbe:Back.'+\
+                    'kbe:back_1 kbe:hasBackHeightMax ?backHeightMax.'+\
+                    'kbe:back_1 kbe:hasBackHeightMin ?backHeightMin.'+\
+                    'kbe:chair_1 a kbe:Chair.'+\
+                    'kbe:chair_1 kbe:hasColor ?chairColor.'+\
+                    'kbe:chair_1 kbe:hasMaterial ?chairMaterial.'+\
+                    'kbe:leg_1 a kbe:Leg.'+\
+                    'kbe:leg_1 kbe:hasLegLengthMax ?legLengthMax.'+\
+                    'kbe:leg_1 kbe:hasLegLengthMin ?legLengthMin.'+\
+                    'kbe:leg_1 kbe:hasLegSideMax ?legSideMax.'+\
+                    'kbe:leg_1 kbe:hasLegSideMin ?legSideMin.'+\
+                    'kbe:shape_1 a kbe:Shape.'+\
+                    'kbe:shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+                    'kbe:shape_1 kbe:hasShape ?backShape.'+\
+                    'kbe:seat_1 a kbe:Seat.'+\
+                    'kbe:seat_1 kbe:hasSeatSideMax ?seatSideMax.'+\
+                    'kbe:seat_1 kbe:hasSeatSideMin ?seatSideMin.'+\
+                    '}'
 
-            #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
-            # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
-            # seatSideMax,seatSideMin]
-            data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
-                        data['results']['bindings'][0]['backHeightMin']['value'],\
-                        data['results']['bindings'][0]['chairColor']['value'],\
-                        data['results']['bindings'][0]['chairMaterial']['value'],\
-                        data['results']['bindings'][0]['legLengthMax']['value'],\
-                        data['results']['bindings'][0]['legLengthMin']['value'],\
-                        data['results']['bindings'][0]['legSideMax']['value'],\
-                        data['results']['bindings'][0]['legSideMin']['value'],\
-                        data['results']['bindings'][0]['shapeMaterial']['value'],\
-                        data['results']['bindings'][0]['backShape']['value'],\
-                        data['results']['bindings'][0]['seatSideMax']['value'],\
-                        data['results']['bindings'][0]['seatSideMin']['value']]
-            
-            return data_pool
+        PARAMS = {'query':selectQuery}
+
+        r = requests.get(url = URL, params = PARAMS)
+        print("r: ",r)
+        data = r.json()
+
+        #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
+        # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
+        # seatSideMax,seatSideMin]
+        data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
+                    data['results']['bindings'][0]['backHeightMin']['value'],\
+                    data['results']['bindings'][0]['chairColor']['value'],\
+                    data['results']['bindings'][0]['chairMaterial']['value'],\
+                    data['results']['bindings'][0]['legLengthMax']['value'],\
+                    data['results']['bindings'][0]['legLengthMin']['value'],\
+                    data['results']['bindings'][0]['legSideMax']['value'],\
+                    data['results']['bindings'][0]['legSideMin']['value'],\
+                    data['results']['bindings'][0]['shapeMaterial']['value'],\
+                    data['results']['bindings'][0]['backShape']['value'],\
+                    data['results']['bindings'][0]['seatSideMax']['value'],\
+                    data['results']['bindings'][0]['seatSideMin']['value']]
+        
+        return data_pool
 
     def retrieveCustomerData(self):
-        #MUST BE MODIFIED FOR CUSTOMER DATA
-        URL = "http://127.0.0.1:3030/chair/update"
+        
+        URL = "http://127.0.0.1:3030/chair_data/query"
+        selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>'+\
+                    'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide'+\
+                    'WHERE'+\
+                    '{'+\
+                    'kbe:back_1 a kbe:Back.'+\
+                    'kbe:back_1 kbe:hasBackHeight ?backHeight.'+\
+                    'kbe:chair_1 a kbe:Chair.'+\
+                    'kbe:chair_1 kbe:hasColor ?chairColor.'+\
+                    'kbe:chair_1 kbe:hasMaterial ?chairMaterial.'+\
+                    'kbe:leg_1 a kbe:Leg.'+\
+                    'kbe:leg_1 kbe:hasLegLength ?legLength.'+\
+                    'kbe:leg_1 kbe:hasLegSide ?legSide.'+\
+                    'kbe:shape_1 a kbe:Shape.'+\
+                    'kbe:shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+                    'kbe:shape_1 kbe:hasShape ?backShape.'+\
+                    'kbe:seat_1 a kbe:Seat.'+\
+                    'kbe:seat_1 kbe:hasSeatSide ?seatSide.'+\
+                    '}'
+        PARAMS = {'query':selectQuery}
 
-            selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
-                        'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?seatSide ?backShape ?shapeMaterial'+\
-                        'WHERE'+\
-                        '{'+\
-                        '?back a kbe:Back.'+\
-                        '?back kbe:hasBackHeight ?backHeight.'+\
-                        '?chair a kbe:Chair.'+\
-                        '?chair kbe:hasColor ?chairColor.'+\
-                        '?chair kbe:hasMaterial ?chairMaterial.'+\
-                        '?leg a kbe:Leg.'+\
-                        '?leg kbe:hasLegLength ?legLength.'+\
-                        '?leg kbe:hasLegSide ?legSide.'+\
-                        '?shape a kbe:Shape.'+\
-                        '?shape kbe:hasMaterial ?shapeMaterial.'+\
-                        '?shape kbe:hasShape ?backShape.'+\
-                        '?seat a kbe:Seat.'+\
-                        '?seat kbe:hasSeatSide ?seatSide.'+\
-                        '}'
+        r = requests.get(url = URL, params = PARAMS)
+        print("r: ",r)
+        data = r.json()
 
-            PARAMS = {'query':selectQuery}
-
-            r = requests.get(url = URL, params = PARAMS)
-            print("r: ",r)
-            data = r.json()
-
-            data_pool_customer = [data['results']['bindings'][0]['backHeight']['value'],\
-                        data['results']['bindings'][0]['chairColor']['value'],\
-                        data['results']['bindings'][0]['chairMaterial']['value'],\
-                        data['results']['bindings'][0]['legLength']['value'],\
-                        data['results']['bindings'][0]['legSide']['value'],\
-                        data['results']['bindings'][0]['shapeMaterial']['value'],\
-                        data['results']['bindings'][0]['backShape']['value'],\
-                        data['results']['bindings'][0]['seatSide']['value']]
-            
-            return data_pool_customer
+        data_pool_customer = [data['results']['bindings'][0]['backHeight']['value'],\
+                    data['results']['bindings'][0]['chairColor']['value'],\
+                    data['results']['bindings'][0]['chairMaterial']['value'],\
+                    data['results']['bindings'][0]['legLength']['value'],\
+                    data['results']['bindings'][0]['legSide']['value'],\
+                    data['results']['bindings'][0]['shapeMaterial']['value'],\
+                    data['results']['bindings'][0]['backShape']['value'],\
+                    data['results']['bindings'][0]['seatSide']['value']]
+        
+        return data_pool_customer
 
     def feasibilityCheck(self):
         #for-loop with list for expandability and KBE-friendly
@@ -120,3 +158,13 @@ class feasibilityChecker():
         else:
             return s.wfile.write(bytes('Not OK', 'utf-8'))
             #print("The parameters given is not accepted")
+
+if __name__ == '__main__':
+	server_class = HTTPServer
+	httpd = server_class((HOST_NAME, PORT_NUMBER), feasibilityChecker)
+	
+	try:
+		httpd.serve_forever()
+	except KeyboardInterrupt:
+		pass
+	httpd.server_close()

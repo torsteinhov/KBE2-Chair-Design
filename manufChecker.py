@@ -210,7 +210,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			
 			#getting the parameter values
 			key_val_pair = param_line.split('&')						#splitting the string at "&"
-			print("key_val_pair: ",key_val_pair)
+			#print("key_val_pair: ",key_val_pair)
 			for i in range(len(key_val_pair)): 						#itterating through the custom_parameter list
 				
 				#taking care of the optionboxes
@@ -228,7 +228,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("production_intz_param: ", production_intz_param)
 
 			#upload data til fuseki
-
 			s.setConstrain(production_intz_param)
 			 
 			s.do_GET()
@@ -237,27 +236,36 @@ class MyHandler(BaseHTTPRequestHandler):
 		URL = "http://127.0.0.1:3030/chair_design/update"
   
 		# Query that deletes previous values.
-		deleteQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
+		deleteQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> '+\
 				'DELETE'+\
-				'{' +\
-				'kbe:chair a kbe:Chair.'+\
-				'kbe:chair ?pred ?obj.'+\
-				'kbe:leg a kbe:Leg.' +\
-				'kbe:leg ?pred ?obj.'+\
-				'kbe:seat a kbe:Seat.'+\
-				'kbe:seat ?pred ?obj.'+\
-				'kbe:back a kbe:Back.'+\
-				'kbe:back ?pred ?obj.'+\
-				'kbe:shape a kbe:Shape.'+\
-				'kba:shape ?pred ?obj.'+\
+				'{'+\
+				'?back_1 kbe:hasBackHeightMax ?backHeightMax.'+\
+				'?back_1 kbe:hasBackHeightMin ?backHeightMin.'+\
+				'?chair_1 kbe:hasColor ?chairColor.'+\
+				'?chair_1 kbe:hasMaterial ?chairMaterial.'+\
+				'?leg_1 kbe:hasLegLengthMax ?legLengthMax.'+\
+				'?leg_1 kbe:hasLegLengthMin ?legLengthMin.'+\
+				'?leg_1 kbe:hasLegSideMax ?legSideMax.'+\
+				'?leg_1 kbe:hasLegSideMin ?legSideMin.'+\
+				'?shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+				'?shape_1 kbe:hasShape ?shape.'+\
+				'?seat_1 kbe:hasSeatSideMax ?seatSideMax.'+\
+				'?seat_1 kbe:hasSeatSideMin ?seatSideMin.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
-				'kbe:chair ?pred ?obj.'+\
-				'kbe:leg ?pred ?obj.'+\
-				'kbe:seat ?pred ?obj.'+\
-				'kbe:back ?pred ?obj.'+\
-				'kba:shape ?pred ?obj.'+\
+				'?back_1 kbe:hasBackHeightMax ?backHeightMax.'+\
+				'?back_1 kbe:hasBackHeightMin ?backHeightMin.'+\
+				'?chair_1 kbe:hasColor ?chairColor.'+\
+				'?chair_1 kbe:hasMaterial ?chairMaterial.'+\
+				'?leg_1 kbe:hasLegLengthMax ?legLengthMax.'+\
+				'?leg_1 kbe:hasLegLengthMin ?legLengthMin.'+\
+				'?leg_1 kbe:hasLegSideMax ?legSideMax.'+\
+				'?leg_1 kbe:hasLegSideMin ?legSideMin.'+\
+				'?shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+				'?shape_1 kbe:hasShape ?shape.'+\
+				'?seat_1 kbe:hasSeatSideMax ?seatSideMax.'+\
+				'?seat_1 kbe:hasSeatSideMin ?seatSideMin.'+\
 				'}'
 
 		PARAMS = {'update': deleteQuery}
@@ -266,29 +274,30 @@ class MyHandler(BaseHTTPRequestHandler):
 		print("Result of DELETE query:", r.text)
 	
 	#WORKING PROCESS QUERY
-		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
+		insertQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
 				'{'+\
-				'?leg kbe:hasLegLengthMax "'+ str(production_intz_param[0])+'"^^xsd:int.'+\
-				'?leg kbe:hasLegLengthMin "'+ str(production_intz_param[1])+'"^^xsd:int.'+\
-				'?leg kbe:hasLegSideMax "'+ str(production_intz_param[2])+'"^^xsd:int.'+\
-				'?leg kbe:hasLegSideMin "'+ str(production_intz_param[3])+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSideMax "'+ str(production_intz_param[4])+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSideMin "'+ str(production_intz_param[5])+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMax "'+ str(production_intz_param[6])+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMin "'+ str(production_intz_param[7])+'"^^xsd:int.'+\
-				'?chair kbe:hasColor "'+ str(production_intz_param[8])+'"^^xsd:str.'+\
-				'?backShape kbe:hasMaterial "'+ str(production_intz_param[9])+'"^^xsd:str.'+\
-				'?chair kbe:hasMaterial "'+ str(production_intz_param[10])+'"^^xsd:str.'+\
+				'?leg_1 kbe:hasLegLengthMax "'+ str(production_intz_param[0])+'"^^xsd:int.'+\
+				'?leg_1 kbe:hasLegLengthMin "'+ str(production_intz_param[1])+'"^^xsd:int.'+\
+				'?leg_1 kbe:hasLegSideMax "'+ str(production_intz_param[2])+'"^^xsd:int.'+\
+				'?leg_1 kbe:hasLegSideMin "'+ str(production_intz_param[3])+'"^^xsd:int.'+\
+				'?seat_1 kbe:hasSeatSideMax "'+ str(production_intz_param[4])+'"^^xsd:int.'+\
+				'?seat_1 kbe:hasSeatSideMin "'+ str(production_intz_param[5])+'"^^xsd:int.'+\
+				'?back_1 kbe:hasBackHeightMax "'+ str(production_intz_param[6])+'"^^xsd:int.'+\
+				'?back_1 kbe:hasBackHeightMin "'+ str(production_intz_param[7])+'"^^xsd:int.'+\
+				'?shape_1 kbe:hasShape "circle"^^xsd:str.'+\
+				'?chair_1 kbe:hasColor "'+ str(production_intz_param[8])+'"^^xsd:str.'+\
+				'?shape_1 kbe:hasMaterial "'+ str(production_intz_param[9])+'"^^xsd:str.'+\
+				'?chair_1 kbe:hasMaterial "'+ str(production_intz_param[10])+'"^^xsd:str.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
-				'?leg a kbe:Leg.'+\
-				'?seat a kbe:Seat.'+\
-				'?back a kbe:Back.'+\
-				'?chair a kbe:Chair.'+\
-				'?backShape a kbe:Shape.'+\
+				'?leg_1 a kbe:Leg.'+\
+				'?seat_1 a kbe:Seat.'+\
+				'?back_1 a kbe:Back.'+\
+				'?chair_1 a kbe:Chair.'+\
+				'?shape_1 a kbe:Shape.'+\
 				'}'
 		# defining a query params 
 		PARAMS = {'update': insertQuery} 

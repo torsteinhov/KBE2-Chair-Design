@@ -1,248 +1,9 @@
-## get data from fuseki
-
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial
-WHERE
-{
-?back a kbe:Back.
-?back kbe:hasBackHeightMax ?backHeightMax.
-?back kbe:hasBackHeightMin ?backHeightMin.
-?chair a kbe:Chair.
-?chair kbe:hasColor ?chairColor.
-?chair kbe:hasMaterial ?chairMaterial.
-?leg a kbe:Leg.
-?leg kbe:hasLegLengthMax ?legLengthMax.
-?leg kbe:hasLegLengthMin ?legLengthMin.
-?leg kbe:hasLegSideMax ?legSideMax.
-?leg kbe:hasLegSideMin ?legSideMin.
-?shape a kbe:Shape.
-?shape kbe:hasMaterial ?shapeMaterial.
-?shape kbe:hasShape ?backShape.
-?seat a kbe:Seat.
-?seat kbe:hasSeatSideMax ?seatSideMax.
-?seat kbe:hasSeatSideMin ?seatSideMin.
-}
-
-#et alternativ
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial
-WHERE
-{
-kbe:back_1 a kbe:Back.
-kbe:back_1 kbe:hasBackHeightMax ?backHeightMax.
-kbe:back_1 kbe:hasBackHeightMin ?backHeightMin.
-kbe:chair_1 a kbe:Chair.
-kbe:chair_1 kbe:hasColor ?chairColor.
-kbe:chair_1 kbe:hasMaterial ?chairMaterial.
-kbe:leg_1 a kbe:Leg.
-kbe:leg_1 kbe:hasLegLengthMax ?legLengthMax.
-kbe:leg_1 kbe:hasLegLengthMin ?legLengthMin.
-kbe:leg_1 kbe:hasLegSideMax ?legSideMax.
-kbe:leg_1 kbe:hasLegSideMin ?legSideMin.
-kbe:shape_1 a kbe:Shape.
-kbe:shape_1 kbe:hasMaterial ?shapeMaterial.
-kbe:shape_1 kbe:hasShape ?backShape.
-kbe:seat_1 a kbe:Seat.
-kbe:seat_1 kbe:hasSeatSideMax ?seatSideMax.
-kbe:seat_1 kbe:hasSeatSideMin ?seatSideMin.
-}
-
-## insert data-value to fuseki
-
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-INSERT
-{
-?leg a kbe:Leg.
-?seat a kbe:Seat.
-?back a kbe:Back.
-?chair a kbe:Chair.
-?backShape a kbe:Shape.
-?leg kbe:hasLegLengthMax "1000"^^xsd:int.
-?leg kbe:hasLegLengthMin "500"^^xsd:int.
-?leg kbe:hasLegSideMax "200"^^xsd:int.
-?leg kbe:hasLegSideMin "50"^^xsd:int.
-?seat kbe:hasSeatSideMax "1000"^^xsd:int.
-?seat kbe:hasSeatSideMin "300"^^xsd:int.
-?back kbe:hasBackHeightMax "1500"^^xsd:int.
-?back kbe:hasBackHeightMin "500"^^xsd:int.
-?chair kbe:hasColor "[RED,BLUE]"^^xsd:str.
-?backShape kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
-?chair kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
-}
-WHERE
-{
-}
-# alt.
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-INSERT
-{
-?leg_1 kbe:hasLegLengthMax "1000"^^xsd:int.
-?leg_1 kbe:hasLegLengthMin "500"^^xsd:int.
-?leg_1 kbe:hasLegSideMax "200"^^xsd:int.
-?leg_1 kbe:hasLegSideMin "50"^^xsd:int.
-?seat_1 kbe:hasSeatSideMax "1000"^^xsd:int.
-?seat_1 kbe:hasSeatSideMin "300"^^xsd:int.
-?back_1 kbe:hasBackHeightMax "1500"^^xsd:int.
-?back_1 kbe:hasBackHeightMin "500"^^xsd:int.
-?chair_1 kbe:hasColor "[RED,BLUE]"^^xsd:str.
-?backShape_1 kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
-?chair_1 kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
-}
-WHERE
-{
-?leg_1 a kbe:Leg.
-?seat_1 a kbe:Seat.
-?back_1 a kbe:Back.
-?chair_1 a kbe:Chair.
-?backShape_1 a kbe:Shape.
-}
-#initialize the instances
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-INSERT
-{
-kbe:leg_1 a kbe:Leg.
-kbe:seat_1 a kbe:Seat.
-kbe:back_1 a kbe:Back.
-kbe:chair_1 a kbe:Chair.
-kbe:backShape_1 a kbe:Shape.
-}
-WHERE
-{}
-
-PREFIX kbe:<http://kbe.com/chair_design.owl#>
-SELECT ?a ?b ?c
-WHERE
-{
-?a ?b ?c.
-}
-################################################
-##Delete query not woeking
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-DELETE
-{
-kbe:chair a kbe:Chair.
-kbe:chair ?pred ?obj.
-kbe:leg a kbe:Leg.
-kbe:leg ?pred ?obj.
-kbe:seat a kbe:Seat.
-kbe:seat ?pred ?obj.
-kbe:back a kbe:Back.
-kbe:back ?pred ?obj.
-kbe:shape a kbe:Shape.
-kba:shape ?pred ?obj.
-}
-WHERE
-{'
-kbe:chair ?pred ?obj.
-kbe:leg ?pred ?obj.
-kbe:seat ?pred ?obj.
-kbe:back ?pred ?obj.
-kba:shape ?pred ?obj.
-}
-
-#Delete query working
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-DELETE
-{
-?back_1 kbe:hasBackHeightMax ?backHeightMax.
-?back_1 kbe:hasBackHeightMin ?backHeightMin.
-
-?chair_1 kbe:hasColor ?chairColor.
-?chair_1 kbe:hasMaterial ?chairMaterial.
-
-?leg_1 kbe:hasLegLengthMax ?legLengthMax.
-?leg_1 kbe:hasLegLengthMin ?legLengthMin.
-?leg_1 kbe:hasLegSideMax ?legSideMax.
-?leg_1 kbe:hasLegSideMin ?legSideMin.
-
-?shape_1 kbe:hasMaterial ?shapeMaterial.
-?shape_1 kbe:hasShape ?backShape.
-
-?seat_1 kbe:hasSeatSideMax ?seatSideMax.
-?seat_1 kbe:hasSeatSideMin ?seatSideMin.
-}
-WHERE
-{
-?back_1 kbe:hasBackHeightMax ?backHeightMax.
-?back_1 kbe:hasBackHeightMin ?backHeightMin.
-
-?chair_1 kbe:hasColor ?chairColor.
-?chair_1 kbe:hasMaterial ?chairMaterial.
-
-?leg_1 kbe:hasLegLengthMax ?legLengthMax.
-?leg_1 kbe:hasLegLengthMin ?legLengthMin.
-?leg_1 kbe:hasLegSideMax ?legSideMax.
-?leg_1 kbe:hasLegSideMin ?legSideMin.
-
-?shape_1 kbe:hasMaterial ?shapeMaterial.
-?shape_1 kbe:hasShape ?backShape.
-
-?seat_1 kbe:hasSeatSideMax ?seatSideMax.
-?seat_1 kbe:hasSeatSideMin ?seatSideMin.
-}
-
-##select query
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial
-WHERE
-{
-kbe:back_1 a kbe:Back.
-kbe:back_1 kbe:hasBackHeightMax ?backHeightMax.
-kbe:back_1 kbe:hasBackHeightMin ?backHeightMin.
-
-kbe:chair_1 a kbe:Chair.
-kbe:chair_1 kbe:hasColor ?chairColor.
-kbe:chair_1 kbe:hasMaterial ?chairMaterial.
-
-kbe:leg_1 a kbe:Leg.
-kbe:leg_1 kbe:hasLegLengthMax ?legLengthMax.
-kbe:leg_1 kbe:hasLegLengthMin ?legLengthMin.
-kbe:leg_1 kbe:hasLegSideMax ?legSideMax.
-kbe:leg_1 kbe:hasLegSideMin ?legSideMin.
-
-kbe:shape_1 a kbe:Shape.
-kbe:shape_1 kbe:hasMaterial ?shapeMaterial.
-kbe:shape_1 kbe:hasShape ?backShape.
-
-kbe:seat_1 a kbe:Seat.
-kbe:seat_1 kbe:hasSeatSideMax ?seatSideMax.
-kbe:seat_1 kbe:hasSeatSideMin ?seatSideMin.
-}
-
-## Insert query for manuf
-PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-INSERT
-{
-?leg_1 kbe:hasLegLengthMax "1000"^^xsd:int.
-?leg_1 kbe:hasLegLengthMin "500"^^xsd:int.
-?leg_1 kbe:hasLegSideMax "200"^^xsd:int.
-?leg_1 kbe:hasLegSideMin "50"^^xsd:int.
-?seat_1 kbe:hasSeatSideMax "1000"^^xsd:int.
-?seat_1 kbe:hasSeatSideMin "300"^^xsd:int.
-?back_1 kbe:hasBackHeightMax "1500"^^xsd:int.
-?back_1 kbe:hasBackHeightMin "500"^^xsd:int.
-?chair_1 kbe:hasColor "[RED,BLUE]"^^xsd:str.
-?shape_1 kbe:hasShape "circle"^^xsd:str.
-?shape_1 kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
-?chair_1 kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
-}
-WHERE
-{
-?leg_1 a kbe:Leg.
-?seat_1 a kbe:Seat.s
-?back_1 a kbe:Back.
-?chair_1 a kbe:Chair.
-?backShape_1 a kbe:Shape.
-}
-
 #######################################3
 ##########################################
 !!Dette fungerer!!
 
 #Delete
+#This delete, only deletes the properties of the instanses with the given names, not the instances them selfs.
 PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
 DELETE
 {
@@ -283,7 +44,8 @@ WHERE
 ?seat_1 kbe:hasSeatSideMin ?seatSideMin.
 }
 
-#Insert
+#Insert.
+#This only inserts properties and does not make new instances.
 PREFIX kbe:<http://www.kbe.com/chair_design.owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 INSERT
@@ -336,4 +98,84 @@ kbe:shape_1 kbe:hasShape ?backShape.
 kbe:seat_1 a kbe:Seat.
 kbe:seat_1 kbe:hasSeatSideMax ?seatSideMax.
 kbe:seat_1 kbe:hasSeatSideMin ?seatSideMin.
+}
+
+##################################################
+##################################################
+
+#Select query for the customers order
+PREFIX kbe:<http://www.kbe.com/chair_data.owl#>
+SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide
+WHERE
+{
+kbe:back_1 a kbe:Back.
+kbe:back_1 kbe:hasBackHeight ?backHeight.
+
+kbe:chair_1 a kbe:Chair.
+kbe:chair_1 kbe:hasColor ?chairColor.
+kbe:chair_1 kbe:hasMaterial ?chairMaterial.
+
+kbe:leg_1 a kbe:Leg.
+kbe:leg_1 kbe:hasLegLength ?legLength.
+kbe:leg_1 kbe:hasLegSide ?legSide.
+
+kbe:shape_1 a kbe:Shape.
+kbe:shape_1 kbe:hasMaterial ?shapeMaterial.
+kbe:shape_1 kbe:hasShape ?backShape.
+kbe:seat_1 a kbe:Seat.
+kbe:seat_1 kbe:hasSeatSide ?seatSide.
+}
+
+#DELETE query for customer order
+PREFIX kbe:<http://www.kbe.com/chair_data.owl#>
+DELETE
+{
+?back_1 kbe:hasBackHeight ?backHeight.
+
+?chair_1 kbe:hasColor ?chairColor.
+?chair_1 kbe:hasMaterial ?chairMaterial.
+
+?leg_1 kbe:hasLegLength ?legLength.
+?leg_1 kbe:hasLegSide ?legSide.
+
+?shape_1 kbe:hasMaterial ?shapeMaterial.
+?shape_1 kbe:hasShape ?shape.
+?seat_1 kbe:hasSeatSide ?seatSide.
+}
+WHERE
+{
+?back_1 kbe:hasBackHeight ?backHeight.
+
+?chair_1 kbe:hasColor ?chairColor.
+?chair_1 kbe:hasMaterial ?chairMaterial.
+
+?leg_1 kbe:hasLegLength ?legLength.
+?leg_1 kbe:hasLegSide ?legSide.
+
+?shape_1 kbe:hasMaterial ?shapeMaterial.
+?shape_1 kbe:hasShape ?shape.
+?seat_1 kbe:hasSeatSide ?seatSide.
+}
+
+#Insert query for customer parameters
+PREFIX kbe:<http://www.kbe.com/chair_data.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+INSERT
+{
+?leg_1 kbe:hasLegLength "1000"^^xsd:int.
+?leg_1 kbe:hasLegSide "50"^^xsd:int.
+?seat_1 kbe:hasSeatSide "600"^^xsd:int.
+?back_1 kbe:hasBackHeight "1500"^^xsd:int.
+?chair_1 kbe:hasColor "[RED,BLUE]"^^xsd:str.
+?shape_1 kbe:hasShape "circle"^^xsd:str.
+?shape_1 kbe:hasMaterial "[Silver, Wood]"^^xsd:str.
+?chair_1 kbe:hasMaterial "[Gold, Steel]"^^xsd:str.
+}
+WHERE
+{
+?leg_1 a kbe:Leg.
+?seat_1 a kbe:Seat.
+?back_1 a kbe:Back.
+?chair_1 a kbe:Chair.
+?shape_1 a kbe:Shape.
 }

@@ -282,27 +282,28 @@ class MyHandler(BaseHTTPRequestHandler):
 		URL = "http://127.0.0.1:3030/chair_data/update"
   
 		# Query that deletes previous values.
-		deleteQuery = 'PREFIX kbe:<http://kbe.com/chair_data.owl#> '+\
+		deleteQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#> '+\
 				'DELETE'+\
 				'{' +\
-				'kbe:chair a kbe:Chair.'+\
-				'kbe:chair ?pred ?obj.'+\
-				'kbe:leg a kbe:Leg.' +\
-				'kbe:leg ?pred ?obj.'+\
-				'kbe:seat a kbe:Seat.'+\
-				'kbe:seat ?pred ?obj.'+\
-				'kbe:back a kbe:Back.'+\
-				'kbe:back ?pred ?obj.'+\
-				'kbe:shape a kbe:Shape.'+\
-				'kba:shape ?pred ?obj.'+\
+				'?back_1 kbe:hasBackHeight ?backHeight.'+\
+				'?chair_1 kbe:hasColor ?chairColor.'+\
+				'?chair_1 kbe:hasMaterial ?chairMaterial.' +\
+				'?leg_1 kbe:hasLegLength ?legLength.'+\
+				'?leg_1 kbe:hasLegSide ?legSide.'+\
+				'?shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+				'?shape_1 kbe:hasShape ?shape.'+\
+				'?seat_1 kbe:hasSeatSide ?seatSide.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
-				'kbe:chair ?pred ?obj.'+\
-				'kbe:leg ?pred ?obj.'+\
-				'kbe:seat ?pred ?obj.'+\
-				'kbe:back ?pred ?obj.'+\
-				'kba:shape ?pred ?obj.'+\
+				'?back_1 kbe:hasBackHeight ?backHeight.'+\
+				'?chair_1 kbe:hasColor ?chairColor.'+\
+				'?chair_1 kbe:hasMaterial ?chairMaterial.' +\
+				'?leg_1 kbe:hasLegLength ?legLength.'+\
+				'?leg_1 kbe:hasLegSide ?legSide.'+\
+				'?shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+				'?shape_1 kbe:hasShape ?shape.'+\
+				'?seat_1 kbe:hasSeatSide ?seatSide.'+\
 				'}'
 
 		PARAMS = {'update': deleteQuery}
@@ -313,26 +314,26 @@ class MyHandler(BaseHTTPRequestHandler):
 	#WORKING PROCESS QUERY
 	#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, 
 	# back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
-		insertQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#>' +\
+		insertQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
 				'{'+\
-				'?leg kbe:hasLegLength "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
-				'?leg kbe:hasLegSide "'+ str(custom_parameters[1])+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSide "'+ str(custom_parameters[2])+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeight "'+ str(custom_parameters[3])+'"^^xsd:int.'+\
-				'?shape kbe:hasShape "'+ str(custom_parameters[4])+'"^^xsd:str.'+\
-				'?chair kbe:hasColor "'+ str(custom_parameters[5])+'"^^xsd:str.'+\
-				'?shape kbe:hasMaterial "'+ str(custom_parameters[6])+'"^^xsd:int.'+\
-				'?chair kbe:hasMaterial "'+ str(custom_parameters[7])+'"^^xsd:int.'+\
+				'?leg_1 kbe:hasLegLength "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
+				'?leg_1 kbe:hasLegSide "'+ str(custom_parameters[1])+'"^^xsd:int.'+\
+				'?seat_1 kbe:hasSeatSide "'+ str(custom_parameters[2])+'"^^xsd:int.'+\
+				'?back_1 kbe:hasBackHeight "'+ str(custom_parameters[3])+'"^^xsd:int.'+\
+				'?shape_1 kbe:hasShape "'+ str(custom_parameters[4])+'"^^xsd:str.'+\
+				'?chair_1 kbe:hasColor "'+ str(custom_parameters[5])+'"^^xsd:str.'+\
+				'?shape_1 kbe:hasMaterial "'+ str(custom_parameters[6])+'"^^xsd:int.'+\
+				'?chair_1 kbe:hasMaterial "'+ str(custom_parameters[7])+'"^^xsd:int.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
-				'?leg a kbe:Leg.'+\
-				'?seat a kbe:Seat.'+\
-				'?back a kbe:Back.'+\
-				'?chair a kbe:Chair.'+\
-				'?backShape a kbe:Shape.'+\
+				'?leg_1 a kbe:Leg.'+\
+				'?seat_1 a kbe:Seat.'+\
+				'?back_1 a kbe:Back.'+\
+				'?chair_1 a kbe:Chair.'+\
+				'?shape_1 a kbe:Shape.'+\
 				'}'
 		# defining a query params 
 		PARAMS = {'update': insertQuery} 
