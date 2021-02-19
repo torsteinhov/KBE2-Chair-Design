@@ -12,7 +12,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -207,9 +207,9 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
-			productionConstrains = s.retrieveManufaqConstrains()
+			s.uploadData(custom_parameters)
 
-			print("PRODUCTION CONSTRAINS: ",productionConstrains)
+			print("linje 212")
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
 			url = 'http://127.0.0.1:4321/orderChair'
@@ -321,13 +321,10 @@ class MyHandler(BaseHTTPRequestHandler):
 				'?leg kbe:hasLegSide "'+ str(custom_parameters[1])+'"^^xsd:int.'+\
 				'?seat kbe:hasSeatSide "'+ str(custom_parameters[2])+'"^^xsd:int.'+\
 				'?back kbe:hasBackHeight "'+ str(custom_parameters[3])+'"^^xsd:int.'+\
-				'?shape kbe:hasShape "'+ str(custom_parameters[4])+'"^^xsd:int.'+\
-				'?seat kbe:hasSeatSideMin "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMax "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
-				'?back kbe:hasBackHeightMin "'+ str(custom_parameters[0])+'"^^xsd:int.'+\
-				'?chair kbe:hasColor "'+ str(production_intz_param[8])+'"^^xsd:str.'+\
-				'?backShape kbe:hasMaterial "'+ str(production_intz_param[9])+'"^^xsd:str.'+\
-				'?chair kbe:hasMaterial "'+ str(production_intz_param[10])+'"^^xsd:str.'+\
+				'?shape kbe:hasShape "'+ str(custom_parameters[4])+'"^^xsd:str.'+\
+				'?chair kbe:hasColor "'+ str(custom_parameters[5])+'"^^xsd:str.'+\
+				'?shape kbe:hasMaterial "'+ str(custom_parameters[6])+'"^^xsd:int.'+\
+				'?chair kbe:hasMaterial "'+ str(custom_parameters[7])+'"^^xsd:int.'+\
 				'}'+\
 				'WHERE'+\
 				'{'+\
@@ -342,8 +339,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		r = requests.post(url = URL, data = PARAMS)
 		#Checking the result
 		print("Result of INSERT query:", r.text)
-		'''
-
  
 if __name__ == '__main__':
 	server_class = HTTPServer

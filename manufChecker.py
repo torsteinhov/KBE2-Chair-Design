@@ -230,27 +230,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			#upload data til fuseki
 
 			s.setConstrain(production_intz_param)
-			"""
-			# we agree that this should be in the dfaServer.py?
-			#for-loop with list for expandability and KBE-friendly
-			production_intz_param = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
-			flagOK = False
-			if(production_intz_param[0] > leg_lengthLow) and (production_intz_param[0] < leg_lengthUp):
-				if (production_intz_param[1] > leg_sideLow) and (production_intz_param[1] < leg_sideUp):
-					if (production_intz_param[2] > seat_sideLow) and (production_intz_param[2] < leg_sideUp):
-						if (production_intz_param[3] > back_heightLow) and (production_intz_param[3]< back_heightUp):
-							if production_intz_param[4] in chair_color:
-								if production_intz_param[5] in back_shape_material:
-									if production_intz_param[6] in chair_material:
-										if materialCalculation(production_intz_param[7]):
-											s.wfile.write(bytes('OK','utf-8'))
-											print("The parameters are accepted")
-											flagOK = True
-			else:
-				s.wfile.write(bytes('Not OK', 'utf-8'))
-				print("The parameters given is not accepted")
-			"""
-
 			 
 			s.do_GET()
 

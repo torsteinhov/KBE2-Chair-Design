@@ -56,29 +56,25 @@ class feasibilityChecker():
 
     def retrieveCustomerData(self):
         #MUST BE MODIFIED FOR CUSTOMER DATA
-        '''URL = "http://127.0.0.1:3030/chair/update"
+        URL = "http://127.0.0.1:3030/chair/update"
 
             selectQuery = 'PREFIX kbe:<http://kbe.com/chair_design.owl#> '+\
-                        'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
+                        'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?seatSide ?backShape ?shapeMaterial'+\
                         'WHERE'+\
                         '{'+\
                         '?back a kbe:Back.'+\
-                        '?back kbe:hasBackHeightMax ?backHeightMax.'+\
-                        '?back kbe:hasBackHeightMin ?backHeightMin.'+\
+                        '?back kbe:hasBackHeight ?backHeight.'+\
                         '?chair a kbe:Chair.'+\
                         '?chair kbe:hasColor ?chairColor.'+\
                         '?chair kbe:hasMaterial ?chairMaterial.'+\
                         '?leg a kbe:Leg.'+\
-                        '?leg kbe:hasLegLengthMax ?legLengthMax.'+\
-                        '?leg kbe:hasLegLengthMin ?legLengthMin.'+\
-                        '?leg kbe:hasLegSideMax ?legSideMax.'+\
-                        '?leg kbe:hasLegSideMin ?legSideMin.'+\
+                        '?leg kbe:hasLegLength ?legLength.'+\
+                        '?leg kbe:hasLegSide ?legSide.'+\
                         '?shape a kbe:Shape.'+\
                         '?shape kbe:hasMaterial ?shapeMaterial.'+\
                         '?shape kbe:hasShape ?backShape.'+\
                         '?seat a kbe:Seat.'+\
-                        '?seat kbe:hasSeatSideMax ?seatSideMax.'+\
-                        '?seat kbe:hasSeatSideMin ?seatSideMin.'+\
+                        '?seat kbe:hasSeatSide ?seatSide.'+\
                         '}'
 
             PARAMS = {'query':selectQuery}
@@ -87,9 +83,6 @@ class feasibilityChecker():
             print("r: ",r)
             data = r.json()
 
-            #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
-            # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
-            # seatSideMax,seatSideMin]
             data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
                         data['results']['bindings'][0]['backHeightMin']['value'],\
                         data['results']['bindings'][0]['chairColor']['value'],\
@@ -104,7 +97,6 @@ class feasibilityChecker():
                         data['results']['bindings'][0]['seatSideMin']['value']]
             
             return data_pool
-            '''
 
     def feasibilityCheck(self):
         """
