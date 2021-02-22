@@ -223,7 +223,7 @@ class MyHandler(BaseHTTPRequestHandler):
 					if ' ' in key_val_pair[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
 						production_intz_param[10] = key_val_pair[i].split('=')[1].split(" ")[0] #spliting to get rid of it ^
 				else:
-					production_intz_param[i] = int(key_val_pair[i].split('=')[1])		#spliting at "=" to only get the value
+					production_intz_param[i] = int(key_val_pair[i].split('=')[1])		#splitting at "=" to only get the value
 				
 			print("production_intz_param: ", production_intz_param)
 
