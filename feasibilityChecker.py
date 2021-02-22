@@ -5,8 +5,18 @@ import time
 import requests
 import json
 
+#usikker på om de to neste linjene er nødvedig!
 HOST_NAME = '127.0.0.1' 
 PORT_NUMBER = 4343 # Maybe set this to 1234
+
+# This is suppose to get a signal when a new chair is uploaded
+# this should be happening in a time interval
+url = 'http://127.0.0.1:4321/yourOrder'
+			
+    x = requests.get(url, data = '')
+
+    if x.text.find("Update succeeded"):
+        feasibilityCheck()
 
 class feasibilityChecker(BaseHTTPRequestHandler):
 
@@ -24,13 +34,13 @@ class feasibilityChecker(BaseHTTPRequestHandler):
 		
 		# Check what is the path
         path = s.path
-        constraints = s.retrieveManufaqConstrains()
+        #constraints = s.retrieveManufaqConstrains()
         #s.wfile.write(bytes("<>", 'utf-8'))
-        if path.find("/") != -1 and len(path) == 1:
-            s.wfile.write(bytes('<html><head><title>Feasibility checker.</title></head>', 'utf-8'))
-            s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
-            s.wfile.write(bytes('</body></html>', "utf-8"))
-            s.wfile.write(bytes('<form action="/checking" method="post">', 'utf-8'))
+        if path.find("/parametersSet") != -1 and len(path) == 1:
+            #s.wfile.write(bytes('<html><head><title>Feasibility checker.</title></head>', 'utf-8'))
+            #s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
+            #s.wfile.write(bytes('</body></html>', "utf-8"))
+            #s.wfile.write(bytes('<form action="/checking" method="post">', 'utf-8'))
             print("inside get")
             constraints = s.retrieveManufaqConstrains()
     def do_POST(s):
@@ -95,7 +105,7 @@ class feasibilityChecker(BaseHTTPRequestHandler):
         return data_pool
 
     def retrieveCustomerData(self):
-        
+
         URL = "http://127.0.0.1:3030/chair_data/query"
         selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>'+\
                     'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide'+\
