@@ -156,7 +156,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
 			
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
-			s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
+			#s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
 			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 		
