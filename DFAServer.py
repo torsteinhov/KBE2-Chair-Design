@@ -1,7 +1,7 @@
 #HTTP Server template
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-
+from feasibilityChecker import feasibilityCheck
 import time
 import requests
 import json
@@ -12,7 +12,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -32,6 +32,7 @@ pnumber1 = "phone number"
 
 custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
 print_order = "Hei på deg, dette fungerer ikke."
+resultQuery = False
 
 # Handler of HTTP requests / responses
 class MyHandler(BaseHTTPRequestHandler):
@@ -46,6 +47,7 @@ class MyHandler(BaseHTTPRequestHandler):
 	def do_GET(s):
 
 		global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1, print_order
+		global resultQuery
 		"""Respond to a GET request."""
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -154,8 +156,37 @@ class MyHandler(BaseHTTPRequestHandler):
 		elif path.find("/yourOrder") != -1:
 			s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
-			
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
+			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
+			
+			print("Trying to post update succeeded to the feasibilityChecker.")
+
+			url = 'http://127.0.0.1:1234/yourOrder'
+			if resultQuery:
+				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
+				#x = requests.post(url, data = 'Update succeeded')
+				flagOK = feasibilityCheck()
+				if flagOK:
+					print("The customers order is OK")
+					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
+				else:
+					print("The given parameters form the customer is not valid.")
+					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
+
+				"""
+				time.sleep(5) # wait for a few seconds
+				x = requests.get(url) #reciving ok/not ok
+				if x.text.find("NOT OK"):
+					print("The given parameters form the customer is not valid.")
+					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
+				else: #if x.text.find("OK"):
+					print("The customers order is OK")
+					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
+				"""
+				#wait for 5 sec and set resultQuery to false again
+			#print("result of sending the update message: ", x.text)
+			
+
 			#s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
 			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
@@ -172,7 +203,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			
 	def do_POST(s):
 		#allowing us to eddit the custom parameters
-		global custom_parameters
+		global custom_parameters, resultQuery
 
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -207,7 +238,8 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += str(custom_parameters[i])
 				print_order += ", "
 
-			s.uploadData(custom_parameters)
+			resultQuery = s.uploadData(custom_parameters)
+			print("Result query: ", resultQuery)
 
 			print("linje 212")
 			# sjekk om dette går an å produseres mot manufChecker
@@ -310,8 +342,10 @@ class MyHandler(BaseHTTPRequestHandler):
 		# sending get request and saving the response as response object 
 		r = requests.post(url = URL, data = PARAMS)
 		print("Result of DELETE query:", r.text)
-	
-	#WORKING PROCESS QUERY
+		resultDelete = False
+		if r.text.find("Update succeeded"):
+			resultDelete =  True
+
 	#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, 
 	# back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
 		insertQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>' +\
@@ -340,6 +374,14 @@ class MyHandler(BaseHTTPRequestHandler):
 		r = requests.post(url = URL, data = PARAMS)
 		#Checking the result
 		print("Result of INSERT query:", r.text)
+		resultInsert = False
+		if r.text.find("Update succeeded"):
+			resultInsert = True
+		
+		if (resultInsert and resultDelete):
+			return True
+		else:
+			return False
  
 if __name__ == '__main__':
 	server_class = HTTPServer

@@ -30,11 +30,7 @@ chair_material = [] #a list with avaliable matrials
 # putting the constraints from the manufacturing department into a list
 production_intz_param = [leg_lengthMax, leg_lengthMin, leg_sideMax, leg_sideMin, seat_sideMax, seat_sideMin, back_heightMax, back_heightMin, chair_color,back_shape_material, chair_material]
 
-def materialCalculation(numbers):
-    #should check the materials needed for production
-	#based on product volume
-	#not developed for this case but expandable for further development.
-    return True #but for now
+
 
     
 # Handler of HTTP requests / responses
@@ -273,7 +269,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		r = requests.post(url = URL, data = PARAMS)
 		print("Result of DELETE query:", r.text)
 	
-	#WORKING PROCESS QUERY
 		insertQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
