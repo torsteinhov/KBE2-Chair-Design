@@ -16,6 +16,7 @@ def materialCalculation(numbers):
     return True #but for now
 
 def retrieveManufaqConstrains():
+    print("Vi er inne i retrieveManufaqConstrains")
     URL = "http://127.0.0.1:3030/chair_design/query"
     print("insde retriveManufaqConstraints: ")
     #the new select query added, but not tested
@@ -45,7 +46,7 @@ def retrieveManufaqConstrains():
     PARAMS = {'query':selectQuery}
 
     r = requests.get(url = URL, params = PARAMS)
-    print("r: ", r.text)
+    print("ManuFaqConstrains r: ", r.text)
     data = r.json()
     print("JSON: ", data)
 
@@ -68,8 +69,8 @@ def retrieveManufaqConstrains():
     return data_pool
 
 def retrieveCustomerData():
-
-    URL = "http://127.0.0.1:3030/chair_design/query"
+    print("Vi er inne i retrieveCustomerData")
+    URL = "http://127.0.0.1:3030/chair_data/query"
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>'+\
                 'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide'+\
                 'WHERE'+\
@@ -89,9 +90,8 @@ def retrieveCustomerData():
                 'kbe:seat_1 kbe:hasSeatSide ?seatSide.'+\
                 '}'
     PARAMS = {'query': selectQuery}
-
     r = requests.get(url = URL, params = PARAMS)
-    print("r: ",r.text)
+    print("CustomerData r: ",r.text)
     data = r.json()
     print("JSON: ", data)
 

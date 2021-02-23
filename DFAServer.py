@@ -12,7 +12,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Aashild #must be changed after whom is using it
+yourLocation = Torstein #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -166,6 +166,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
 				#x = requests.post(url, data = 'Update succeeded')
 				flagOK = feasibilityCheck()
+				print(flagOK)
 				if flagOK:
 					print("The customers order is OK")
 					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
