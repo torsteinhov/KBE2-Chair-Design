@@ -21,7 +21,7 @@ def retrieveManufaqConstrains():
     print("insde retriveManufaqConstraints: ")
     #the new select query added, but not tested
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> '+\
-                'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial'+\
+                'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial '+\
                 'WHERE'+\
                 '{'+\
                 '?back_1 a kbe:Back.'+\
@@ -51,7 +51,7 @@ def retrieveManufaqConstrains():
     tull = requests.get(url = URL, params = PARAMS)
     print("ManuFaqConstrains r: ", tull.text)
     data = tull.json()
-    print("JSON: ", data['results']['bindings'][0]['data']['value'])
+    #print("JSON: "+ data['results']['bindings'][0]['data']['value'])
 
     #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
     # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
@@ -75,22 +75,22 @@ def retrieveCustomerData():
     print("Vi er inne i retrieveCustomerData")
     URL = "http://127.0.0.1:3030/chair_data/query"
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>'+\
-                'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide'+\
+                'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide '+\
                 'WHERE'+\
                 '{'+\
-                'kbe:back_1 a kbe:Back.'+\
-                'kbe:back_1 kbe:hasBackHeight ?backHeight.'+\
-                'kbe:chair_1 a kbe:Chair.'+\
-                'kbe:chair_1 kbe:hasColor ?chairColor.'+\
-                'kbe:chair_1 kbe:hasMaterial ?chairMaterial.'+\
-                'kbe:leg_1 a kbe:Leg.'+\
-                'kbe:leg_1 kbe:hasLegLength ?legLength.'+\
-                'kbe:leg_1 kbe:hasLegSide ?legSide.'+\
-                'kbe:shape_1 a kbe:Shape.'+\
-                'kbe:shape_1 kbe:hasMaterial ?shapeMaterial.'+\
-                'kbe:shape_1 kbe:hasShape ?backShape.'+\
-                'kbe:seat_1 a kbe:Seat.'+\
-                'kbe:seat_1 kbe:hasSeatSide ?seatSide.'+\
+                '?back_1 a kbe:Back.'+\
+                '?back_1 kbe:hasBackHeight ?backHeight.'+\
+                '?chair_1 a kbe:Chair.'+\
+                '?chair_1 kbe:hasColor ?chairColor.'+\
+                '?chair_1 kbe:hasMaterial ?chairMaterial.'+\
+                '?leg_1 a kbe:Leg.'+\
+                '?leg_1 kbe:hasLegLength ?legLength.'+\
+                '?leg_1 kbe:hasLegSide ?legSide.'+\
+                '?shape_1 a kbe:Shape.'+\
+                '?shape_1 kbe:hasMaterial ?shapeMaterial.'+\
+                '?shape_1 kbe:hasShape ?backShape.'+\
+                '?seat_1 a kbe:Seat.'+\
+                '?seat_1 kbe:hasSeatSide ?seatSide.'+\
                 '}'
     PARAMS = {'query': selectQuery}
     tull = requests.get(url = URL, params = PARAMS)
@@ -328,4 +328,4 @@ if __name__ == '__main__':
 	httpd.server_close()
 """
 
-retrieveManufaqConstrains()
+#retrieveManufaqConstrains()
