@@ -11,5 +11,5 @@ We made an interface accessible from the web, where customers was able to input 
 
 <h3>Architecture</h3>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/77832956/105688941-786a4f00-5efa-11eb-907e-b2eef25465d9.png">
+<img src="https://user-images.githubusercontent.com/77832956/109137207-3b8fb300-7759-11eb-8047-7cb75d5b3a0a.png">
 </p>
