@@ -9,6 +9,14 @@ We made an interface accessible from the web, where customers was able to input 
 <img src="https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png">
 </p>
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77832956/109148115-19e8f880-7766-11eb-8281-2f0703df2a68.png">
+</p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77832956/109148115-19e8f880-7766-11eb-8281-2f0703df2a68.png">
+</p>
+
 <h2>Architecture</h2>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/77832956/109137207-3b8fb300-7759-11eb-8047-7cb75d5b3a0a.png">
