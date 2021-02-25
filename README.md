@@ -4,14 +4,9 @@ engineering knowledge, with the final goal of reducing time and costs of product
 
 We made an interface accessible from the web, where customers was able to input wanted dimensions and production engineers could input production limitations. Based on the input, the data is sent to a template DFA file and updated to be displayed in Siemens NX. The project had the goal of automating a process by enabling multiple systems and making them interract with eachother.
 
-<h2>Product render</h2>
-<p align="center">
-<img src="https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png">
-</p>
-
-   Example with circle shape  |  Example with cross shape
-:----------------------------:|:----------------------------:
-![](https://user-images.githubusercontent.com/77832956/109148115-19e8f880-7766-11eb-8281-2f0703df2a68.png)  |  ![](https://user-images.githubusercontent.com/77832956/109148159-2705e780-7766-11eb-8c0c-71c2c576eb49.png)
+   Example with circle shape  |  Example with cross shape   |  Example with rectangle shape    
+:----------------------------:|:----------------------------:|:----------------------------:
+![](https://user-images.githubusercontent.com/77832956/109148115-19e8f880-7766-11eb-8281-2f0703df2a68.png)  |  ![](https://user-images.githubusercontent.com/77832956/109148159-2705e780-7766-11eb-8c0c-71c2c576eb49.png)   |   ![](https://user-images.githubusercontent.com/77832956/107939730-6d4d9080-6f87-11eb-8647-1d85c32ee681.png)
 
 <h2>Architecture</h2>
 <p align="center">
