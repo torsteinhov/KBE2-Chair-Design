@@ -14,7 +14,7 @@ We made an interface accessible from the web, where customers was able to input 
 </p>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/77832956/109148115-19e8f880-7766-11eb-8281-2f0703df2a68.png">
+<img src="https://user-images.githubusercontent.com/77832956/109148159-2705e780-7766-11eb-8c0c-71c2c576eb49.png">
 </p>
 
 <h2>Architecture</h2>
