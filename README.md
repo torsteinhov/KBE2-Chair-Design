@@ -39,9 +39,7 @@ ontology through the setConstrain method.**
 
 <h3>feasibilityChecker.py</h3>
 
-**An extension of DFAServer.py. For further development we would like to make this an independent script that posts data to DFAServer, as current version stands now, 
-all functionality could have been in DFAServer.py.
-Retrieves user data and manufacturing constrains from two separate Fuseki servers and checks that the given customer input is within the constrain interval set by the
+**Retrieves user data and manufacturing constrains from two separate Fuseki servers and checks that the given customer input is within the constrain interval set by the
 manufacturer. Sends an approved or not approved signal to DFAServer regarding manufacturing.**
 
 | Method | Functionality |
@@ -50,3 +48,11 @@ manufacturer. Sends an approved or not approved signal to DFAServer regarding ma
 | retrieveManufaqConstrains | Sends get request to Fuseki, chair_kbe ontology, to retrieve manufacturing constrains from database. |
 | retrieveCustomerData | Sends get request to Fuseki, chair_data ontology, to retrieve customer data from database. |
 | feasibilityCheck | Brain behind this script, checks the customer data up against the manufacturing constrains intervals, return a boolean value. |
+
+
+<h2>Further development</h2>
+
+We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
+design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
+The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.). Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
+and scaled for bigger usage.
