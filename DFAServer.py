@@ -12,7 +12,7 @@ PORT_NUMBER = 1234 # Maybe set this to 1234
 Torstein = "C:\\Kode\\GitHub\\KBE2\\KBE2\\" #location
 Aashild = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\assig1\\KBE2-Chair-Design\\" #location
 #yourLocation = "C:\\Users\\Hilde\\OneDrive - NTNU\\Fag\\KBE2\\DFAs" #this must be changed
-yourLocation = Torstein #must be changed after whom is using it
+yourLocation = Aashild #must be changed after whom is using it
 
 #definfing parameters to be changed by the custommer
 leg_length1 = "leg length"
@@ -31,7 +31,7 @@ email1 = "e-mail"
 pnumber1 = "phone number"
 
 custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
-print_order = "Hei på deg, dette fungerer ikke."
+
 resultQuery = False
 
 # Handler of HTTP requests / responses
@@ -63,16 +63,18 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
 		elif path.find("/orderChair") != -1:
+			s.send_response(200)
+			s.send_header("Content-type", "text/html")
+			s.end_headers()
 			s.wfile.write(bytes("<!DOCTYPE html><html><head>", 'utf-8'))
 			s.wfile.write(bytes("<title>Chair Design</title>", 'utf-8'))
-			s.wfile.write(bytes("</head><body style="'background-color:orange;'">", 'utf-8'))
+			s.wfile.write(bytes("</head><body style="'background-color:#DCFBCC;'">", 'utf-8'))
 			s.wfile.write(bytes("<h1>Product details</h1>", 'utf-8'))
 			s.wfile.write(bytes("<p>Welcome to our chair company. Here you can customize a chair for your home!</p>", 'utf-8'))
 			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
 
-			#unsecure about next line, we need to figure out what it does and what we need
 			s.wfile.write(bytes("<form action='/yourOrder' method='post'>", 'utf-8'))
-
+			
 			#starting with the inputs
 			s.wfile.write(bytes("<label for='leg_length'>Length of the legs [cm]:</label><br>", 'utf-8'))
 			s.wfile.write(bytes("<input type='text' id='leg_length' name='leg_length' value=" + str(leg_length1) +"><br><br>", 'utf-8'))
@@ -151,25 +153,29 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<input type='submit' value='Submit'></p>", 'utf-8'))
 			s.wfile.write(bytes("<p>Click 'Save' to save your design for later:", 'utf-8'))
 			s.wfile.write(bytes("<input type='submit' value='Save'>", 'utf-8'))
-			s.wfile.write(bytes("</p></form> </body></html>", 'utf-8'))
+			s.wfile.write(bytes("</p>", 'utf-8'))
+			s.wfile.write(bytes('</form>', 'utf-8'))
+			s.wfile.write(bytes('</body></html>', 'utf-8'))
+
+		elif path.find("/chair_square.png") != -1:
+			#Make right headers
+			s.send_response(200)
+			s.send_header("Content-type", "image/png")
+			s.end_headers()
+			#Read the file
+			#Write file.
+			bReader = open(yourLocation +"chair_square.png", "rb")
+			theImg = bReader.read()
+			#print(theImg)
+			s.wfile.write(theImg)
 			
 		elif path.find("/yourOrder") != -1:
-			s.wfile.write(bytes('<html><body><h2>Chair</h2>', 'utf-8'))
+			s.wfile.write(bytes('<html><bodystyle="background-color:#DCFBCC;"><h2>Chair</h2>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
-			
-			
-
-			#s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
-			#s.wfile.write(bytes('<input type="submit" value="Submit">', 'utf-8'))
 			s.wfile.write(bytes('</form></body></html>', 'utf-8'))
 		
-		#s.wfile.write(bytes("", 'utf-8'))
-		#s.wfile.write(bytes("", 'utf-8'))
-
-		#s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
-		#s.wfile.write(bytes('</body></html>', "utf-8"))
 		elif path.find("/info") != -1:
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title><meta http-equiv="refresh" content="3"></head>', 'utf-8'))
 			s.wfile.write(bytes("<body><p>Info: Hello!.</p>" + str(i), "utf-8"))

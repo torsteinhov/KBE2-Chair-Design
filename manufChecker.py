@@ -61,8 +61,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
 		elif path.find("/setParams") != -1:
-
-			s.wfile.write(bytes("<!DOCTYPE html><html><body>", 'utf-8'))
+				
+			s.wfile.write(bytes("<!DOCTYPE html><html><body style='background-color:#E9967A;'>", 'utf-8'))
 			s.wfile.write(bytes("<h2>Product details intervals and available choises</h2>", 'utf-8'))
 			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
 
@@ -159,7 +159,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<form action="/parametersSet" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<!DOCTYPE html><html><head>', 'utf-8'))
 			s.wfile.write(bytes('<title>new intervals and choises</title>', 'utf-8'))
-			s.wfile.write(bytes('</head><body>', 'utf-8'))
+			s.wfile.write(bytes('</head><bodystyle="background-color:#E9967A;">', 'utf-8'))
 			s.wfile.write(bytes('<h1>The new intervals and choises for the customer.</h1>', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters have been set: </p>', 'utf-8'))
 			s.wfile.write(bytes('<p>Leg length max: '+ str(production_intz_param[0]) +'</p>', 'utf-8'))
