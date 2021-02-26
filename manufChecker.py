@@ -11,14 +11,14 @@ PORT_NUMBER = 4321 # Maybe set this to 1234
 
 
 #definfing parameters upper and lower limits
-leg_lengthMax = 2000
-leg_lengthMin = 500
-leg_sideMax = 50
-leg_sideMin = 100
-seat_sideMax = 1000
-seat_sideMin = 300
-back_heightMax = 1500
-back_heightMin = 200
+leg_lengthMax = 200
+leg_lengthMin = 55
+leg_sideMax = 15
+leg_sideMin = 3
+seat_sideMax = 150
+seat_sideMin = 30
+back_heightMax = 150
+back_heightMin = 20
 
 chair_color = ['RED', 'GREEN', 'BROWN', 'BLACK'] # a list with the avaliable colors
 back_shape_material = [] #a list with avaliable materials
@@ -69,7 +69,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<form action="/parametersSet" method="post">', 'utf-8'))
 
 			#intervals for leg length, leg side, seat side, back height
-			s.wfile.write(bytes("<p> Write maximum and minimum parameters. </p>", 'utf-8'))
+			s.wfile.write(bytes("<p> Write maximum and minimum parameters in cm. </p>", 'utf-8'))
 
 			s.wfile.write(bytes('<label for="leg_lengthUp">Max leg length:</label><br>', 'utf-8'))
 			s.wfile.write(bytes('<input type="text" id="leg_lengthUp" name="leg_lengthUp" value='+ str(leg_lengthMax) +'><br>', 'utf-8'))
