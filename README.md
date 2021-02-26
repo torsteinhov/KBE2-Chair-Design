@@ -2,7 +2,7 @@
 This project challenged us with creating an automated system for chair-manufacturing. We based this on KBE which enables us to capture and systematically reuse product and process
 engineering knowledge, with the final goal of reducing time and costs of product development. By this we strive to accomplish automation of repetitive and noncreative design tasks.
 
-We made an interface accessible from the web, where customers was able to input wanted dimensions and production engineers could input production limitations. Based on the input, the data is sent to a template DFA file and updated to be displayed in Siemens NX. The project had the goal of automating a process by enabling multiple systems and making them interract with eachother.
+We made an user interface accessible from the web, where customers was able to input wanted dimensions and likewise for the production, we made a user interface where production engineers could input production limitations. The data is stored in a Fuseki database through SparQL queries. Based on the input, the feasibilityChecker checks the data and decides whether production is possible. If approved, it overwrites a template DFA file to be displayed in Siemens NX. The project had the goal of automating a process by enabling multiple systems and making them interract with eachother.
 
    Example with circle shape  |  Example with cross shape   |  Example with rectangle shape    
 :----------------------------:|:----------------------------:|:----------------------------:
