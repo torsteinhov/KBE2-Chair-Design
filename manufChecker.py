@@ -25,8 +25,6 @@ back_shape_material = [] #a list with avaliable materials
 chair_material = [] #a list with avaliable matrials
 # ??  number_chair = # check if there is enough materials for number of chair orders
 
-#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, chair_color, back_shape_material1, chair_material1, number_chair1]
-
 # putting the constraints from the manufacturing department into a list
 production_intz_param = [leg_lengthMax, leg_lengthMin, leg_sideMax, leg_sideMin, seat_sideMax, seat_sideMin, back_heightMax, back_heightMin, chair_color,back_shape_material, chair_material]
 
@@ -45,7 +43,6 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def do_GET(s):
 
-		#global leg_length1, leg_side1, seat_side1, back_height1, back_shape1, back_shape_color1, chair_color, back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1, print_order
 		"""Respond to a GET request."""
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -61,7 +58,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
 			s.wfile.write(bytes('</body></html>', "utf-8"))
 		elif path.find("/setParams") != -1:
-				
+
 			s.wfile.write(bytes("<!DOCTYPE html><html><body style='background-color:#E9967A;'>", 'utf-8'))
 			s.wfile.write(bytes("<h2>Product details intervals and available choises</h2>", 'utf-8'))
 			s.wfile.write(bytes("<p>Please fill in details about the production below. </p>", 'utf-8'))
@@ -189,11 +186,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		print("Path: ", path)
 
 		if path.find("/parametersSet") != -1:
-			#s.wfile.write(bytes('<form action="/updatedIntzAre" method="get">', 'utf-8'))
-			#for debugging
-			print("Nå er vi i post-method. ")
 
-			#copied form practise lecture -- is this nessesary?
 			content_len = int(s.headers.get('Content-Length'))
 			post_body = s.rfile.read(content_len)
 			param_line = post_body.decode()
@@ -205,9 +198,10 @@ class MyHandler(BaseHTTPRequestHandler):
 			#preparing for new intervals and choises
 			
 			#getting the parameter values
-			key_val_pair = param_line.split('&')						#splitting the string at "&"
-			#print("key_val_pair: ",key_val_pair)
-			for i in range(len(key_val_pair)): 						#itterating through the custom_parameter list
+			#splitting the string at "&"
+			key_val_pair = param_line.split('&')
+			#iterating through the custom_parameter list
+			for i in range(len(key_val_pair)):
 				
 				#taking care of the optionboxes
 				if key_val_pair[i].split('=')[0] == 'chair_color':
@@ -226,7 +220,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			#upload data til fuseki
 			s.setConstrain(production_intz_param)
 			 
-			s.do_GET()
+			#s.do_GET()
 
 	def setConstrain(self, production_intz_param):
 		URL = "http://127.0.0.1:3030/chair_design/update"
