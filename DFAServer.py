@@ -65,7 +65,7 @@ class MyHandler(BaseHTTPRequestHandler):
 		elif path.find("/orderChair") != -1:
 			s.wfile.write(bytes("<!DOCTYPE html><html><head>", 'utf-8'))
 			s.wfile.write(bytes("<title>Chair Design</title>", 'utf-8'))
-			s.wfile.write(bytes("</head><body>", 'utf-8'))
+			s.wfile.write(bytes("</head><body style="'background-color:orange;'">", 'utf-8'))
 			s.wfile.write(bytes("<h1>Product details</h1>", 'utf-8'))
 			s.wfile.write(bytes("<p>Welcome to our chair company. Here you can customize a chair for your home!</p>", 'utf-8'))
 			s.wfile.write(bytes("<p> Write your desired parameters. </p>", 'utf-8'))
