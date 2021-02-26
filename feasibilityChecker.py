@@ -126,22 +126,20 @@ def feasibilityCheck():
     print("manufaqConstrains: ", manufaqConstrains)
     if (int(production_intz_param[0]) > int(manufaqConstrains[5])) and (int(production_intz_param[0]) < int(manufaqConstrains[4])):
         print("Innenfor første if :)")
-        if (int(production_intz_param[3]) > int(manufaqConstrains[5])) and (int(production_intz_param[3]) < int(manufaqConstrains[4])):
+        if (int(production_intz_param[4]) > int(manufaqConstrains[7])) and (int(production_intz_param[4]) < int(manufaqConstrains[6])):
             print("Innenfor andre if :)")
-            if (int(production_intz_param[4]) > int(manufaqConstrains[7])) and (int(production_intz_param[2]) < int(manufaqConstrains[6])):
+            if (int(production_intz_param[7]) > int(manufaqConstrains[11])) and (int(production_intz_param[7]) < int(manufaqConstrains[10])):
                 print("Innenfor tredje if :)")
-                if (int(production_intz_param[7]) > int(manufaqConstrains[11])) and (int(production_intz_param[3]) < int(manufaqConstrains[10])):
+                if (int(production_intz_param[3]) > int(manufaqConstrains[1])) and (int(production_intz_param[3]) < int(manufaqConstrains[0])):
                     print("Innenfor fredje if :)")
                     if production_intz_param[1] in manufaqConstrains[2]:
                         print("Innenfor femte if :)")
-                        if production_intz_param[5] in manufaqConstrains[8]:
+                        if production_intz_param[2] in manufaqConstrains[3]:
                             print("Innenfor sjette if :)")
-                            if production_intz_param[2] in manufaqConstrains[3]:
+                            if production_intz_param[5] in manufaqConstrains[8]:
                                 print("Innenfor syvende if :)")
-                                if materialCalculation(production_intz_param[7]):
-                                    #return s.wfile.write(bytes('OK','utf-8'))
-                                    print("The parameters are accepted")
-                                    flagOK = True
+                                print("The parameters are accepted")
+                                flagOK = True
     else:
         #return s.wfile.write(bytes('Not OK', 'utf-8'))
         print("The parameters given is not accepted")
