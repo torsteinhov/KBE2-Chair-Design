@@ -159,7 +159,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
 			
-			print("Trying to post update succeeded to the feasibilityChecker.")
 			
 
 			#s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
@@ -186,18 +185,13 @@ class MyHandler(BaseHTTPRequestHandler):
 		
 		# Check what is the path
 		path = s.path
-		print("Path: ", path)
-		print("hei på deg!!")
 		if path.find("/yourOrder") != -1:
 			
-			#for debugging
-			print("Nå er vi i post-method. ")
 
 			#copied form practise lecture -- is this nessesary?
 			content_len = int(s.headers.get('Content-Length'))
 			post_body = s.rfile.read(content_len)
 			param_line = post_body.decode()
-			print("Body: ", param_line)
 
 			#making a string to print
 			global print_order, yourLocation
@@ -214,9 +208,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				print_order += ", "
 
 			resultQuery = s.uploadData(custom_parameters)
-			print("Result query: ", resultQuery)
 
-			print("linje 212")
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
 			url = 'http://127.0.0.1:1234/yourOrder'
@@ -224,7 +216,6 @@ class MyHandler(BaseHTTPRequestHandler):
 				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
 				#x = requests.post(url, data = 'Update succeeded')
 				flagOK = feasibilityCheck()
-				print(flagOK)
 				if flagOK:
 					print("The customers order is OK")
 					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))

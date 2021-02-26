@@ -6,7 +6,7 @@ import requests
 import json
 
 #usikker på om de to neste linjene er nødvedig!
-#HOST_NAME = '127.0.0.1' 
+#HOST_NAME = '127.0.0.1'
 #PORT_NUMBER = 4343 # Maybe set this to 1234
 
 def materialCalculation(numbers):
@@ -16,9 +16,7 @@ def materialCalculation(numbers):
     return True #but for now
 
 def retrieveManufaqConstrains():
-    print("Vi er inne i retrieveManufaqConstrains")
     URL = "http://127.0.0.1:3030/chair_design/query"
-    print("insde retriveManufaqConstraints: ")
     #the new select query added, but not tested
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> '+\
                 'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial '+\
@@ -49,7 +47,6 @@ def retrieveManufaqConstrains():
     #PARAMS = {'query': testQuery}
 
     tull = requests.get(url = URL, params = PARAMS)
-    print("ManuFaqConstrains r: ", tull.text)
     data = tull.json()
     #print("JSON: "+ data['results']['bindings'][0]['data']['value'])
 
@@ -72,7 +69,6 @@ def retrieveManufaqConstrains():
     return data_pool
 
 def retrieveCustomerData():
-    print("Vi er inne i retrieveCustomerData")
     URL = "http://127.0.0.1:3030/chair_data/query"
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>'+\
                 'SELECT ?backHeight ?chairColor ?chairMaterial ?legLength ?legSide ?shapeMaterial ?backShape ?seatSide '+\
@@ -93,10 +89,8 @@ def retrieveCustomerData():
                 '?seat_1 kbe:hasSeatSide ?seatSide.'+\
                 '}'
     PARAMS = {'query': selectQuery}
-    tull = requests.get(url = URL, params = PARAMS)
-    print("CustomerData r: ",tull.text)
-    data = tull.json()
-    print("JSON: ", data)
+    x = requests.get(url = URL, params = PARAMS)
+    data = x.json()
 
     data_pool_customer = [data['results']['bindings'][0]['backHeight']['value'],\
                 data['results']['bindings'][0]['chairColor']['value'],\
@@ -115,7 +109,6 @@ def feasibilityCheck():
     production_intz_param = retrieveCustomerData()
     manufaqConstrains = retrieveManufaqConstrains()
     
-    print("starting on evluating the data.")
     flagOK = False
     #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
         # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
@@ -125,19 +118,12 @@ def feasibilityCheck():
     print("production_intz_param: ", production_intz_param)
     print("manufaqConstrains: ", manufaqConstrains)
     if (int(production_intz_param[0]) > int(manufaqConstrains[5])) and (int(production_intz_param[0]) < int(manufaqConstrains[4])):
-        print("Innenfor første if :)")
         if (int(production_intz_param[4]) > int(manufaqConstrains[7])) and (int(production_intz_param[4]) < int(manufaqConstrains[6])):
-            print("Innenfor andre if :)")
             if (int(production_intz_param[7]) > int(manufaqConstrains[11])) and (int(production_intz_param[7]) < int(manufaqConstrains[10])):
-                print("Innenfor tredje if :)")
                 if (int(production_intz_param[3]) > int(manufaqConstrains[1])) and (int(production_intz_param[3]) < int(manufaqConstrains[0])):
-                    print("Innenfor fredje if :)")
                     if production_intz_param[1] in manufaqConstrains[2]:
-                        print("Innenfor femte if :)")
                         if production_intz_param[2] in manufaqConstrains[3]:
-                            print("Innenfor sjette if :)")
                             if production_intz_param[5] in manufaqConstrains[8]:
-                                print("Innenfor syvende if :)")
                                 print("The parameters are accepted")
                                 flagOK = True
     else:
