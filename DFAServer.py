@@ -160,32 +160,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
 			
 			print("Trying to post update succeeded to the feasibilityChecker.")
-
-			url = 'http://127.0.0.1:1234/yourOrder'
-			if resultQuery:
-				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
-				#x = requests.post(url, data = 'Update succeeded')
-				flagOK = feasibilityCheck()
-				print(flagOK)
-				if flagOK:
-					print("The customers order is OK")
-					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
-				else:
-					print("The given parameters form the customer is not valid.")
-					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
-
-				"""
-				time.sleep(5) # wait for a few seconds
-				x = requests.get(url) #reciving ok/not ok
-				if x.text.find("NOT OK"):
-					print("The given parameters form the customer is not valid.")
-					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
-				else: #if x.text.find("OK"):
-					print("The customers order is OK")
-					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
-				"""
-				#wait for 5 sec and set resultQuery to false again
-			#print("result of sending the update message: ", x.text)
 			
 
 			#s.wfile.write(bytes('<img src="theProduct.png" alt="Finished Chair" width="500" height="600">', 'utf-8'))
@@ -245,60 +219,72 @@ class MyHandler(BaseHTTPRequestHandler):
 			print("linje 212")
 			# sjekk om dette går an å produseres mot manufChecker
 			# if ok 
-			url = 'http://127.0.0.1:4321/orderChair'
-			'''
-			x = requests.post(url, data = '')
+			url = 'http://127.0.0.1:1234/yourOrder'
+			if resultQuery:
+				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
+				#x = requests.post(url, data = 'Update succeeded')
+				flagOK = feasibilityCheck()
+				print(flagOK)
+				if flagOK:
+					print("The customers order is OK")
+					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
+				else:
+					print("The given parameters form the customer is not valid.")
+					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
 
-			replyByChecker = x.text
-
-			if replyByChecker.find("Not OK") != -1:
-				...
-				#"TODO - Tell customer, the product is not possible to manufacture."
-			else:
-				...
-				#"TODO - Congratulations, your product is now getting manufactured."
-			'''
-
+				"""
+				time.sleep(5) # wait for a few seconds
+				x = requests.get(url) #reciving ok/not ok
+				if x.text.find("NOT OK"):
+					print("The given parameters form the customer is not valid.")
+					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
+				else: #if x.text.find("OK"):
+					print("The customers order is OK")
+					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
+				"""
+				#wait for 5 sec and set resultQuery to false again
+			#print("result of sending the update message: ", x.text)
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
 			print("custom_parameters: ", custom_parameters)
 			print("back_shape: ", custom_parameters[4])
 			#need to find which shape the order has in the back
-			if custom_parameters[4] == "circle": 
-				#the shape is a circle
-				f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignCircle_template"
-				f.close()
-			elif custom_parameters[4] == "cross":
-				#the shape is a cross
-				f = open(yourLocation+"DFAtemplate\\chairdesign_cross_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignCross_template"
-				f.close()
-			elif custom_parameters[4] == "square":
-				#the shape is a square
-				f = open(yourLocation+"DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
-				templatefile = f.read()
-				oldFileName = "chairdesignRectangle_template"
-				f.close()
-			else:
-				print("the shape in the back is not recognised.")
+			if flagOK:
+				if custom_parameters[4] == "circle":
+					#the shape is a circle
+					f = open(yourLocation+"DFAtemplate\\chairdesign_circle_template.dfa", 'r')
+					templatefile = f.read()
+					oldFileName = "chairdesignCircle_template"
+					f.close()
+				elif custom_parameters[4] == "cross":
+					#the shape is a cross
+					f = open(yourLocation+"DFAtemplate\\chairdesign_cross_template.dfa", 'r')
+					templatefile = f.read()
+					oldFileName = "chairdesignCross_template"
+					f.close()
+				elif custom_parameters[4] == "square":
+					#the shape is a square
+					f = open(yourLocation+"DFAtemplate\\chairdesign_rectangle_template.dfa", 'r')
+					templatefile = f.read()
+					oldFileName = "chairdesignRectangle_template"
+					f.close()
+				else:
+					print("the shape in the back is not recognised.")
 				
 			
-			param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
+				param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
 
-			fileNameFinishedProduct = fname1 + "_" + lname1 + "_finishedProduct"
-			tekst = templatefile
+				fileNameFinishedProduct = fname1 + "_" + lname1 + "_finishedProduct"
+				tekst = templatefile
 
-			for i in range(len(param)):
-				tekst = tekst.replace(param[i],custom_parameters[i])
-			tekst = tekst.replace(oldFileName, fileNameFinishedProduct)
+				for i in range(len(param)):
+					tekst = tekst.replace(param[i],custom_parameters[i])
+				tekst = tekst.replace(oldFileName, fileNameFinishedProduct)
 
-			f = open(yourLocation + "\\finished_product\\" + fileNameFinishedProduct + ".dfa", "w")
-			f.write(tekst)
-			f.close()
-			print("Ready to open ", fileNameFinishedProduct)
+				f = open(yourLocation + "\\finished_product\\" + fileNameFinishedProduct + ".dfa", "w")
+				f.write(tekst)
+				f.close()
+				print("Ready to open ", fileNameFinishedProduct)
 
 			s.do_GET()
 

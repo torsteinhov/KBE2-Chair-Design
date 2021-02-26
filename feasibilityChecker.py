@@ -56,7 +56,7 @@ def retrieveManufaqConstrains():
     #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
     # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
     # seatSideMax,seatSideMin]
-    """data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
+    data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
                 data['results']['bindings'][0]['backHeightMin']['value'],\
                 data['results']['bindings'][0]['chairColor']['value'],\
                 data['results']['bindings'][0]['chairMaterial']['value'],\
@@ -67,9 +67,9 @@ def retrieveManufaqConstrains():
                 data['results']['bindings'][0]['shapeMaterial']['value'],\
                 data['results']['bindings'][0]['backShape']['value'],\
                 data['results']['bindings'][0]['seatSideMax']['value'],\
-                data['results']['bindings'][0]['seatSideMin']['value']]"""
+                data['results']['bindings'][0]['seatSideMin']['value']]
     
-    return 0
+    return data_pool
 
 def retrieveCustomerData():
     print("Vi er inne i retrieveCustomerData")
@@ -122,13 +122,22 @@ def feasibilityCheck():
         # seatSideMax,seatSideMin]
 
     #The indexes is a mess but its correct.
-    if(production_intz_param[0] > manufaqConstrains[1]) and (production_intz_param[0] < manufaqConstrains[0]):
-        if (production_intz_param[3] > manufaqConstrains[5]) and (production_intz_param[3] < manufaqConstrains[4]):
-            if (production_intz_param[4] > manufaqConstrains[7]) and (production_intz_param[2] < manufaqConstrains[6]):
-                if (production_intz_param[7] > manufaqConstrains[11]) and (production_intz_param[3] < manufaqConstrains[10]):
+    print("production_intz_param: ", production_intz_param)
+    print("manufaqConstrains: ", manufaqConstrains)
+    if (int(production_intz_param[0]) > int(manufaqConstrains[5])) and (int(production_intz_param[0]) < int(manufaqConstrains[4])):
+        print("Innenfor første if :)")
+        if (int(production_intz_param[3]) > int(manufaqConstrains[5])) and (int(production_intz_param[3]) < int(manufaqConstrains[4])):
+            print("Innenfor andre if :)")
+            if (int(production_intz_param[4]) > int(manufaqConstrains[7])) and (int(production_intz_param[2]) < int(manufaqConstrains[6])):
+                print("Innenfor tredje if :)")
+                if (int(production_intz_param[7]) > int(manufaqConstrains[11])) and (int(production_intz_param[3]) < int(manufaqConstrains[10])):
+                    print("Innenfor fredje if :)")
                     if production_intz_param[1] in manufaqConstrains[2]:
+                        print("Innenfor femte if :)")
                         if production_intz_param[5] in manufaqConstrains[8]:
+                            print("Innenfor sjette if :)")
                             if production_intz_param[2] in manufaqConstrains[3]:
+                                print("Innenfor syvende if :)")
                                 if materialCalculation(production_intz_param[7]):
                                     #return s.wfile.write(bytes('OK','utf-8'))
                                     print("The parameters are accepted")
