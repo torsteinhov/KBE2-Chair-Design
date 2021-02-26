@@ -56,8 +56,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		# Check what is the path
 		path = s.path
 		
-		#making it possible to get the global variables
-		#s.wfile.write(bytes("<>", 'utf-8'))
 		if path.find("/") != -1 and len(path) == 1:
 			s.wfile.write(bytes('<html><head><title>Cool interface.</title></head>', 'utf-8'))
 			s.wfile.write(bytes("<body><p>Current path: " + path + "</p>", "utf-8"))
@@ -192,9 +190,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		# Check what is the path
 		path = s.path
 		if path.find("/yourOrder") != -1:
-			
-
-			#copied form practise lecture -- is this nessesary?
 			content_len = int(s.headers.get('Content-Length'))
 			post_body = s.rfile.read(content_len)
 			param_line = post_body.decode()
@@ -216,7 +211,6 @@ class MyHandler(BaseHTTPRequestHandler):
 			resultQuery = s.uploadData(custom_parameters)
 
 			# sjekk om dette går an å produseres mot manufChecker
-			# if ok 
 			url = 'http://127.0.0.1:1234/yourOrder'
 			if resultQuery:
 		
@@ -230,8 +224,8 @@ class MyHandler(BaseHTTPRequestHandler):
 					print("The given parameters form the customer is not valid.")
 					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
 				
-				
 				'''
+				# For futher development
 				x = requests.post(url, data = 'Update succeeded',verify=True)
 				time.sleep(3) # wait for a few seconds
 				x = requests.get(url) #reciving ok/not ok
@@ -242,11 +236,10 @@ class MyHandler(BaseHTTPRequestHandler):
 				else: #if x.text.find("OK"):
 					print("The customers order is OK")
 					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
+				#wait for 5 sec and set resultQuery to false again
+				#print("result of sending the update message: ", x.text)
 				'''
 				
-				
-			#wait for 5 sec and set resultQuery to false again
-			#print("result of sending the update message: ", x.text)
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
 			print("custom_parameters: ", custom_parameters)
@@ -273,7 +266,6 @@ class MyHandler(BaseHTTPRequestHandler):
 					f.close()
 				else:
 					print("the shape in the back is not recognised.")
-				
 			
 				param = ["<leg_length>","<leg_side>","<seat_side>","<height_back>","<color_chair>"]
 
@@ -299,7 +291,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<p>' + param_line + '</p>', 'utf-8'))
 	
 	def uploadData(self, custom_parameters):
-		#CHANGE TO UPLOAD CUSTOMER DATA
+		# UPLOAD CUSTOMER DATA TO FUSEKI
 		
 		URL = "http://127.0.0.1:3030/chair_data/update"
   
@@ -336,8 +328,6 @@ class MyHandler(BaseHTTPRequestHandler):
 		if r.text.find("Update succeeded"):
 			resultDelete =  True
 
-	#custom_parameters = [leg_length1, leg_side1, seat_side1, back_height1, back_shape1, chair_color, 
-	# back_shape_material1, chair_material1, number_chair1, fname1, lname1, email1, pnumber1]
 		insertQuery = 'PREFIX kbe:<http://www.kbe.com/chair_data.owl#>' +\
 				'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>'+\
 				'INSERT'+\
