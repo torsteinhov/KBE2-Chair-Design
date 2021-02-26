@@ -5,7 +5,6 @@ import time
 import requests
 import json
 
-#usikker på om de to neste linjene er nødvedig!
 #HOST_NAME = '127.0.0.1'
 #PORT_NUMBER = 4343 # Maybe set this to 1234
 
@@ -17,7 +16,6 @@ def materialCalculation(numbers):
 
 def retrieveManufaqConstrains():
     URL = "http://127.0.0.1:3030/chair_design/query"
-    #the new select query added, but not tested
     selectQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> '+\
                 'SELECT ?backHeightMax ?backHeightMin ?chairColor ?chairMaterial ?legLengthMax ?legLengthMin ?legSideMax ?legSideMin ?seatSideMax ?seatSideMin ?backShape ?shapeMaterial '+\
                 'WHERE'+\
@@ -41,18 +39,12 @@ def retrieveManufaqConstrains():
                 '?seat_1 kbe:hasSeatSideMin ?seatSideMin.'+\
                 '}'
     
-    #testQuery = 'PREFIX kbe:<http://www.kbe.com/chair_design.owl#> SELECT ?data WHERE {?inst kbe:' + 'legLengthMax' + ' ?data.}'
 
     PARAMS = {'query': selectQuery}
-    #PARAMS = {'query': testQuery}
 
-    tull = requests.get(url = URL, params = PARAMS)
-    data = tull.json()
-    #print("JSON: "+ data['results']['bindings'][0]['data']['value'])
+    z = requests.get(url = URL, params = PARAMS)
+    data = z.json()
 
-    #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
-    # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
-    # seatSideMax,seatSideMin]
     data_pool = [data['results']['bindings'][0]['backHeightMax']['value'],\
                 data['results']['bindings'][0]['backHeightMin']['value'],\
                 data['results']['bindings'][0]['chairColor']['value'],\
@@ -110,13 +102,8 @@ def feasibilityCheck():
     manufaqConstrains = retrieveManufaqConstrains()
     
     flagOK = False
-    #arrangement of data_pool [backHeightMax,backHeightMin,chairColor,chairMaterial
-        # legLengthMax,legLengthMin,legSideMax,legSideMin,shapeMaterial,backShape
-        # seatSideMax,seatSideMin]
 
-    #The indexes is a mess but its correct.
-    print("production_intz_param: ", production_intz_param)
-    print("manufaqConstrains: ", manufaqConstrains)
+    #If statements to check user data up against constrains
     if (int(production_intz_param[0]) > int(manufaqConstrains[5])) and (int(production_intz_param[0]) < int(manufaqConstrains[4])):
         if (int(production_intz_param[4]) > int(manufaqConstrains[7])) and (int(production_intz_param[4]) < int(manufaqConstrains[6])):
             if (int(production_intz_param[7]) > int(manufaqConstrains[11])) and (int(production_intz_param[7]) < int(manufaqConstrains[10])):
@@ -124,14 +111,14 @@ def feasibilityCheck():
                     if production_intz_param[1] in manufaqConstrains[2]:
                         if production_intz_param[2] in manufaqConstrains[3]:
                             if production_intz_param[5] in manufaqConstrains[8]:
-                                print("The parameters are accepted")
+                                #Approved
                                 flagOK = True
     else:
-        #return s.wfile.write(bytes('Not OK', 'utf-8'))
         print("The parameters given is not accepted")
 
     return flagOK
 
+#Following code is not implemented, for posting to DFAServer, mentioned in ReadME under Further development
 '''   
 # This is suppose to get a signal when a new chair is uploaded
 # this should be happening in a time interval
