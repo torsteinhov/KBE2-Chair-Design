@@ -132,8 +132,7 @@ def feasibilityCheck():
 
     return flagOK
 
-"""
-print("feasibility checker started. \n")
+'''   
 # This is suppose to get a signal when a new chair is uploaded
 # this should be happening in a time interval
 URL = 'http://127.0.0.1:1234/yourOrder'
@@ -151,5 +150,4 @@ if answer.find("Update succeeded"):
     else:
         x.request.post(url, data = 'NOT OK')
         print("Result of sending NOT OK: ", x.text)
-
-"""    
+'''

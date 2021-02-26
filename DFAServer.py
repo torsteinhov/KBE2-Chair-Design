@@ -200,7 +200,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			key_val_pair = param_line.split('&')							#splitting the string at "&"
 			for i in range(len(custom_parameters)): 						#itterating through the custom_parameter list
 				print_order += str(custom_parameters[i]) 					#before changing the parameters, adding the to a string for printing
-				print_order +=": " 											#for a nice print
+				print_order +=": "										#for a nice print
 				custom_parameters[i] = key_val_pair[i].split('=')[1]		#spliting at "=" to only get the value
 				if ' ' in custom_parameters[i]: 							#the last parameter has "HTTP/1.1" and we dont want it
 					custom_parameters[i] = custom_parameters[i].split(" ")[0] #spliting to get rid of it ^
@@ -213,8 +213,9 @@ class MyHandler(BaseHTTPRequestHandler):
 			# if ok 
 			url = 'http://127.0.0.1:1234/yourOrder'
 			if resultQuery:
+		
 				s.wfile.write(bytes('<p>Update succeeded.</p>', 'utf-8'))
-				#x = requests.post(url, data = 'Update succeeded')
+				
 				flagOK = feasibilityCheck()
 				if flagOK:
 					print("The customers order is OK")
@@ -222,18 +223,23 @@ class MyHandler(BaseHTTPRequestHandler):
 				else:
 					print("The given parameters form the customer is not valid.")
 					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
-
-				"""
-				time.sleep(5) # wait for a few seconds
+				
+				
+				'''
+				x = requests.post(url, data = 'Update succeeded',verify=True)
+				time.sleep(3) # wait for a few seconds
 				x = requests.get(url) #reciving ok/not ok
-				if x.text.find("NOT OK"):
+				data = x.text
+				if data.find("NOT OK"):
 					print("The given parameters form the customer is not valid.")
 					s.wfile.write(bytes('<p>Your order is not possible to make. Please try again. </p>', 'utf-8'))
 				else: #if x.text.find("OK"):
 					print("The customers order is OK")
 					s.wfile.write(bytes('<p>Your order is possible to make. Congratulation with a new chair! </p>', 'utf-8'))
-				"""
-				#wait for 5 sec and set resultQuery to false again
+				'''
+				
+				
+			#wait for 5 sec and set resultQuery to false again
 			#print("result of sending the update message: ", x.text)
 			fname1 = custom_parameters[9]
 			lname1 = custom_parameters[10]
