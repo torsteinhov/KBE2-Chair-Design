@@ -54,10 +54,21 @@ manufacturer. Sends an approved or not approved signal to DFAServer regarding ma
 | retrieveCustomerData | Sends get request to Fuseki, chair_data ontology, to retrieve customer data from database. |
 | feasibilityCheck | Brain behind this script, checks the customer data up against the manufacturing constrains intervals, return a boolean value. |
 
+<h2>How to run:</h2>
+
++ Upload Ontology files to Fuseki.
++ Run manufChecker.py **interact with webpage**.
++ Run DFAServer.py **interact with webpage**.
++ DFAFile ready to open in NX.
 
 <h2>Further development</h2>
 
 We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
 design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
-The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.). Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
+
++ The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.).
+
++ Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
 and scaled for bigger usage.
+
++ Adding material choice for the different components in the DFA file, all the infrastructure for material choice in the database is already established.
