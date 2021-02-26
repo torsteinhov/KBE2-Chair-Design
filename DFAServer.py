@@ -281,7 +281,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				f.close()
 				print("Ready to open ", fileNameFinishedProduct)
 
-			s.do_GET()
+			s.do_GET() #this is not a optimal solution
 
 		if path.find("/"):
 			content_len = int(s.headers.get('Content-Length'))
