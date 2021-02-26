@@ -2,7 +2,7 @@
 This project challenged us with creating an automated system for chair-manufacturing. We based this on KBE which enables us to capture and systematically reuse product and process
 engineering knowledge, with the final goal of reducing time and costs of product development. By this we strive to accomplish automation of repetitive and noncreative design tasks.
 
-We made an interface accessible from the web, where customers was able to input wanted dimensions and production engineers could input production limitations. Based on the input, the data is sent to a template DFA file and updated to be displayed in Siemens NX. The project had the goal of automating a process by enabling multiple systems and making them interract with eachother.
+We made an user interface accessible from the web, where customers was able to input wanted dimensions and likewise for the production, we made a user interface where production engineers could input production limitations. The data is stored in a Fuseki database through SparQL queries. Based on the input, the feasibilityChecker checks the data and decides whether production is possible. If approved, it overwrites a template DFA file to be displayed in Siemens NX. The project had the goal of automating a process by enabling multiple systems and making them interract with eachother.
 
    Example with circle shape  |  Example with cross shape   |  Example with rectangle shape    
 :----------------------------:|:----------------------------:|:----------------------------:
@@ -11,6 +11,11 @@ We made an interface accessible from the web, where customers was able to input 
 <h2>Architecture</h2>
 <p align="center">
 <img src="https://user-images.githubusercontent.com/77832956/109137207-3b8fb300-7759-11eb-8047-7cb75d5b3a0a.png">
+</p>
+
+<h2>UML/Flow chart</h2>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77833086/109287490-ea002a80-7823-11eb-9812-4de6934e5a47.png">
 </p>
 
 <h3>DFAServer.py</h3>
@@ -48,3 +53,11 @@ manufacturer. Sends an approved or not approved signal to DFAServer regarding ma
 | retrieveManufaqConstrains | Sends get request to Fuseki, chair_kbe ontology, to retrieve manufacturing constrains from database. |
 | retrieveCustomerData | Sends get request to Fuseki, chair_data ontology, to retrieve customer data from database. |
 | feasibilityCheck | Brain behind this script, checks the customer data up against the manufacturing constrains intervals, return a boolean value. |
+
+
+<h2>Further development</h2>
+
+We have learned many things in the development of this project. First of all we have experienced the importance of agreeing and fully complete a geometry that meets our
+design requirements. The hassle of changing ontology and DFA files while still developing software is something we would like to avoid for future projects because of its time cost.
+The capturing and reuse of knowledge in this KBE system is something that still has great potential. Thoughts we have had regarding this is forexample automation of adding new constrains from the manufacturing side, or more enthusiastic, a genetic algorithm that proposes more creative designs based on a customers style preferences (modern, chic, conservative, baroque etc.). Making the feasibilityChecker independent of the DFAServer is also something we would have implemented if this project was developed further 
+and scaled for bigger usage.
