@@ -13,6 +13,11 @@ We made an user interface accessible from the web, where customers was able to i
 <img src="https://user-images.githubusercontent.com/77832956/109137207-3b8fb300-7759-11eb-8047-7cb75d5b3a0a.png">
 </p>
 
+<h2>UML/Flow chart</h2>
+<p align="center">
+<img src="https://user-images.githubusercontent.com/77833086/109287490-ea002a80-7823-11eb-9812-4de6934e5a47.png">
+</p>
+
 <h3>DFAServer.py</h3>
 
 **Main processing unit behind this application. Uses HTTP Requests to retrieve data from the userinterface.html and uploads it to Fuseki database which is based
