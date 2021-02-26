@@ -39,7 +39,9 @@ ontology through the setConstrain method.**
 
 <h3>feasibilityChecker.py</h3>
 
-**Retrieves user data and manufacturing constrains from two separate Fuseki servers and checks that the given customer input is within the constrain interval set by the
+**An extension of DFAServer.py. For further development we would like to make this an independent script that posts data to DFAServer, as current version stands now, 
+all functionality could have been in DFAServer.py.
+Retrieves user data and manufacturing constrains from two separate Fuseki servers and checks that the given customer input is within the constrain interval set by the
 manufacturer. Sends an approved or not approved signal to DFAServer regarding manufacturing.**
 
 | Method | Functionality |
