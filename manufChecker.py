@@ -156,7 +156,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(bytes('<form action="/parametersSet" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<!DOCTYPE html><html><head>', 'utf-8'))
 			s.wfile.write(bytes('<title>new intervals and choises</title>', 'utf-8'))
-			s.wfile.write(bytes('</head><bodystyle="background-color:#E9967A;">', 'utf-8'))
+			s.wfile.write(bytes('</head><body style="background-color:#E9967A;">', 'utf-8'))
 			s.wfile.write(bytes('<h1>The new intervals and choises for the customer.</h1>', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters have been set: </p>', 'utf-8'))
 			s.wfile.write(bytes('<p>Leg length max: '+ str(production_intz_param[0]) +'</p>', 'utf-8'))

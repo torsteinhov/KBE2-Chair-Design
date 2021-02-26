@@ -168,7 +168,7 @@ class MyHandler(BaseHTTPRequestHandler):
 			s.wfile.write(theImg)
 			
 		elif path.find("/yourOrder") != -1:
-			s.wfile.write(bytes('<html><bodystyle="background-color:#DCFBCC;"><h2>Chair</h2>', 'utf-8'))
+			s.wfile.write(bytes('<html><body style="background-color:#DCFBCC;"><h2>Chair</h2>', 'utf-8'))
 			s.wfile.write(bytes('<form action="/yourOrder" method="post">', 'utf-8'))
 			s.wfile.write(bytes('<p>The following parameters line has arrived: ' + print_order +'</p>', 'utf-8'))
 			s.wfile.write(bytes('<p>We are checking if your chair is possible to make. Please wait.</p>', 'utf-8'))
