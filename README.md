@@ -61,6 +61,7 @@ manufacturer. Sends an approved or not approved signal to DFAServer regarding ma
 
 <h2>How to run:</h2>
 
++ Run Fuseki.
 + Upload Ontology files to Fuseki.
 + Run manufChecker.py **interact with webpage**.
 + Run DFAServer.py **interact with webpage**.
